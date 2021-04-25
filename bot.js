@@ -3,7 +3,6 @@
 // (c) 2021 TheRealMysticSavages
 
 console.clear()
-var tty = require("tty");
 
 const Discord = require('discord.js');
 const fs = require('fs');
