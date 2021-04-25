@@ -115,5 +115,5 @@ bot.on('message', message => {
     }
   });
 
-bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.MlFuxHKoKroefAU2JOv08rSXm-4')
+bot.login('token')
 // fs.rmdir
