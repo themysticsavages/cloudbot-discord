@@ -185,9 +185,9 @@ bot.on('message', message => {
 
     try {
       if (message.member.hasPermission("ADMINISTRATOR")) {
-        fs.unlinkSync(fd, { recursive: true })
+        fs.unlinkSync(fd)
         message.reply("File named '"+fd+"' was deleted. Wow.")
-        console.log("CloudBot deleted folder named '"+fd+"'")
+        console.log("CloudBot deleted file named '"+fd+"'")
       } else {
         message.reply('You no have admin! The administrator role is required to delete files.')
         console.log('CloudBot told '+message.author.username+' that only admins can delete files')
@@ -195,7 +195,7 @@ bot.on('message', message => {
     } catch (err) {
       if (!args[0]) {
         message.reply('Is that a file? ._.')
-        console.log('CloudBot error: Folder does not exist')
+        console.log("CloudBot error: File doesn't exist")
       }
     }
   }
