@@ -151,7 +151,7 @@ bot.on('message', message => {
 
     try {
       fs.appendFileSync(f, '')
-      message.reply('File named '+f+' created. Woohoo.')
+      message.reply("File named '"+f+"' created. Woohoo.")
       console.log("CloudBot created a file named '"+f+"'")
 
     } catch (err) {
