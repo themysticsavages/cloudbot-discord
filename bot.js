@@ -35,8 +35,8 @@ bot.on('message', message => {
       fs.access(fld, function(error) {
         if (error) {
           fs.mkdirSync(fld);
-          message.reply('Directory created. Yay.');
-          console.log('CloudBot created folder named '+fld+' in the root directory');
+          message.reply('Directory named '+fld+' created. Yay.');
+          console.log('CloudBot created a folder named '+fld+' in the root directory');
         } else {
           message.reply('Oh noes! The directory exists already!');
           console.log('CloudBot error: Directory exists');
@@ -77,7 +77,7 @@ bot.on('message', message => {
 
       try {
         fs.rmdir(dfld)
-        message.reply('Directory deleted. Hip hip hooray.');
+        message.reply('The directory '+dfld+' was deleted. Hip hip hooray.');
         console.log('CloudBot deleted folder named '+dfld+' in the root directory');
       } catch (err) {
         message.reply('Is that a folder? ._.')
