@@ -66,4 +66,4 @@ The error logs for typical errors you might get using CloudBot:
 
 ## Current bugs
 
-- __Replies with 'No arguments' error and 'Not a directory' when running a command__
+- __Replies with 'No arguments' error and 'Not a directory' when running a command without any arguments__
