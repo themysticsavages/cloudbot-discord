@@ -28,7 +28,7 @@ As the picture above does not show all the commands, I have provided them below:
             Bot reply: The directory example was deleted. Hip hip hooray.
             Console log: CloudBot deleted folder named 'example'
        
-       /chdir example
+       /cd example
             Bot reply: Changed directory to 'example'. *CLAP CLAP*
             Console log: CloudBot went into the directory 'example'
             
