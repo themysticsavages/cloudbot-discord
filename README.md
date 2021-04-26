@@ -3,17 +3,21 @@
 
 ###### Running cloudbot in a temporary Discord server
 # Information
+
 cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more formal than public ones. But you can put it in a public server if you want. This program is in __beta__, and it only __creates, deletes, and changes directories__ as of now. It will be updated more, however.
 
 ## Requirements
+
 You will need Node.JS and the npm module 'Discord'. If you want to use the bot in Discord, link it to a server of yours [here](https://discord.com/api/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68608), replace the example text at the bottom of the program with your token, and run it! 
 
 ###### If you are not running this on a dedicated server, use this bot in a server with others that you __trust__. Otherwise, you can go ahead.
 
 ## Role usage
-Creating files does not require any special roles. However, deleting files requires the *Administrator* role. This is because people may have files that they want to keep on the server running the bot, and random people may go and delete those files. So, the admin is the only one who can do this. Also, this stops people from deleting the bot file itself.
+
+For now creating and changing directories can be done by anyone, however, __deleting__ files and folders will require the *Administrator* role. This is because core files needed by the bot or files that people want to store could be deleted on purpose or by accident.
 
 ## Commands
+
 As the picture above does not show all the commands, I have provided them below:
 
        /mkdir example
@@ -29,6 +33,7 @@ As the picture above does not show all the commands, I have provided them below:
             Console log: CloudBot went into the directory example
             
 ## Error logs
+
 The error logs for typical errors you might get using CloudBot:
 
       Missing argument:
@@ -52,3 +57,13 @@ The error logs for typical errors you might get using CloudBot:
       Directory does not exist:
             Bot reply: Is that a folder? ._.
             Console log: CloudBot error: Could not find the directory.
+
+## Features to be added
+
+- __Create and delete files__
+- Requiring admin role to delete files and folders
+- Listing content of a directory
+
+## Current bugs
+
+- __Replies with 'No arguments' error and 'Not a directory' when running a command__
