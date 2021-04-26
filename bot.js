@@ -187,7 +187,7 @@ bot.on('message', message => {
       if (message.member.hasPermission("ADMINISTRATOR")) {
         fs.unlinkSync(fd, { recursive: true })
         message.reply("File named '"+fd+"' was deleted. Wow.")
-        console.log("CloudBot deleted folder named '"+fd+"'.")
+        console.log("CloudBot deleted folder named '"+fd+"'")
       } else {
         message.reply('You no have admin! The administrator role is required to delete files.')
         console.log('CloudBot told '+message.author.username+' that only admins can delete files')
