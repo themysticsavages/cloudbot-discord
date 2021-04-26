@@ -195,7 +195,7 @@ bot.on('message', message => {
     } catch (err) {
       if (!args[0]) {
         message.reply('Is that a file? ._.')
-        console.log('CloudBot error: File does not exist')
+        console.log('CloudBot error: Folder does not exist')
       }
     }
   }
