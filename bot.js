@@ -57,7 +57,7 @@ bot.on('message', message => {
     }
   });
 
-  // Deletes folders; needs admin rights; you can also force-delete files if you have access to the physical server running the bot.
+  // Deletes folders; will require admin rights in the future; you can force-delete files if you have access to the physical server running the bot.
   bot.on('message', message => {
     if (!message.content.startsWith(prefix)) return;
   
