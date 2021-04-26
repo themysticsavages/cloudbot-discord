@@ -1,7 +1,7 @@
 # Information
 ![picture](https://ajskateboarder.github.io/assets/screenshot1.jpg)
 
-cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more formal than public ones. But you can put it in a public server if you want. This program is in __beta__, and it only __creates and deletes folders__ as of now. It will be updated more, however.
+cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more formal than public ones. But you can put it in a public server if you want. This program is in __beta__, and it only __creates, deletes, and changes directories__ as of now. It will be updated more, however.
 
 ## Requirements
 You will need Node.JS and the npm module 'Discord'. If you want to use the bot in Discord, link it to a server of yours [here](https://discord.com/api/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68608), replace the example text at the bottom of the program with your token, and run it! 
