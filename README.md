@@ -12,3 +12,43 @@ You will need Node.JS and the npm module 'Discord'. If you want to use the bot i
 
 ## Role usage
 Creating files does not require any special roles. However, deleting files requires the *Administrator* role. This is because people may have files that they want to keep on the server running the bot, and random people may go and delete those files. So, the admin is the only one who can do this. Also, this stops people from deleting the bot file itself.
+
+## Commands
+As the picture above does not show all the commands, I have provided them below:
+
+       /mkdir example
+            Bot reply: Directory named example created. Yay.
+            Console log: CloudBot created a folder named example
+       
+       /rmdir example (needs Administrator role)
+            Bot reply: The directory example was deleted. Hip hip hooray.
+            Console log: CloudBot deleted folder named example
+       
+       /chdir example
+            Bot reply: Changed directory to example. *CLAP CLAP*
+            Console log: CloudBot went into the directory example
+            
+## Error logs
+The error logs for typical errors you might get using CloudBot:
+
+      Missing argument:
+            Bot replies: 
+                  Please specify a folder name next time ._.
+                  I think you need a folder name to remove, am i correct? ._.
+                  Hmm... what's the folder name? ._.
+            Console log: CloudBot replied to exampleuser to add a folder name
+      
+      Too many arguments:
+            Bot replies:
+                  Too many arguments. You do know you only add ONE, right?
+                  Too many arguments. Only ONE is needed.
+                  Too many arguments. Add ONE argument next time.
+            Console log: CloudBot replied to exampleuser to add only one argument
+      
+      Folder exists:
+            Bot reply: Oh noes! The directory exists already!
+            Console log: CloudBot error: Directory exists
+            
+      Directory does not exist:
+            Bot reply: Is that a folder? ._.
+            Console log: CloudBot error: Could not find the directory.
