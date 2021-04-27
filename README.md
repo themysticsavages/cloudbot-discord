@@ -2,6 +2,7 @@
 ![picture](https://ajskateboarder.github.io/assets/screenshot1.jpg)
 
 ###### Running cloudbot in a channel in a Discord server
+#
 # Information
 
 cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more formal than public ones. But you can put it in a public server if you want. This program is in __perpetual beta__, and it supports creating and deleting files and folders, listing the contents of a directory, and changing directories. You cannot write to files as of now, but it will be updated to include this feature soon, however.
