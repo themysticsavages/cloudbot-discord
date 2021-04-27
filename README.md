@@ -7,6 +7,8 @@
 
 cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more formal than public ones. But you can put it in a public server if you want. This program is in __perpetual beta__, and it supports creating and deleting files and folders, listing the contents of a directory, and changing directories. You cannot write to files as of now, but it will be updated to include this feature soon, however.
 
+(btw, in case you are a feminist reading console logs, yes, the bot is referred to as a he)
+
 ## Requirements
 
 You will need Node.JS and the npm module 'Discord'. If you want to use the bot in Discord, link it to a server of yours [here](https://discord.com/api/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68608). Then download the bot, modify the token at the bottom of the file, then run the JS program.
@@ -41,12 +43,23 @@ As the picture above does not show all the commands, I have provided them below:
             Bot reply: File named 'example.txt' was deleted. Wow.
             Console log: CloudBot deleted folder named 'example.txt'
             
+       /hi
+            Bot reply: hi :)
+            Console log: CloudBot said hi to exampleuser
+            
+       /purpose
+            Bot reply: I am basically a cloud server for Discord. I am pure Node.JS. Although I may not have that many functions, the cloud server functions make up             for this!
+            Console log: CloudBot told exampleuser about why he exists
+            
+       /help
+            Bot reply: *Prints help screen with commands*
+            Console log: CloudBot gave help to exampleuser
+            
 ## Features/hotfixes to be added
 
 - __Write to files (if writable)__
-- Deny access to directories outside the root folder
-- Reply to greetings or a few questions
+- __Rename files
 
 ## Current bugs
 
-*None*
+*None. If there are bugs, list them in issues.
