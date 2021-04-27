@@ -225,4 +225,4 @@ bot.on('message', message => {
 });
 
 // Insert your token here
-bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.CQxBVmwhnCwG0iCWPIzy24jD2hQ');
+bot.login('token');
