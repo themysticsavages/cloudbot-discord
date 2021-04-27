@@ -22,7 +22,7 @@ For now creating and changing directories can be done by anyone, however, __dele
 As the picture above does not show all the commands, I have provided them below:
 
        /mkdir example
-            Bot reply: Fodler named 'example' created. Yay.
+            Bot reply: Folder named 'example' created. Yay.
             Console log: CloudBot created a folder named 'example'
        
        /ddel example (needs Administrator role)
