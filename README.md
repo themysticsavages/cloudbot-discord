@@ -43,7 +43,7 @@ As the picture above does not show all the commands, I have provided them below:
 ## Features/hotfixes to be added
 
 - __Write to files (if writable)__
-- Return an error if a file does not exist
+- Deny access to directories outside the root folder
 - Reply to greetings or a few questions
 
 ## Current bugs
