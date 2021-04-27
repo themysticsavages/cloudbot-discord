@@ -25,7 +25,7 @@ As the picture above does not show all the commands, I have provided them below:
             Console log: CloudBot created a folder named 'example'
        
        /ddel example (needs Administrator role)
-            Bot reply: The directory example was deleted. Hip hip hooray.
+            Bot reply: Directory 'example' deleted. Hip hip hooray.
             Console log: CloudBot deleted folder named 'example'
        
        /cd example
