@@ -8,7 +8,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 
 const bot = new Discord.Client();
-const prefix = '/';
+const prefix = 'c/';
 
 // Creates space for logging events
 bot.on('ready', () => {
@@ -138,16 +138,16 @@ bot.on('message', message => {
 
 // A couple of sentient replies for this nice bot
 bot.on('message', message => {
-  if (message.content == '/hi') {
+  if (message.content == 'c/hi') {
     message.reply('hi :)');
     console.log("CloudBot said hi to '"+message.author.username+"'");
   }
-  if (message.content == '/purpose') {
+  if (message.content == 'c/purpose') {
     message.reply('I am basically a cloud server for Discord. I am pure Node.JS. Although I may not have that many functions, the cloud server functions make up for this!');
     console.log("CloudBot told '"+message.author.username+"' about why he exists");
   }
-  if (message.content == '/help') {
-    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  /help : prints this message\n  /hi : Say hi back to you\n  /purpose : Why I'm here\n\nFile server commands:\n  /mkdir : Make a folder\n  /ddel : Delete a folder (admin)\n  /cd : Change directory\n  /new : Make a new file with any extension\n  /del : Delete file (admin)\n```" + "**You're welcome**");
+  if (message.content == 'c/help') {
+    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c/help : prints this message\n  c/hi : Say hi back to you\n  c/purpose : Why I'm here\n\nFile server commands:\n  c/mkdir : Make a folder\n  c/ddel : Delete a folder (admin)\n  c/cd : Change directory\n  c/new : Make a new file with any extension\n  c/del : Delete file (admin)\n```" + "**You're welcome**");
     console.log("CloudBot gave help to '"+message.author.username+"'");
   }
 });
@@ -224,5 +224,42 @@ bot.on('message', message => {
   }
 });
 
+// Ban people who abuse the system; trying to make a way to unban people (got source code from Github: https://bit.ly/3e0xbAT)
+bot.on('message', message => {
+  if (!message.guild) return;
+  if (message.member.hasPermission("ADMINISTRATOR")) {
+    if (message.content.startsWith('c/ban')) {
+      const user = message.mentions.users.first();
+      if (user) {
+        const member = message.guild.members.resolve(user);
+        if (user.id === message.author.id) {
+          message.reply('**No**')
+          console.log('CloudBot stopped '+message.author.username+' from banning him/herself')
+        };
+        if (member) {
+          member
+            .ban({
+              reason: "I wouldn't ban you without a reason! It's probably because the mods noticed that you were abusing the file system in some kind of way.",
+            })
+            .then(() => {
+              message.reply(`Banned ${user.tag}. *F to pay respects*`);
+              console.log(`CloudBot banned ${user.tag}`);
+            })
+            .catch(err => {
+              message.reply('*Not today, thank you*');
+              console.log("CloudBot protected himself from getting banned by "+message.author.username);
+            });
+        } else {
+          message.reply("That user isn't in this guild ._.");
+          console.log("CloudBot error: User does not exist");
+        }
+      } else {
+        message.reply("You didn't mention the user to ban ._.");
+        console.log("CloudBot error: User not mentioned");
+      }
+    }
+  }
+});
+
 // Insert your token here
-bot.login('token');
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.C9lOV5t9Y5qiNPYI5UFk7VUkF4Y');
