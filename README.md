@@ -5,7 +5,7 @@
 #
 # Information
 
-cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more formal than public ones. But you can put it in a public server if you want. This program is in __perpetual beta__, and it supports creating and deleting files and folders, listing the contents of a directory, and changing directories. You cannot write to files as of now, but it will be updated to include this feature soon, however.
+cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more formal than public ones. But you can put it in a public server if you want. This program is in __perpetual beta__, and it supports creating and deleting files and folders, listing the contents of a directory, changing directories, and some moderation features. You cannot write to files as of now, but it will be updated to include this feature soon, however.
 
 (btw, in case you are a feminist reading console logs, yes, the bot is referred to as a he)
 
@@ -21,39 +21,8 @@ For now creating and changing directories can be done by anyone, however, __dele
 
 ## Usage
 
-As the picture above does not show all the commands, I have provided them below:
-
-       /mkdir example
-            Bot reply: Folder named 'example' created. Yay.
-            Console log: CloudBot created a folder named 'example'
-       
-       /ddel example (needs Administrator role)
-            Bot reply: Directory 'example' deleted. Hip hip hooray.
-            Console log: CloudBot deleted folder named 'example'
-       
-       /cd example
-            Bot reply: Changed directory to 'example'. *CLAP CLAP*
-            Console log: CloudBot went into the directory 'example'
-            
-       /new example.txt
-            Bot reply: File named 'example.txt' created. Woohoo.
-            Console log: CloudBot created a file named 'example.txt'
-            
-       /del example.txt
-            Bot reply: File named 'example.txt' was deleted. Wow.
-            Console log: CloudBot deleted folder named 'example.txt'
-            
-       /hi
-            Bot reply: hi :)
-            Console log: CloudBot said hi to exampleuser
-            
-       /purpose
-            Bot reply: I am basically a cloud server for Discord. I am pure Node.JS. Although I may not have that many functions, the cloud server functions make up             for this!
-            Console log: CloudBot told exampleuser about why he exists
-            
-       /help
-            Bot reply: *Prints help screen with commands*
-            Console log: CloudBot gave help to exampleuser
+To get all the commands, type 'c/help'
+  
             
 ## Features/hotfixes to be added
 
