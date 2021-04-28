@@ -27,7 +27,7 @@ To get all the commands, type 'c/help'
 ## Features/hotfixes to be added
 
 - __Write to files (if writable)__
-- __Rename files
+- __Unban users__
 
 ## Current bugs
 
