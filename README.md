@@ -21,7 +21,7 @@ For now creating and changing directories can be done by anyone, however, __dele
 
 ## Usage
 
-To get all the commands, type 'c/help'.
+To get all the commands, type 'c/help'. For more detailed help, type a command like 'c/mkdir' and add '/help' to the command.
 
 ## Recently added features
 
@@ -30,7 +30,6 @@ To get all the commands, type 'c/help'.
 ## Features/hotfixes to be added
 
 - __Write to files (if writable)__
-- __Example commands library__
 
 ## Current bugs
 
