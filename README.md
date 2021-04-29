@@ -1,7 +1,7 @@
 #
 ![picture](https://ajskateboarder.github.io/assets/screenshot1.jpg)
 
-###### Running cloudbot in a channel in a Discord server
+###### Running cloudbot in a channel in a Discord server (mind the image, it does not have the right command names)
 #
 # Information
 
