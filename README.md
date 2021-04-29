@@ -21,7 +21,7 @@ For now creating and changing directories can be done by anyone, however, __dele
 
 ## Usage
 
-To get all the commands, type 'c/help'
+To get all the commands, type 'c/help'.
 
 ## Recently added features
 
