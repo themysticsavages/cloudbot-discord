@@ -9,7 +9,7 @@ const Discord = require('discord.js');
 const fs = require('fs');
 
 const bot = new Discord.Client();
-const prefix = 'c/';
+const prefix = 'c/'; // You can edit the prefix, but the prefix is not used in every command!
 
 console.clear()
 
@@ -27,7 +27,7 @@ bot.on('message', message => {
 
   if (cmd === 'mkdir') {
     if (!args[1]) {
-      message.reply('``lease specify a folder name next time ._.`');
+      message.reply('`Please specify a folder name next time ._.`');
       console.log("CloudBot replied to '"+message.author.username+"' to add a folder name");
     }
     if (args[2]) {
@@ -157,10 +157,8 @@ bot.on('message', message => {
     message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c/help : prints this message\n  c/hi : Say hi back to you\n  c/purpose : Why I'm here\n\nFile server commands:\n  c/mkdir : Make a folder\n  c/ddel : Delete a folder (admin)\n  c/cd : Change directory\n  c/new : Make a new file with any extension\n  c/del : Delete file (admin)\n  c/ls : List contents of folder\n  c/wr : Write to file (admin)\n  c/rd : Get text from file\n\nModerator commands: (admin)\n  c/ban\n```" + "**You're welcome**");
     console.log("CloudBot gave help to '"+message.author.username+"'");
   }
-});
-
-// Help library
-bot.on('message', message => {
+  
+  // Extended help library; had to join code to do MemoryLeak warnings
   if (message.content === 'c/help/mkdir') {
     message.reply('`\nCreates a directory\nusage: c/mkdir example`');
     console.log("CloudBot gave help on making directories to '"+message.author.username+"'");
@@ -186,8 +184,8 @@ bot.on('message', message => {
     console.log("CloudBot told '"+message.author.username+"' how to write to files")
   }
   if (message.content === 'c/help/rd') {
-    message.reply('`\nGets text of file\nusage: c/rd example.txt`')
-    console.log("CloudBot helped '"+message.author/username)
+    message.reply('`\nGets text from file\nusage: c/rd example.txt`')
+    console.log("CloudBot helped '"+message.author.username+"' to read from files.")
   }
   if (message.content === 'c/help/ban') {
     message.reply('`\nBan a member (needs "Ban members" role) with a default reason\nusage: c/ban @examplemember`')
@@ -338,6 +336,7 @@ bot.on('message', message => {
         if (member) {
           member
             .ban({
+              // insert reason here
               reason: "I wouldn't ban you without a reason! It's probably because the mods noticed that you were abusing the file system in some kind of way.",
             })
             .then(() => {
@@ -345,7 +344,7 @@ bot.on('message', message => {
               console.log(`CloudBot banned ${user.tag}`);
             })
             .catch(err => {
-              message.reply('*Not today, thank you*');
+              message.reply('`Not today, thank you`');
               console.log("CloudBot protected himself from getting banned by "+message.author.username);
             });
         } else {
@@ -359,7 +358,6 @@ bot.on('message', message => {
     }
   }
 });
-// Oh man, if I add more bot.on commands after the banning command, it will produce an MaxListener Warning, so no more bot.ons!
 
 // Insert your token here
 bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.L1lwFbj9qsCzmkDx-hQgvDebGGM');
