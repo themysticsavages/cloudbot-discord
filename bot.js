@@ -3,7 +3,6 @@
 // Best used in a private server among responsible members
 // (c) 2021 themysticsavages
 
-console.clear()
 // It was hard adding semi-colons to everything, just to have "better syntax"
 
 const Discord = require('discord.js');
@@ -11,6 +10,8 @@ const fs = require('fs');
 
 const bot = new Discord.Client();
 const prefix = 'c/';
+
+console.clear()
 
 // Creates space for logging events
 bot.on('ready', () => {
@@ -26,23 +27,25 @@ bot.on('message', message => {
 
   if (cmd === 'mkdir') {
     if (!args[1]) {
-      message.reply('Please specify a folder name next time ._.');
+      message.reply('``lease specify a folder name next time ._.`');
       console.log("CloudBot replied to '"+message.author.username+"' to add a folder name");
     }
     if (args[2]) {
-      message.reply('Too many arguments. You do know you only add ONE, right?');
-      console.log("CloudBot replied to '"+message.author.username+"' to add only one argument");
+      if (!args[0]) {
+        message.reply('`Too many arguments. You do know you only add ONE, right?`');
+        console.log("CloudBot replied to '"+message.author.username+"' to add only one argument");
+      }
     }
     const fld = args[1]
 
     try {
       fs.mkdirSync(fld)
-      message.reply("Folder named '"+fld+"' created. Yay.");
+      message.reply("`Folder named '"+fld+"' created. Yay.`");
       console.log("CloudBot created a folder named '"+fld+"'");
 
     } catch (err) {
       if (!args[0]) {
-        message.reply('Aw man, the folder already exists!');
+        message.reply('`Aw man, the folder already exists!`');
         console.log("CloudBot reported that '"+fld+"' already exists");
       }
     }
@@ -58,27 +61,29 @@ bot.on('message', message => {
 
   if (cmd === 'ddel') {
     if (!args[1]) {
-      message.reply('I think you need a folder name to remove, am i correct? ._.');
-      console.log("CloudBot replied to '"+message.author.username+"' to add a folder name");
+      message.reply('`I think you need a folder name to remove, am i correct? ._.`');
+      console.log("`CloudBot replied to '"+message.author.username+"' to add a folder name`");
     }
     if (args[2]) {
-      message.reply('Too many arguments. Only ONE is needed.');
-      console.log("CloudBot replied to '"+message.author.username+"' to add only one argument");
+      if (!args[0]) {
+        message.reply('`Too many arguments. Only ONE is needed.`');
+        console.log("CloudBot replied to '"+message.author.username+"' to add only one argument");
+      }
     }
     const dfld = args[1]
 
     try {
       if (message.member.hasPermission("ADMINISTRATOR")) {
         fs.rmdirSync(dfld, { recursive: true })
-        message.reply("Directory '"+dfld+"' deleted. Hip hip hooray.");
+        message.reply("`Directory '"+dfld+"' deleted. Hip hip hooray.`");
         console.log("CloudBot deleted folder named '"+dfld+"'");
       } else {
-        message.reply('You no have admin! The administrator role is required to delete folders.');
+        message.reply('`You no have admin! The administrator role is required to delete folders.`');
         console.log("CloudBot error: Insufficient privileges to delete the directory '"+dfld+"'");
       }
     } catch (err) {
       if (!args[0]) {
-        message.reply('Is that a folder? ._.');
+        message.reply('`Is that a folder? ._.`');
         console.log('CloudBot error: Directory does not exist');
       }
     }
@@ -94,11 +99,11 @@ bot.on('message', message => {
 
   if (cmd === 'cd') {
     if (!args[1]) {
-      message.reply("Hmm... what's the folder name? ._.");
+      message.reply("`Hmm... what's the folder name? ._.`");
       console.log("CloudBot replied to '"+message.author.username+"' to add a folder name");
     }
     if (args[2]) {
-      message.reply('Too many arguments. Add ONE argument next time.');
+      message.reply('`Too many arguments. Add ONE argument next time.`');
       console.log("CloudBot replied to '"+message.author.username+"' to add only one argument");
     }
       const cfld = args[1]
@@ -107,16 +112,16 @@ bot.on('message', message => {
     try {
         process.chdir(cfld)
         if (process.cwd().includes(substr)) {
-          message.reply("Changed directory to '"+cfld+"'. *CLAP CLAP*");
+          message.reply("`Changed directory to '"+cfld+"'. *CLAP CLAP*`");
           console.log("CloudBot went into the directory '"+cfld+"'");
         } else {
           process.chdir('cloudbot')
-          message.reply("I don't think you can go there!");
+          message.reply("`I don't think you can go there!`");
           console.log('CloudBot error: Access to folders outside root folder is denied\nCloudBot went into the root directory');
         }
       } catch (err) {
       if (!args[0]) {
-        message.reply('Is that a folder? ._.');
+        message.reply('`Is that a folder? ._.`');
         console.log('CloudBot error: Could not find the directory.');
       }
     }
@@ -141,15 +146,15 @@ bot.on('message', message => {
 // A couple of sentient replies for this nice bot
 bot.on('message', message => {
   if (message.content === 'c/hi') {
-    message.reply('hi :)');
+    message.reply('`hi :)`');
     console.log("CloudBot said hi to '"+message.author.username+"'");
   }
   if (message.content === 'c/purpose') {
-    message.reply('I am basically a cloud server for Discord. I am pure Node.JS. Although I may not have that many functions, the cloud server functions make up for this!');
+    message.reply('`I am basically a cloud server for Discord. I am pure Node.JS. Although I may not have that many functions, the cloud server functions make up for this!`');
     console.log("CloudBot told '"+message.author.username+"' about why he exists");
   }
   if (message.content === 'c/help') {
-    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c/help : prints this message\n  c/hi : Say hi back to you\n  c/purpose : Why I'm here\n\nFile server commands:\n  c/mkdir : Make a folder\n  c/ddel : Delete a folder (admin)\n  c/cd : Change directory\n  c/new : Make a new file with any extension\n  c/del : Delete file (admin)\n  c/ls : List contents of folder\n\nModerator commands (admin)\n  c/ban\n```" + "**You're welcome**");
+    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c/help : prints this message\n  c/hi : Say hi back to you\n  c/purpose : Why I'm here\n\nFile server commands:\n  c/mkdir : Make a folder\n  c/ddel : Delete a folder (admin)\n  c/cd : Change directory\n  c/new : Make a new file with any extension\n  c/del : Delete file (admin)\n  c/ls : List contents of folder\n\nModerator commands: (admin)\n  c/ban\n```" + "**You're welcome**");
     console.log("CloudBot gave help to '"+message.author.username+"'");
   }
 });
@@ -157,27 +162,27 @@ bot.on('message', message => {
 // Help library
 bot.on('message', message => {
   if (message.content === 'c/help/mkdir') {
-    message.reply('Creates a directory\nusage: c/mkdir example');
+    message.reply('`\nCreates a directory\nusage: c/mkdir example`');
     console.log("CloudBot gave help on making directories to '"+message.author.username+"'");
   }
   if (message.content === 'c/help/ddel') {
-    message.reply('Removes a directory (needs admin role)\nusage: c/ddel example')
+    message.reply('`\nRemoves a directory (needs admin role)\nusage: c/ddel example`')
     console.log("CloudBot gave help to '"+message.author.username+"' on removing directories");
   }
   if (message.content === 'c/help/new') {
-    message.reply('Makes a new file with any extension\nusage: c/new example.txt')
+    message.reply('`\nMakes a new file with any extension\nusage: c/new example.txt`')
     console.log("CloudBot gave help on how to make files to '"+message.author.username+"'")
   }
   if (message.content === 'c/help/del') {
-    message.reply('Deletes a file (needs admin role)\nusage: c/del example.txt')
+    message.reply('`\nDeletes a file (needs admin role)\nusage: c/del example.txt`')
     console.log("CloudBot gave help on deleting files to '"+message.author.username+"'")
   }
   if (message.content === 'c/help/cd') {
-    message.reply('Changes directory\nusage: c/cd example')
+    message.reply('`\nChanges directory\nusage: c/cd example`')
     console.log("CloudBot gave more help to '"+message.author.username+"' on how to change directories")
   }
   if (message.content === 'c/help/ban') {
-    message.reply('Ban a member (needs "Ban members" role) with a default reason\nusage: c/ban @examplemember')
+    message.reply('`\nBan a member (needs "Ban members" role) with a default reason\nusage: c/ban @examplemember`')
     console.log("CloudBot told '"+message.author.username+"' how to ban a member")
   }
 });
@@ -191,12 +196,12 @@ bot.on('message', message => {
 
   if (cmd === 'new') {
     if (!args[1]) {
-      message.reply("I don't see an filename anywhere... you see one? ._.");
+      message.reply("`I don't see an filename anywhere... you see one? ._.`");
       console.log("CloudBot told '"+message.author.username+"' to add an argument");
     }
     if (!args[2]) {
       if (!args[0]) {
-        message.reply('Too many arguments came to the party, can you take some away?');
+        message.reply('`Too many arguments came to the party, can you take some away?`');
         console.log("CloudBot replied to '"+message.author.username+"' to use one argument.");
       }
     }
@@ -204,12 +209,12 @@ bot.on('message', message => {
 
     try {
       fs.appendFileSync(f, '')
-      message.reply("File named '"+f+"' created. Woohoo.");
+      message.reply("`File named '"+f+"' created. Woohoo.`");
       console.log("CloudBot created a file named '"+f+"'");
 
     } catch (err) {
       if (!args[0]) {
-        message.reply('Aw man, the file already exists!');
+        message.reply('`Aw man, the file already exists!`');
         console.log('CloudBot error: File already exists');
       }
     }
@@ -225,12 +230,12 @@ bot.on('message', message => {
 
   if (cmd === 'del') {
     if (!args[1]) {
-      message.reply("I don't see an filename anywhere... you see one? ._.");
+      message.reply("`I don't see an filename anywhere... you see one? ._.`");
       console.log("CloudBot told '"+message.author.username+"' to add an argument");
     }
     if (!args[2]) {
       if (!args[0]) {
-        message.reply('Too many arguments came to the party, can you take some away?');
+        message.reply('`Too many arguments came to the party, can you take some away?`');
         console.log("CloudBot replied to '"+message.author.username+"' to use one argument.");
       }
     }
@@ -247,10 +252,66 @@ bot.on('message', message => {
       }
     } catch (err) {
       if (!args[0]) {
-        message.reply('Is that a file? ._.');
+        message.reply('`Is that a file? ._.`');
         console.log('CloudBot error: File does not exist');
       }
     }
+  }
+});
+
+// Writing text to files and returning text, yay
+bot.on('message', message => {
+  if (!message.content.startsWith(prefix)) return;
+
+  const args = message.content.trim().split(/ +/g);
+  const cmd = args[0].slice(prefix.length).toLowerCase();
+
+  if (cmd === 'wr') {
+    if (!args[1]) {
+      message.reply('`Where is the file and the text? ._.`');
+      console.log("CloudBot told '"+message.author.username+"' to add 2 arguments");
+    }
+    if (!args[2]) {
+      message.reply('`Include the text to write next time ._.`');
+      console.log("CloudBot asked '"+message.author.username+"' to add another argument");
+    }
+    const fw = args[1]
+    const wr = args[2]
+
+    try {
+      if (message.member.hasPermission("ADMINISTRATOR")) {
+        fs.writeFileSync(fw, wr)
+        message.reply("`Wrote to '"+fw+"'. Impressive.`")
+        console.log("CloudBot wrote to '"+fw+"'")
+      } else {
+        message.reply('You no have admin! The administrator role is required to delete files.');
+        console.log("CloudBot error: Insufficient privileges to write to file '"+fw+"'");
+      }
+    } catch (err) {
+      message.reply('`Is that a file? ._.`');
+      console.log('CloudBot error: File does not exist');
+    }
+  }
+
+  if (cmd === 'rd') {
+    if (!args[1]) {
+      message.reply('`Where is the file and the text? ._.`');
+      console.log("CloudBot told '"+message.author.username+"' to add 2 arguments");
+    }
+    if (!args[2]) {
+      message.reply('`Too many arguments. Add ONE argument next time.`');
+      console.log("CloudBot replied to '"+message.author.username+"' to add only one argument");
+    }
+    const rd = args[1]
+
+    fs.readFile(rd, 'utf8', function (err,data) {
+      if (err) {
+        message.reply('`Is that a file? ._.`');
+        console.log('CloudBot error: File does not exist');
+      }
+      message.reply('\nContents of '+rd+':\n'+data);
+      console.log("CloudBot returned the contents of '"+rd+"'")
+    });
   }
 });
 
@@ -280,16 +341,17 @@ bot.on('message', message => {
               console.log("CloudBot protected himself from getting banned by "+message.author.username);
             });
         } else {
-          message.reply("That user isn't in this guild ._.");
+          message.reply("`That user isn't in this guild ._.`");
           console.log("CloudBot error: User does not exist");
         }
       } else {
-        message.reply("You didn't mention the user to ban ._.");
+        message.reply("`You didn't mention the user to ban ._.`");
         console.log("CloudBot error: User not mentioned");
       }
     }
   }
 });
+// Oh man, if I add more bot.on commands after the banning command, it will produce an MaxListener Warning, so no more bot.ons!
 
 // Insert your token here
-bot.login('token');
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.L1lwFbj9qsCzmkDx-hQgvDebGGM');
