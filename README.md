@@ -17,11 +17,11 @@ If you want to run a modified version of the bot, make a new bot and join it to 
 
 ## Role usage
 
-For now creating and changing directories can be done by anyone, however, __deleting__ files and folders will require the *Administrator* role. This is because core files needed by the bot or files that people want to store could be deleted on purpose or by accident.
+For now, most functions can be done by anyone, however, __deleting__ files and folders requires the *Administrator* role. This is because core files needed by the bot or files that people want to store could be deleted on purpose or by accident.
 
 ## Usage
 
-To get all the commands, type 'c/help'. For more detailed help, type a command like 'c/mkdir' and add '/help' to the command.
+To get all the commands, type 'c/help'. For more detailed help, type a command 'c/help/' and add a command name.
 
 ## Recently added features
 
