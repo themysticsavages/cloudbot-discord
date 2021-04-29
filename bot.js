@@ -154,7 +154,7 @@ bot.on('message', message => {
     console.log("CloudBot told '"+message.author.username+"' about why he exists");
   }
   if (message.content === 'c/help') {
-    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c/help : prints this message\n  c/hi : Say hi back to you\n  c/purpose : Why I'm here\n\nFile server commands:\n  c/mkdir : Make a folder\n  c/ddel : Delete a folder (admin)\n  c/cd : Change directory\n  c/new : Make a new file with any extension\n  c/del : Delete file (admin)\n  c/ls : List contents of folder\n\nModerator commands: (admin)\n  c/ban\n```" + "**You're welcome**");
+    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c/help : prints this message\n  c/hi : Say hi back to you\n  c/purpose : Why I'm here\n\nFile server commands:\n  c/mkdir : Make a folder\n  c/ddel : Delete a folder (admin)\n  c/cd : Change directory\n  c/new : Make a new file with any extension\n  c/del : Delete file (admin)\n  c/ls : List contents of folder\n  c/wr : Write to file (admin)\n  c/rd : Get text from file\n\nModerator commands: (admin)\n  c/ban\n```" + "**You're welcome**");
     console.log("CloudBot gave help to '"+message.author.username+"'");
   }
 });
@@ -180,6 +180,14 @@ bot.on('message', message => {
   if (message.content === 'c/help/cd') {
     message.reply('`\nChanges directory\nusage: c/cd example`')
     console.log("CloudBot gave more help to '"+message.author.username+"' on how to change directories")
+  }
+  if (message.content === 'c/help/wr') {
+    message.reply('`\nWrites text to file (needs admin role)\nusage: c/wr example.txt test_file (make sure it is ONE string! multiple string writes will be implemented later)`')
+    console.log("CloudBot told '"+message.author.username+"' how to write to files")
+  }
+  if (message.content === 'c/help/rd') {
+    message.reply('`\nGets text of file\nusage: c/rd example.txt`')
+    console.log("CloudBot helped '"+message.author/username)
   }
   if (message.content === 'c/help/ban') {
     message.reply('`\nBan a member (needs "Ban members" role) with a default reason\nusage: c/ban @examplemember`')
