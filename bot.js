@@ -1,9 +1,11 @@
-// CloudBot - A slightly insecure file server for Discord 
-// Best used in private servers or public servers with some rules set for this program
-// (c) 2021 TheRealMysticSavages
+// CloudBot - A file server for Discord 
+
+// Best used in a private server among responsible members
+// (c) 2021 themysticsavages
 
 console.clear()
 // It was hard adding semi-colons to everything, just to have "better syntax"
+
 const Discord = require('discord.js');
 const fs = require('fs');
 
@@ -19,7 +21,7 @@ bot.on('ready', () => {
 bot.on('message', message => {
   if (!message.content.startsWith(prefix)) return;
 
-  const args = message.content.trim().split(/ +/g);
+  const args = message.content.trim().split(/ +/g); // used this code althroughout the program
   const cmd = args[0].slice(prefix.length).toLowerCase();
 
   if (cmd === 'mkdir') {
@@ -125,7 +127,7 @@ bot.on('message', message => {
 bot.on('message', message => {
   if (!message.content.startsWith(prefix)) return;
 
-  if (message.content == '/ls') {
+  if (message.content === 'c/ls') {
     const fld = './'
 
     fs.readdir(fld, (err, files) => {
@@ -138,21 +140,49 @@ bot.on('message', message => {
 
 // A couple of sentient replies for this nice bot
 bot.on('message', message => {
-  if (message.content == 'c/hi') {
+  if (message.content === 'c/hi') {
     message.reply('hi :)');
     console.log("CloudBot said hi to '"+message.author.username+"'");
   }
-  if (message.content == 'c/purpose') {
+  if (message.content === 'c/purpose') {
     message.reply('I am basically a cloud server for Discord. I am pure Node.JS. Although I may not have that many functions, the cloud server functions make up for this!');
     console.log("CloudBot told '"+message.author.username+"' about why he exists");
   }
-  if (message.content == 'c/help') {
-    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c/help : prints this message\n  c/hi : Say hi back to you\n  c/purpose : Why I'm here\n\nFile server commands:\n  c/mkdir : Make a folder\n  c/ddel : Delete a folder (admin)\n  c/cd : Change directory\n  c/new : Make a new file with any extension\n  c/del : Delete file (admin)\n```" + "**You're welcome**");
+  if (message.content === 'c/help') {
+    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c/help : prints this message\n  c/hi : Say hi back to you\n  c/purpose : Why I'm here\n\nFile server commands:\n  c/mkdir : Make a folder\n  c/ddel : Delete a folder (admin)\n  c/cd : Change directory\n  c/new : Make a new file with any extension\n  c/del : Delete file (admin)\n  c/ls : List contents of folder\n\nModerator commands (admin)\n  c/ban\n```" + "**You're welcome**");
     console.log("CloudBot gave help to '"+message.author.username+"'");
   }
 });
 
-// YES! Create new files
+// Help library
+bot.on('message', message => {
+  if (message.content === 'c/mkdir/help') {
+    message.reply('Creates a directory\nusage: c/mkdir example');
+    console.log("CloudBot gave help on making directories to '"+message.author.username+"'");
+  }
+  if (message.content === 'c/ddel/help') {
+    message.reply('Removes a directory (needs admin role)\nusage: c/ddel example')
+    console.log("CloudBot gave help to '"+message.author.username+"' on removing directories");
+  }
+  if (message.content === 'c/new/help') {
+    message.reply('Makes a new file with any extension\nusage: c/new example.txt')
+    console.log("CloudBot gave help on how to make files to '"+message.author.username+"'")
+  }
+  if (message.content === 'c/del/help') {
+    message.reply('Deletes a file (needs admin role)\nusage: c/del example.txt')
+    console.log("CloudBot gave help on deleting files to '"+message.author.username+"'")
+  }
+  if (message.content === 'c/cd/help') {
+    message.reply('Changes directory\nusage: c/cd example')
+    console.log("CloudBot gave more help to '"+message.author.username+"' on how to change directories")
+  }
+  if (message.content === 'c/ban/help') {
+    message.reply('Ban a member (needs admin role) a default reason\nusage: c/ban @examplemember')
+    console.log("CloudBot told '"+message.author.username+"' how to ban a member")
+  }
+});
+
+// Create new files
 bot.on('message', message => {
   if (!message.content.startsWith(prefix)) return;
 
@@ -224,7 +254,7 @@ bot.on('message', message => {
   }
 });
 
-// Ban people who abuse the system; trying to make a way to unban people (got source code from Github: https://bit.ly/3e0xbAT)
+// Ban people who abuse the system (borrowed code from gist: https://bit.ly/3e0xbAT)
 bot.on('message', message => {
   if (!message.guild) return;
   if (message.member.hasPermission("ADMINISTRATOR")) {
@@ -233,8 +263,8 @@ bot.on('message', message => {
       if (user) {
         const member = message.guild.members.resolve(user);
         if (user.id === message.author.id) {
-          message.reply('**No**')
-          console.log('CloudBot stopped '+message.author.username+' from banning him/herself')
+          message.reply('**No**');
+          console.log('CloudBot stopped '+message.author.username+' from banning him/herself');
         };
         if (member) {
           member
@@ -262,4 +292,4 @@ bot.on('message', message => {
 });
 
 // Insert your token here
-bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.C9lOV5t9Y5qiNPYI5UFk7VUkF4Y');
+bot.login('token');
