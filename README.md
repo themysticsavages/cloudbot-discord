@@ -5,7 +5,9 @@
 #
 # Information
 
-cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more formal than public ones. But you can put it in a public server if you want. This program is in __perpetual beta__, and it supports creating and deleting files and folders, listing the contents of a directory, changing directories, and some moderation features. You cannot write to files as of now, but it will be updated to include this feature soon, however.
+cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. This bot is in __perpetual beta__, and it supports file and folder management and banning members.
+
+You cannot write to files as of now (which sucks), but it will be updated to include this feature soon, however.
 
 ## Requirements
 
