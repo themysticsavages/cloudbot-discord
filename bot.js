@@ -156,28 +156,28 @@ bot.on('message', message => {
 
 // Help library
 bot.on('message', message => {
-  if (message.content === 'c/mkdir/help') {
+  if (message.content === 'c/help/mkdir') {
     message.reply('Creates a directory\nusage: c/mkdir example');
     console.log("CloudBot gave help on making directories to '"+message.author.username+"'");
   }
-  if (message.content === 'c/ddel/help') {
+  if (message.content === 'c/help/ddel') {
     message.reply('Removes a directory (needs admin role)\nusage: c/ddel example')
     console.log("CloudBot gave help to '"+message.author.username+"' on removing directories");
   }
-  if (message.content === 'c/new/help') {
+  if (message.content === 'c/help/new') {
     message.reply('Makes a new file with any extension\nusage: c/new example.txt')
     console.log("CloudBot gave help on how to make files to '"+message.author.username+"'")
   }
-  if (message.content === 'c/del/help') {
+  if (message.content === 'c/help/del') {
     message.reply('Deletes a file (needs admin role)\nusage: c/del example.txt')
     console.log("CloudBot gave help on deleting files to '"+message.author.username+"'")
   }
-  if (message.content === 'c/cd/help') {
+  if (message.content === 'c/help/cd') {
     message.reply('Changes directory\nusage: c/cd example')
     console.log("CloudBot gave more help to '"+message.author.username+"' on how to change directories")
   }
-  if (message.content === 'c/ban/help') {
-    message.reply('Ban a member (needs admin role) a default reason\nusage: c/ban @examplemember')
+  if (message.content === 'c/help/ban') {
+    message.reply('Ban a member (needs "Ban members" role) with a default reason\nusage: c/ban @examplemember')
     console.log("CloudBot told '"+message.author.username+"' how to ban a member")
   }
 });
