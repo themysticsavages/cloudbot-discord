@@ -33,4 +33,4 @@ To get all the commands, type 'c/help'. For more detailed help, type a command l
 
 ## Current bugs
 
-*None. If there are bugs, list them in issues.
+*None. If there are bugs, list them in issues.*
