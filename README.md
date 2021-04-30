@@ -14,7 +14,7 @@ You cannot write to files as of now (which sucks), but it will be updated to inc
 You need NodeJS and the npm module 'discord'.
 
 ```
-Warning! Issues might occur installing the Discord module if you use it on Windows 10 Enterprise LTSC
+Warning! Issues might occur installing the Discord module if you use it on versions of Windows 10 Enterprise LTSC
 ```
 
 If you want to use the bot in Discord, link it to a server of yours [here](https://discord.com/api/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68608). 
