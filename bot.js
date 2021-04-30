@@ -1,15 +1,16 @@
 // CloudBot - A file server for Discord 
 
 // Best used in a private server among responsible members
+// It was hard adding semi-colons to everything, just to have "better syntax"
+// You're lucky I made this bot open-source!
+
 // (c) 2021 themysticsavages
 
-// It was hard adding semi-colons to everything, just to have "better syntax"
-
-const Discord = require('discord.js');
+const Discord = require('discord.js'); // Issues installing discord.js in specific operating systems
 const fs = require('fs');
 
 const bot = new Discord.Client();
-const prefix = 'c/'; // You can edit the prefix, but the prefix is not used in every command!
+const prefix = 'c/'; // You can edit the prefix, but the prefix is not applied in every command!
 
 console.clear()
 
@@ -23,7 +24,7 @@ bot.on('message', message => {
   if (!message.content.startsWith(prefix)) return;
 
   const args = message.content.trim().split(/ +/g); // used this code althroughout the program
-  const cmd = args[0].slice(prefix.length).toLowerCase();
+  const cmd = args[0].slice(prefix.length).toLowerCase(); 
 
   if (cmd === 'mkdir') {
     if (!args[1]) {
@@ -31,12 +32,12 @@ bot.on('message', message => {
       console.log("CloudBot replied to '"+message.author.username+"' to add a folder name");
     }
     if (args[2]) {
-      if (!args[0]) {
+      if (!args[0]) { // I've had issues with the 'too many args' reply, so I muted it
         message.reply('`Too many arguments. You do know you only add ONE, right?`');
         console.log("CloudBot replied to '"+message.author.username+"' to add only one argument");
       }
     }
-    const fld = args[1]
+    const fld = args[1] // Makes a variable for args[1] to be more understandable
 
     try {
       fs.mkdirSync(fld)
@@ -65,7 +66,7 @@ bot.on('message', message => {
       console.log("`CloudBot replied to '"+message.author.username+"' to add a folder name`");
     }
     if (args[2]) {
-      if (!args[0]) {
+      if (!args[0]) { // Sorry if the code is inconsistent :( it has had many edits
         message.reply('`Too many arguments. Only ONE is needed.`');
         console.log("CloudBot replied to '"+message.author.username+"' to add only one argument");
       }
@@ -90,7 +91,7 @@ bot.on('message', message => {
   }
 });
 
-// Changes directories; had to make it even more complicated.
+// Changes directories; had to make it even more complicated to fix security holes.
 bot.on('message', message => {
   if (!message.content.startsWith(prefix)) return;
 
@@ -115,7 +116,7 @@ bot.on('message', message => {
           message.reply("`Changed directory to '"+cfld+"'. *CLAP CLAP*`");
           console.log("CloudBot went into the directory '"+cfld+"'");
         } else {
-          process.chdir('cloudbot')
+          process.chdir('cloudbot') // If you change to a directory outside the root folder, then it will go back into the root directory
           message.reply("`I don't think you can go there!`");
           console.log('CloudBot error: Access to folders outside root folder is denied\nCloudBot went into the root directory');
         }
@@ -129,7 +130,7 @@ bot.on('message', message => {
 });
 
 // Lists the content of a directory
-bot.on('message', message => {
+bot.on('message', message => { // verrry simple code, you don't even need args!
   if (!message.content.startsWith(prefix)) return;
 
   if (message.content === 'c/ls') {
@@ -137,7 +138,7 @@ bot.on('message', message => {
 
     fs.readdir(fld, (err, files) => {
         files.forEach(file => {
-        message.reply(file);
+        message.reply(file); // It may or may not be spam, but its the only way
     })
   })
   }
@@ -146,7 +147,7 @@ bot.on('message', message => {
 // A couple of sentient replies for this nice bot
 bot.on('message', message => {
   if (message.content === 'c/hi') {
-    message.reply('`hi :)`');
+    message.reply('`hi :)`'); // you know, this is more of a test command to see if the bot is up and running
     console.log("CloudBot said hi to '"+message.author.username+"'");
   }
   if (message.content === 'c/purpose') {
@@ -158,9 +159,9 @@ bot.on('message', message => {
     console.log("CloudBot gave help to '"+message.author.username+"'");
   }
   
-  // Extended help library; had to join code to do MemoryLeak warnings
+  // Extended help library; a nice touch; had to join code to do MemoryLeak warnings
   if (message.content === 'c/help/mkdir') {
-    message.reply('`\nCreates a directory\nusage: c/mkdir example`');
+    message.reply('`\nCreates a directory\nusage: c/mkdir example`'); 
     console.log("CloudBot gave help on making directories to '"+message.author.username+"'");
   }
   if (message.content === 'c/help/ddel') {
@@ -193,7 +194,7 @@ bot.on('message', message => {
   }
 });
 
-// Create new files
+// Create new files (this was a big accomplishment when I finished this code, even though you couldn't write to files)
 bot.on('message', message => {
   if (!message.content.startsWith(prefix)) return;
 
@@ -265,7 +266,7 @@ bot.on('message', message => {
   }
 });
 
-// Writing text to files and returning text, yay
+// Writing text to files and returning text; pretty clean code if I do say so myself
 bot.on('message', message => {
   if (!message.content.startsWith(prefix)) return;
 
@@ -297,8 +298,8 @@ bot.on('message', message => {
       message.reply('`Is that a file? ._.`');
       console.log('CloudBot error: File does not exist');
     }
-  }
-
+  } 
+  // Return command, joined this
   if (cmd === 'rd') {
     if (!args[1]) {
       message.reply('`Where is the file and the text? ._.`');
@@ -323,13 +324,15 @@ bot.on('message', message => {
 
 // Ban people who abuse the system (borrowed code from gist: https://bit.ly/3e0xbAT)
 bot.on('message', message => {
+  // Don't worry, I modified the code!
   if (!message.guild) return;
   if (message.member.hasPermission("ADMINISTRATOR")) {
     if (message.content.startsWith('c/ban')) {
       const user = message.mentions.users.first();
-      if (user) {
+      if (user) { // Resolves user when mentioned in Discord message
         const member = message.guild.members.resolve(user);
         if (user.id === message.author.id) {
+          // Some protection
           message.reply('**No**');
           console.log('CloudBot stopped '+message.author.username+' from banning him/herself');
         };
@@ -339,15 +342,17 @@ bot.on('message', message => {
               // insert reason here
               reason: "I wouldn't ban you without a reason! It's probably because the mods noticed that you were abusing the file system in some kind of way.",
             })
-            .then(() => {
+            .then(() => { // haha spammer go bye bye
               message.reply(`Banned ${user.tag}. *F to pay respects*`);
               console.log(`CloudBot banned ${user.tag}`);
             })
             .catch(err => {
+              // In case you have a dumb admin on your server...
               message.reply('`Not today, thank you`');
               console.log("CloudBot protected himself from getting banned by "+message.author.username);
             });
         } else {
+          // .-.
           message.reply("`That user isn't in this guild ._.`");
           console.log("CloudBot error: User does not exist");
         }
@@ -360,4 +365,4 @@ bot.on('message', message => {
 });
 
 // Insert your token here
-bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.L1lwFbj9qsCzmkDx-hQgvDebGGM');
+bot.login('token');
