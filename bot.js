@@ -366,3 +366,5 @@ bot.on('message', message => {
 
 // Insert your token here
 bot.login('token');
+
+// Uses the Apache License; before you copy my code, read it or something
