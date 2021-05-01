@@ -39,7 +39,10 @@ bot.on('message', async message => {
   if (message.content === 'c/clear') {
     // I don't know how this deletes everything
     if (message.member.hasPermission("ADMINISTRATOR")) {
-    message.channel.bulkDelete(99)
+    const dmsg = 20
+    var idmsg = dmsg
+
+    message.channel.bulkDelete(idmsg + 1)
     console.log("Deleted every message in '"+message.channel.name+"'")
   } else {
     message.reply('`You no have admin! The administrator role is required to clear channels.`');
@@ -63,7 +66,7 @@ bot.on('message', message => {
     if (args[2]) {
       if (!args[0]) { // I've had issues with the 'too many args' reply, so I muted it
         message.reply('`Too many arguments. You do know you only add ONE, right?`');
-        console.log("CloudBot replied to '"+message.author.username+"' to add only one argument");
+        console.log("CloudBot replied to '"+message.author.username+"' to add only one argument"); // 69th line
       }
     }
     const fld = args[1] // Makes a variable for args[1] to be more understandable
@@ -184,7 +187,7 @@ bot.on('message', message => {
     console.log("CloudBot told '"+message.author.username+"' about why he exists");
   }
   if (message.content === 'c/help') {
-    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c/help : prints this message\n  c/hi : Say hi back to you\n  c/purpose : Why I'm here\n\nFile server commands:\n  c/mkdir : Make a folder\n  c/ddel : Delete a folder (admin)\n  c/cd : Change directory\n  c/new : Make a new file with any extension\n  c/del : Delete file (admin)\n  c/ls : List contents of folder\n  c/wr : Write to file (admin)\n  c/rd : Get text from file\n\nModerator commands: (admin)\n  c/ban\n\nFun commands:\n  c/random : Make a random number```" + "**You're welcome**");
+    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c/help : prints this message\n  c/hi : Say hi back to you\n  c/purpose : Why I'm here\n  c/cclear : Clears console\n  c/clear : Clears channel (almost)\n\nFile server commands:\n  c/mkdir : Make a folder\n  c/ddel : Delete a folder (admin)\n  c/cd : Change directory\n  c/new : Make a new file with any extension\n  c/del : Delete file (admin)\n  c/ls : List contents of folder\n  c/wr : Write to file (admin)\n  c/rd : Get text from file\n\nModerator commands: (admin)\n  c/ban\n\nFun commands:\n  c/random : Make a random number```" + "**You're welcome**");
     console.log("CloudBot gave help to '"+message.author.username+"'");
   }
   
@@ -414,7 +417,7 @@ bot.on('message', message => {
         message.reply("`You didn't mention the user to ban ._.`");
         console.log("CloudBot error: User not mentioned");
       }
-    }
+    } // 420th line
   }
 });
 
