@@ -12,6 +12,7 @@ const fs = require('fs');
 const bot = new Discord.Client();
 const prefix = 'c/'; // You can edit the prefix, but the prefix is not applied in every command!
 
+const sub = 'CloudBot';
 console.clear()
 
 // Creates space for logging events
@@ -19,9 +20,13 @@ bot.on('ready', () => {
   console.info('CloudBot is connected\n---------------------');
 });
 
-// Little message recorder and console clearer (not for discord messages)
+// Little message recorder, console clearer, and channel wiper
 bot.on('message', async message => {
-  console.log(message.author.username+' > '+message.content)
+  if (message.author.username.includes(sub)) {
+    
+  } else {
+    console.log(message.author.username+' > '+message.content)
+  }
   if (message.content === 'c/cclear') {
     if (message.member.hasPermission("ADMINISTRATOR")) {
       console.clear()
@@ -30,7 +35,20 @@ bot.on('message', async message => {
       message.reply('`You no have admin! The administrator role is required to clear the console.`');
       console.log("CloudBot error: Insufficient privileges to clear console");
     }
-  } 
+  }
+  if (message.content === 'c/clear') {
+    // I don't know how this deletes everything
+    if (message.member.hasPermission("ADMINISTRATOR")) {
+    const dmsg = 20
+    var idmsg = dmsg
+
+    message.channel.bulkDelete(idmsg + 1)
+    console.log("Deleted every message in '"+message.channel.name+"'")
+  } else {
+    message.reply('`You no have admin! The administrator role is required to clear channels.`');
+    console.log("CloudBot error: Insufficient privileges to clear channels");
+  }
+} 
 });
 
 // Creates folders
@@ -48,7 +66,7 @@ bot.on('message', message => {
     if (args[2]) {
       if (!args[0]) { // I've had issues with the 'too many args' reply, so I muted it
         message.reply('`Too many arguments. You do know you only add ONE, right?`');
-        console.log("CloudBot replied to '"+message.author.username+"' to add only one argument");
+        console.log("CloudBot replied to '"+message.author.username+"' to add only one argument"); // 69th line
       }
     }
     const fld = args[1] // Makes a variable for args[1] to be more understandable
@@ -399,13 +417,9 @@ bot.on('message', message => {
         message.reply("`You didn't mention the user to ban ._.`");
         console.log("CloudBot error: User not mentioned");
       }
-    }
+    } // 420th line
   }
 });
 
 // Insert your token here
 bot.login('token');
-
-// Before you go willy nilly copypasting code,
-// This uses the Apache License since this a genius program,
-// that I don't want copied. #haiku
