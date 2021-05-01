@@ -63,7 +63,7 @@ bot.on('message', message => {
     if (args[2]) {
       if (!args[0]) { // I've had issues with the 'too many args' reply, so I muted it
         message.reply('`Too many arguments. You do know you only add ONE, right?`');
-        console.log("CloudBot replied to '"+message.author.username+"' to add only one argument"); // 69th line
+        console.log("CloudBot replied to '"+message.author.username+"' to add only one argument");
       }
     }
     const fld = args[1] // Makes a variable for args[1] to be more understandable
@@ -414,7 +414,7 @@ bot.on('message', message => {
         message.reply("`You didn't mention the user to ban ._.`");
         console.log("CloudBot error: User not mentioned");
       }
-    } // 420th line
+    }
   }
 });
 
