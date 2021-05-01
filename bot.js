@@ -19,6 +19,20 @@ bot.on('ready', () => {
   console.info('CloudBot is connected\n---------------------');
 });
 
+// Little message recorder and console clearer (not for discord messages)
+bot.on('message', async message => {
+  console.log(message.author.username+' > '+message.content)
+  if (message.content === 'c/cclear') {
+    if (message.member.hasPermission("ADMINISTRATOR")) {
+      console.clear()
+      console.info('CloudBot is connected\n---------------------');
+    } else {
+      message.reply('`You no have admin! The administrator role is required to clear the console.`');
+      console.log("CloudBot error: Insufficient privileges to clear console");
+    }
+  } 
+});
+
 // Creates folders
 bot.on('message', message => {
   if (!message.content.startsWith(prefix)) return;
@@ -155,7 +169,7 @@ bot.on('message', message => {
     console.log("CloudBot told '"+message.author.username+"' about why he exists");
   }
   if (message.content === 'c/help') {
-    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c/help : prints this message\n  c/hi : Say hi back to you\n  c/purpose : Why I'm here\n\nFile server commands:\n  c/mkdir : Make a folder\n  c/ddel : Delete a folder (admin)\n  c/cd : Change directory\n  c/new : Make a new file with any extension\n  c/del : Delete file (admin)\n  c/ls : List contents of folder\n  c/wr : Write to file (admin)\n  c/rd : Get text from file\n\nModerator commands: (admin)\n  c/ban\n```" + "**You're welcome**");
+    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c/help : prints this message\n  c/hi : Say hi back to you\n  c/purpose : Why I'm here\n\nFile server commands:\n  c/mkdir : Make a folder\n  c/ddel : Delete a folder (admin)\n  c/cd : Change directory\n  c/new : Make a new file with any extension\n  c/del : Delete file (admin)\n  c/ls : List contents of folder\n  c/wr : Write to file (admin)\n  c/rd : Get text from file\n\nModerator commands: (admin)\n  c/ban\n\nFun commands:\n  c/random : Make a random number```" + "**You're welcome**");
     console.log("CloudBot gave help to '"+message.author.username+"'");
   }
   
@@ -192,6 +206,24 @@ bot.on('message', message => {
     message.reply('`\nBan a member (needs "Ban members" role) with a default reason\nusage: c/ban @examplemember`')
     console.log("CloudBot told '"+message.author.username+"' how to ban a member")
   }
+  if (message.content === 'c/help/random') {
+    message.reply('`\nMake a random number\nusage: c/random 420`')
+    console.log("CloudBot told '"+message.author.username+"' how to generate random numbers")
+  }
+
+  // Commands for fun
+  if (message.content.startsWith(prefix)) {
+    const args = message.content.trim().split(/ +/g);
+    const cmd = args[0].slice(prefix.length).toLowerCase();
+
+    if (cmd === 'random') {
+      const max = args[1]
+
+      var randomnumber = Math.floor(Math.random() * max)
+      message.reply("`"+randomnumber+"`");
+      console.log('CloudBot generated a random number');
+  }
+}
 });
 
 // Create new files (this was a big accomplishment when I finished this code, even though you couldn't write to files)
@@ -279,8 +311,10 @@ bot.on('message', message => {
       console.log("CloudBot told '"+message.author.username+"' to add 2 arguments");
     }
     if (!args[2]) {
+      if (!args[0]) {
       message.reply('`Include the text to write next time ._.`');
       console.log("CloudBot asked '"+message.author.username+"' to add another argument");
+      }
     }
     const fw = args[1]
     const wr = args[2]
@@ -295,8 +329,10 @@ bot.on('message', message => {
         console.log("CloudBot error: Insufficient privileges to write to file '"+fw+"'");
       }
     } catch (err) {
-      message.reply('`Is that a file? ._.`');
-      console.log('CloudBot error: File does not exist');
+      if (!args[0]) {
+        message.reply('`Is that a file? ._.`');
+        console.log('CloudBot error: File does not exist');
+      }
     }
   } 
   // Return command, joined this
@@ -306,19 +342,22 @@ bot.on('message', message => {
       console.log("CloudBot told '"+message.author.username+"' to add 2 arguments");
     }
     if (!args[2]) {
+      if (!args[0]) {
       message.reply('`Too many arguments. Add ONE argument next time.`');
       console.log("CloudBot replied to '"+message.author.username+"' to add only one argument");
+      }
     }
     const rd = args[1]
 
-    fs.readFile(rd, 'utf8', function (err,data) {
-      if (err) {
+    try {
+      fs.readFile(rd, 'utf8', function (data) {
+      message.reply("Contents of '"+rd+"'\n"+data)});
+    } catch (err) {
+      if (!args[0]) {
         message.reply('`Is that a file? ._.`');
         console.log('CloudBot error: File does not exist');
       }
-      message.reply('\nContents of '+rd+':\n'+data);
-      console.log("CloudBot returned the contents of '"+rd+"'")
-    });
+    }
   }
 });
 
@@ -367,4 +406,6 @@ bot.on('message', message => {
 // Insert your token here
 bot.login('token');
 
-// Uses the Apache License; before you copy my code, read it or something
+// Before you go willy nilly copypasting code,
+// This uses the Apache License since this a genius program,
+// that I don't want copied. #haiku
