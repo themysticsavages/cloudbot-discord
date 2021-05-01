@@ -39,10 +39,7 @@ bot.on('message', async message => {
   if (message.content === 'c/clear') {
     // I don't know how this deletes everything
     if (message.member.hasPermission("ADMINISTRATOR")) {
-    const dmsg = 20
-    var idmsg = dmsg
-
-    message.channel.bulkDelete(idmsg + 1)
+    message.channel.bulkDelete(99)
     console.log("Deleted every message in '"+message.channel.name+"'")
   } else {
     message.reply('`You no have admin! The administrator role is required to clear channels.`');
