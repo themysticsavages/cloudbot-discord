@@ -5,9 +5,9 @@
 #
 # Information
 
-cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. This bot is in __perpetual beta__, and it supports file and folder management and banning members.
+cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. This bot is officially in a stable release, and it supports file and folder management, banning members, and many other pointless commands.
 
-You cannot write to files as of now (which sucks), but it will be updated to include this feature soon, however.
+You can write to files now, but only one line and one string, plus you can't use "" (still kinda bad but ok)
 
 ## Requirements
 
@@ -19,7 +19,7 @@ Warning! Issues might occur installing the Discord module if you use it on versi
 
 If you want to use the bot in Discord, link it to a server of yours [here](https://discord.com/api/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68608). 
 
-If you want to run a modified version of the bot, make a new bot and join it to your server with the permissions 'Read message history, Send Messages, View Channels, and Ban Members'. Then download the bot.js file, modify the file, and run it with NodeJS.
+If you want to run a modified version of the bot, read [setup.md](https://github.com/themysticsavages/cloudbot-discord/blob/main/setup.md).
 
 ## Role usage
 
@@ -27,12 +27,12 @@ For now, most functions can be done by anyone, however, __deleting__ files and f
 
 ## Usage
 
-To get all the commands, type 'c/help'. For more detailed help, type a command 'c/help/' and add a command name.
+To get all the commands, type 'c/help'. For more detailed help, type a command 'c/help/' and add a command name like 'random'.
 
 ## Recently added features
 
-- __Read text from file__
-- __Write text to file__
+- __Clear the console window__
+- __Make a random number__
 
 ## Features/hotfixes to be added
 
