@@ -367,16 +367,17 @@ bot.on('message', message => {
     }
     const rd = args[1]
 
-    try {
-      fs.readFile(rd, 'utf8', function (data) {
-      message.reply("Contents of '"+rd+"'\n"+data)});
-    } catch (err) {
-      if (!args[0]) {
-        message.reply('`Is that a file? ._.`');
-        console.log('CloudBot error: File does not exist');
-      }
+    try { // the only part which took time to make
+      const content = await fs.readFile(rd, 'utf-8');
+      message.reply('`'+`Contents of ${rd}`+'`\n`'+`${content}`+'`')
+    } catch (error) {
+      if (error.code === 'ENOENT') {
+        console.log('`Where is that file? ._.`');
+    } else {
+      throw err;
     }
   }
+}
 });
 
 // Ban people who abuse the system (borrowed code from gist: https://bit.ly/3e0xbAT)
