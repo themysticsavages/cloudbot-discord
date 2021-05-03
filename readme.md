@@ -1,5 +1,5 @@
 #
-![insert picture here]()
+![]()
 
 ###### Running cloudbot in a channel in a Discord server
 # Information
