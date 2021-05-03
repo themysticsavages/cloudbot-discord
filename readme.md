@@ -13,7 +13,7 @@ You can write to files now, but only one line and one string, plus you can't use
 
 You need NodeJS and the npm module 'discordjs'.
 
-If you want to use the bot in Discord, link it to a server of yours [here](https://discord.com/api/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68608). I have a virtual server now which runs the bot, so that's great. It has 16 GB of storage and a 4th gen Core i5 single core processor, which is good.
+If you want to use the bot in Discord, link it to a server of yours [here](https://discord.com/api/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68608). I have a virtual server now which runs the bot, so that's great. It has 16 GB of storage and a 4th gen Core i5 single core processor, which is good. Although it may not be online everyday, it is mostly online.
 
 If you want to run a modified version of the bot, read [setup.md](https://github.com/themysticsavages/cloudbot-discord/blob/main/setup.md).
 
@@ -37,4 +37,4 @@ To get all the commands, type 'c/help'. For more detailed help, type a command '
 
 ## Current bugs
 
-*None. If there are bugs, list them in issues.*
+- Returning text returns *null* instead of actual text (solution found)
