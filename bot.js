@@ -12,6 +12,7 @@ const fs = require('fs');
 
 const bot = new Discord.Client();
 const prefix = 'c.'; // You can edit the prefix, but the prefix is not applied in every command!
+// For example, the help library at line 179 - 229 doesn't use the prefix
 
 const sub = 'CloudBot';
 console.clear()
@@ -23,7 +24,7 @@ bot.on('ready', () => {
 
 // Little message recorder, console clearer, and channel wiper
 bot.on('message', async message => {
-  if (message.author.username.includes(sub)) {
+  if (message.author.username.includes(sub)) { // If the message includes the substring 'CloudBot', it won't print any replies
     
   } else {
     console.log(message.author.username+' > '+message.content)
@@ -38,12 +39,10 @@ bot.on('message', async message => {
     }
   }
   if (message.content === 'c.clear') {
-    // I don't know how this deletes everything
     if (message.member.hasPermission("ADMINISTRATOR")) {
-    const dmsg = 20
-    var idmsg = dmsg
+    const dmsg = 99 // You can change this but uh probably not
 
-    message.channel.bulkDelete(idmsg + 1)
+    message.channel.bulkDelete(dmsg)
     console.log("Deleted every message in '"+message.channel.name+"'")
   } else {
     message.reply('`You no have admin! The administrator role is required to clear channels.`');
@@ -59,17 +58,20 @@ bot.on('message', message => {
   const args = message.content.trim().split(/ +/g); // used this code althroughout the program
   const cmd = args[0].slice(prefix.length).toLowerCase(); 
 
+  // Since the old syntax for detecting args didn't work, I made a new detector altogether
+  // Demonstration time
+
   if (cmd === 'mkdir') {
-    var err = 0;
+    var err = 0; // Error VARIABLE
       if (!args[1]) {
-        message.reply("Where is the folder name? ._.")
-        console.log("CloudBot couldn't find a folder")
-        err++;
+        message.reply("`Where is the folder name? ._.`")
+        console.log("CloudBot couldn't find the folder you are looking for")
+        err++; // Increases the error var by one
     }
     if (!args[2]) {
-      if (err == 1) {
-      } else {
-        const fld = args[0]
+      if (err == 1) { // If the error variable is one, nothing.
+      } else { // So much better isn't it?
+        const fld = args[1]
         try {
           fs.mkdirSync(fld)
           message.reply("`Folder named '"+fld+"' created. Yay.`");
@@ -81,6 +83,7 @@ bot.on('message', message => {
         }
       }
     }
+  }
 });
 
 // Deletes folders; requires the admin role
@@ -93,8 +96,8 @@ bot.on('message', message => {
   if (cmd === 'ddel') {
     var err = 0;
       if (!args[1]) {
-        message.reply("Hey, I couldn't find a folder name ._.")
-        console.log("CloudBot couldn't find a folder argument")
+        message.reply("`Hey, I couldn't find a folder name! ._.`")
+        console.log("CloudBot couldn't find a folder argument in the command")
         err++;
     }
     if (!args[2]) {
@@ -129,8 +132,8 @@ bot.on('message', message => {
   if (cmd === 'cd') {
     var err = 0;
       if (!args[1]) {
-        message.reply("Hey, I couldn't find a folder name ._.")
-        console.log("CloudBot couldn't find a folder argument")
+        message.reply("`Hmmm... that's a folder? ._.`")
+        console.log("CloudBot couldn't find a folder name")
         err++;
       }
       if (!args[2]) {
@@ -251,8 +254,8 @@ bot.on('message', message => {
   if (cmd === 'new') {
     var err = 0;
       if (!args[1]) {
-        message.reply("Where is the folder name? ._.")
-        console.log("CloudBot couldn't find a folder")
+        message.reply("`Where is the file name? ._.`")
+        console.log("CloudBot couldn't find a filename to use")
         err++;
     }
     if (!args[2]) {
@@ -283,8 +286,8 @@ bot.on('message', message => {
   if (cmd === 'del') {
     var err = 0;
       if (!args[1]) {
-        message.reply("Where is the folder name? ._.")
-        console.log("CloudBot couldn't find a folder")
+        message.reply("What is the file name? ._.")
+        console.log("CloudBot couldn't find the file argument")
         err++;
       }
       if (!args[2]) {
@@ -302,10 +305,8 @@ bot.on('message', message => {
           console.log("CloudBot error: Insufficient privileges to delete the file '"+fd+"'");
         }
       } catch (err) {
-        if (!args[0]) {
           message.reply('`Is that a file? ._.`');
           console.log('CloudBot error: File does not exist');
-      }
      }
     }
    }
@@ -322,8 +323,8 @@ bot.on('message', message => {
   if (cmd === 'wr') { // Warning! Overwrites files
     var err = 0;
       if (!args[1]) {
-        message.reply("Where is the folder name? ._.")
-        console.log("CloudBot couldn't find a folder")
+        message.reply("What file should I write to? ._.")
+        console.log("CloudBot couldn't find a file to write to")
         err++;
       }
       if (!args[2]) {
@@ -379,7 +380,7 @@ bot.on('message', message => {
 }
 });
 
-// Ban people who abuse the system (borrowed code from gist: https://bit.ly/3e0xbAT)
+// Ban people who abuse the system (borrowed code from discordjs readme: https://bit.ly/3e0xbAT)
 bot.on('message', message => {
   // Don't worry, I modified the code!
   if (!message.guild) return;
@@ -417,9 +418,9 @@ bot.on('message', message => {
         message.reply("`You didn't mention the user to ban ._.`");
         console.log("CloudBot error: User not mentioned");
       }
-    } // 420th line
+    }
   }
 });
 
 // Insert your token here
-bot.login('token');
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.laJNtxTA7WQj2BCKmW4ZEGKa93Q');
