@@ -9,15 +9,14 @@ have made, which is probably none.
   Click 'New Application', then add an application name like 'FileBot' or something. Then move to the Bot tab and press 'Add Bot'. Now you need to form
 an invite link to join the bot to your server. Press on the 'Learn more about bot users' link, get the example link, and save it somewhere.
   
-  Now we go to the 'General' tab, and copy and paste the application ID into the example link where it says 'client-id?='. Then go back to the Bot tab and scroll
-all the way down to the Permissions section. Select the following:
+  Now we go to the 'General' tab, and copy and paste the application ID into the example link after where it says 'client_id='. Then go back to the Bot tab and scroll all the way down to the Permissions section. Select the following:
   
         - View Channels
         - Ban Members
         - Send Messages
         - Read Message History
 
-  Then copy and paste the Permissions ID into the segment 'permission-id?='. After you have your link, open it in a web browser.
+  Then copy and paste the Permissions ID after the segment 'permissions='. After you have your link, open it in a web browser.
 It will ask which server you want the bot to connect to, then if you accept to all the permissions the bot has.
 
   After that, check if your bot is in the server.
