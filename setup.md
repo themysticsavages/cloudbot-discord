@@ -1,6 +1,5 @@
 # Setup
-  If you feel like there is not a command I am including or if there is a bug I never found (probably not gonna happen), you can modify the bot yourself.
-Plus, you can have a different name or avatar to your bot, so yeah uh follow the steps for a working file server on Discord.
+  If you feel like there is not a command I am including or if I am having server issues, or something, this is how to run CloudBot on your own.
 
 ## Making the app
   Login to the Discord developer [portal](https://discord.com/developers). You sign in with your Discord account. After logging in, it will show the applications you
