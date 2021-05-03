@@ -31,6 +31,7 @@ To get all the commands, type 'c.help'. For more detailed help, type a command '
 ## Features/hotfixes to be added
 
 - __Rename files__
+- Stop users from creating files that are reserved device names (aux, nul, etc.)
 
 ## Current bugs
 
