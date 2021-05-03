@@ -6,11 +6,11 @@
 
 // (c) 2021 themysticsavages
 
-const Discord = require('discord.js'); // Issues installing discord.js in specific operating systems
+const Discord = require('discord.js');
 const fs = require('fs');
 
 const bot = new Discord.Client();
-const prefix = 'c/'; // You can edit the prefix, but the prefix is not applied in every command!
+const prefix = 'c.'; // You can edit the prefix, but the prefix is not applied in every command!
 
 const sub = 'CloudBot';
 console.clear()
@@ -27,7 +27,7 @@ bot.on('message', async message => {
   } else {
     console.log(message.author.username+' > '+message.content)
   }
-  if (message.content === 'c/cclear') {
+  if (message.content === 'c.cclear') {
     if (message.member.hasPermission("ADMINISTRATOR")) {
       console.clear()
       console.info('CloudBot is connected\n---------------------');
@@ -36,7 +36,7 @@ bot.on('message', async message => {
       console.log("CloudBot error: Insufficient privileges to clear console");
     }
   }
-  if (message.content === 'c/clear') {
+  if (message.content === 'c.clear') {
     // I don't know how this deletes everything
     if (message.member.hasPermission("ADMINISTRATOR")) {
     const dmsg = 20
@@ -165,12 +165,12 @@ bot.on('message', message => {
 bot.on('message', message => { // verrry simple code, you don't even need args!
   if (!message.content.startsWith(prefix)) return;
 
-  if (message.content === 'c/ls') {
+  if (message.content === 'c.ls') {
     const fld = './'
 
     fs.readdir(fld, (err, files) => {
         files.forEach(file => {
-        message.reply(file); // It may or may not be spam, but its the only way
+        message.reply(file); // It may or may not be spam, but its the only way to get contents
     })
   })
   }
@@ -178,53 +178,53 @@ bot.on('message', message => { // verrry simple code, you don't even need args!
 
 // A couple of sentient replies for this nice bot
 bot.on('message', message => {
-  if (message.content === 'c/hi') {
+  if (message.content === 'c.hi') {
     message.reply('`hi :)`'); // you know, this is more of a test command to see if the bot is up and running
     console.log("CloudBot said hi to '"+message.author.username+"'");
   }
-  if (message.content === 'c/purpose') {
+  if (message.content === 'c.purpose') {
     message.reply('`I am basically a cloud server for Discord. I am pure Node.JS. Although I may not have that many functions, the cloud server functions make up for this!`');
     console.log("CloudBot told '"+message.author.username+"' about why he exists");
   }
-  if (message.content === 'c/help') {
-    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c/help : prints this message\n  c/hi : Say hi back to you\n  c/purpose : Why I'm here\n  c/cclear : Clears console\n  c/clear : Clears channel (almost)\n\nFile server commands:\n  c/mkdir : Make a folder\n  c/ddel : Delete a folder (admin)\n  c/cd : Change directory\n  c/new : Make a new file with any extension\n  c/del : Delete file (admin)\n  c/ls : List contents of folder\n  c/wr : Write to file (admin)\n  c/rd : Get text from file\n\nModerator commands: (admin)\n  c/ban\n\nFun commands:\n  c/random : Make a random number```" + "**You're welcome**");
+  if (message.content === 'c.help') {
+    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c.help : prints this message\n  c.hi : Say hi back to you\n  c.purpose : Why I'm here\n  c.cclear : Clears console\n  c.clear : Clears channel (almost)\n\nFile server commands:\n  c.mkdir : Make a folder\n  c.ddel : Delete a folder (admin)\n  c.cd : Change directory\n  c.new : Make a new file with any extension\n  c.del : Delete file (admin)\n  c.ls : List contents of folder\n  c.wr : Write to file (admin)\n  c.rd : Get text from file\n\nModerator commands: (admin)\n  c.ban\n  c.cclear : Clears the console (admin)\n  c.clear : Clears a channel (admin)\n\nFun commands:\n  c.random : Make a random number```" + "**You're welcome**");
     console.log("CloudBot gave help to '"+message.author.username+"'");
   }
   
   // Extended help library; a nice touch; had to join code to do MemoryLeak warnings
-  if (message.content === 'c/help/mkdir') {
+  if (message.content === 'c.help.mkdir') {
     message.reply('`\nCreates a directory\nusage: c/mkdir example`'); 
     console.log("CloudBot gave help on making directories to '"+message.author.username+"'");
   }
-  if (message.content === 'c/help/ddel') {
+  if (message.content === 'c.help.ddel') {
     message.reply('`\nRemoves a directory (needs admin role)\nusage: c/ddel example`')
     console.log("CloudBot gave help to '"+message.author.username+"' on removing directories");
   }
-  if (message.content === 'c/help/new') {
+  if (message.content === 'c.help.new') {
     message.reply('`\nMakes a new file with any extension\nusage: c/new example.txt`')
     console.log("CloudBot gave help on how to make files to '"+message.author.username+"'")
   }
-  if (message.content === 'c/help/del') {
+  if (message.content === 'c.help.del') {
     message.reply('`\nDeletes a file (needs admin role)\nusage: c/del example.txt`')
     console.log("CloudBot gave help on deleting files to '"+message.author.username+"'")
   }
-  if (message.content === 'c/help/cd') {
+  if (message.content === 'c.help.cd') {
     message.reply('`\nChanges directory\nusage: c/cd example`')
     console.log("CloudBot gave more help to '"+message.author.username+"' on how to change directories")
   }
-  if (message.content === 'c/help/wr') {
+  if (message.content === 'c.help.wr') {
     message.reply('`\nWrites text to file (needs admin role)\nusage: c/wr example.txt test_file (make sure it is ONE string! multiple string writes will be implemented later)`')
     console.log("CloudBot told '"+message.author.username+"' how to write to files")
   }
-  if (message.content === 'c/help/rd') {
+  if (message.content === 'c.help.rd') {
     message.reply('`\nGets text from file\nusage: c/rd example.txt`')
     console.log("CloudBot helped '"+message.author.username+"' to read from files.")
   }
-  if (message.content === 'c/help/ban') {
+  if (message.content === 'c.help.ban') {
     message.reply('`\nBan a member (needs "Ban members" role) with a default reason\nusage: c/ban @examplemember`')
     console.log("CloudBot told '"+message.author.username+"' how to ban a member")
   }
-  if (message.content === 'c/help/random') {
+  if (message.content === 'c.help.random') {
     message.reply('`\nMake a random number\nusage: c/random 420`')
     console.log("CloudBot told '"+message.author.username+"' how to generate random numbers")
   }
@@ -384,7 +384,7 @@ bot.on('message', message => {
   // Don't worry, I modified the code!
   if (!message.guild) return;
   if (message.member.hasPermission("ADMINISTRATOR")) {
-    if (message.content.startsWith('c/ban')) {
+    if (message.content.startsWith('c.ban')) {
       const user = message.mentions.users.first();
       if (user) { // Resolves user when mentioned in Discord message
         const member = message.guild.members.resolve(user);
