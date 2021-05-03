@@ -3,6 +3,7 @@
 // Best used in a private server among responsible members
 // It was hard adding semi-colons to everything, just to have "better syntax"
 // You're lucky I made this bot open-source!
+// not a lot of people do that
 
 // (c) 2021 themysticsavages
 
@@ -59,30 +60,27 @@ bot.on('message', message => {
   const cmd = args[0].slice(prefix.length).toLowerCase(); 
 
   if (cmd === 'mkdir') {
-    if (!args[1]) {
-      message.reply('`Please specify a folder name next time ._.`');
-      console.log("CloudBot replied to '"+message.author.username+"' to add a folder name");
+    var err = 0;
+      if (!args[1]) {
+        message.reply("Where is the folder name? ._.")
+        console.log("CloudBot couldn't find a folder")
+        err++;
     }
-    if (args[2]) {
-      if (!args[0]) { // I've had issues with the 'too many args' reply, so I muted it
-        message.reply('`Too many arguments. You do know you only add ONE, right?`');
-        console.log("CloudBot replied to '"+message.author.username+"' to add only one argument"); // 69th line
+    if (!args[2]) {
+      if (err == 1) {
+      } else {
+        const fld = args[0]
+        try {
+          fs.mkdirSync(fld)
+          message.reply("`Folder named '"+fld+"' created. Yay.`");
+          console.log("CloudBot created a folder named '"+fld+"'");
+
+        } catch (err) {
+          message.reply('`Aw man, the folder already exists!`');
+          console.log("CloudBot reported that '"+fld+"' already exists");
+        }
       }
     }
-    const fld = args[1] // Makes a variable for args[1] to be more understandable
-
-    try {
-      fs.mkdirSync(fld)
-      message.reply("`Folder named '"+fld+"' created. Yay.`");
-      console.log("CloudBot created a folder named '"+fld+"'");
-
-    } catch (err) {
-      if (!args[0]) {
-        message.reply('`Aw man, the folder already exists!`');
-        console.log("CloudBot reported that '"+fld+"' already exists");
-      }
-    }
-  }
 });
 
 // Deletes folders; requires the admin role
@@ -93,31 +91,29 @@ bot.on('message', message => {
   const cmd = args[0].slice(prefix.length).toLowerCase();
 
   if (cmd === 'ddel') {
-    if (!args[1]) {
-      message.reply('`I think you need a folder name to remove, am i correct? ._.`');
-      console.log("`CloudBot replied to '"+message.author.username+"' to add a folder name`");
+    var err = 0;
+      if (!args[1]) {
+        message.reply("Hey, I couldn't find a folder name ._.")
+        console.log("CloudBot couldn't find a folder argument")
+        err++;
     }
-    if (args[2]) {
-      if (!args[0]) { // Sorry if the code is inconsistent :( it has had many edits
-        message.reply('`Too many arguments. Only ONE is needed.`');
-        console.log("CloudBot replied to '"+message.author.username+"' to add only one argument");
-      }
-    }
-    const dfld = args[1]
-
-    try {
-      if (message.member.hasPermission("ADMINISTRATOR")) {
-        fs.rmdirSync(dfld, { recursive: true })
-        message.reply("`Directory '"+dfld+"' deleted. Hip hip hooray.`");
-        console.log("CloudBot deleted folder named '"+dfld+"'");
+    if (!args[2]) {
+      if (err == 1) {
       } else {
-        message.reply('`You no have admin! The administrator role is required to delete folders.`');
-        console.log("CloudBot error: Insufficient privileges to delete the directory '"+dfld+"'");
-      }
-    } catch (err) {
-      if (!args[0]) {
-        message.reply('`Is that a folder? ._.`');
-        console.log('CloudBot error: Directory does not exist');
+        const dfld = args[1]
+        try {
+          if (message.member.hasPermission("ADMINISTRATOR")) {
+            fs.rmdirSync(dfld, { recursive: true })
+            message.reply("`Directory '"+dfld+"' deleted. Hip hip hooray.`");
+            console.log("CloudBot deleted folder named '"+dfld+"'");
+        } else {
+          message.reply('`You no have admin! The administrator role is required to delete folders.`');
+          console.log("CloudBot error: Insufficient privileges to delete the directory '"+dfld+"'");
+        }
+      } catch (err) {
+          message.reply('`Is that a folder? ._.`');
+          console.log('CloudBot error: Directory does not exist');
+        }
       }
     }
   }
@@ -131,34 +127,35 @@ bot.on('message', message => {
   const cmd = args[0].slice(prefix.length).toLowerCase();
 
   if (cmd === 'cd') {
-    if (!args[1]) {
-      message.reply("`Hmm... what's the folder name? ._.`");
-      console.log("CloudBot replied to '"+message.author.username+"' to add a folder name");
-    }
-    if (args[2]) {
-      message.reply('`Too many arguments. Add ONE argument next time.`');
-      console.log("CloudBot replied to '"+message.author.username+"' to add only one argument");
-    }
-      const cfld = args[1]
-      const substr = 'cloudbot'
-
-    try {
-        process.chdir(cfld)
-        if (process.cwd().includes(substr)) {
-          message.reply("`Changed directory to '"+cfld+"'. *CLAP CLAP*`");
-          console.log("CloudBot went into the directory '"+cfld+"'");
-        } else {
-          process.chdir('cloudbot') // If you change to a directory outside the root folder, then it will go back into the root directory
-          message.reply("`I don't think you can go there!`");
-          console.log('CloudBot error: Access to folders outside root folder is denied\nCloudBot went into the root directory');
-        }
-      } catch (err) {
-      if (!args[0]) {
-        message.reply('`Is that a folder? ._.`');
-        console.log('CloudBot error: Could not find the directory.');
+    var err = 0;
+      if (!args[1]) {
+        message.reply("Hey, I couldn't find a folder name ._.")
+        console.log("CloudBot couldn't find a folder argument")
+        err++;
       }
-    }
-  }
+      if (!args[2]) {
+        if (err == 1) {
+        } else {
+          const cfld = args[1]
+          const substr = 'cloudbot'
+
+      try {
+          process.chdir(cfld)
+          if (process.cwd().includes(substr)) {
+            message.reply("`Changed directory to '"+cfld+"'. *CLAP CLAP*`");
+            console.log("CloudBot went into the directory '"+cfld+"'");
+          } else {
+            process.chdir('cloudbot') // If you change to a directory outside the root folder, then it will go back into the root directory
+            message.reply("`I don't think you can go there!`");
+            console.log('CloudBot error: Access to folders outside root folder is denied\nCloudBot went into the root directory');
+          }
+        } catch (err) {
+            message.reply('`Is that a folder? ._.`');
+            console.log('CloudBot error: Could not find the directory.');
+           }
+         }
+       } 
+     }
 });
 
 // Lists the content of a directory
@@ -252,30 +249,28 @@ bot.on('message', message => {
   const cmd = args[0].slice(prefix.length).toLowerCase();
 
   if (cmd === 'new') {
-    if (!args[1]) {
-      message.reply("`I don't see an filename anywhere... you see one? ._.`");
-      console.log("CloudBot told '"+message.author.username+"' to add an argument");
+    var err = 0;
+      if (!args[1]) {
+        message.reply("Where is the folder name? ._.")
+        console.log("CloudBot couldn't find a folder")
+        err++;
     }
     if (!args[2]) {
-      if (!args[0]) {
-        message.reply('`Too many arguments came to the party, can you take some away?`');
-        console.log("CloudBot replied to '"+message.author.username+"' to use one argument.");
+      if (err == 1) {
+      } else {
+        const f = args[1]
+
+        try {
+            fs.appendFileSync(f, '')
+            message.reply("`File named '"+f+"' created. Woohoo.`");
+            console.log("CloudBot created a file named '"+f+"'");
+        } catch (err) {
+            message.reply('`Aw man, the file already exists!`');
+            console.log('CloudBot error: File already exists');
+          }
+        }
       }
     }
-    const f = args[1]
-
-    try {
-      fs.appendFileSync(f, '')
-      message.reply("`File named '"+f+"' created. Woohoo.`");
-      console.log("CloudBot created a file named '"+f+"'");
-
-    } catch (err) {
-      if (!args[0]) {
-        message.reply('`Aw man, the file already exists!`');
-        console.log('CloudBot error: File already exists');
-      }
-    }
-  }
 });
 
 // Delete files; requires admin role too
@@ -286,33 +281,34 @@ bot.on('message', message => {
   const cmd = args[0].slice(prefix.length).toLowerCase();
 
   if (cmd === 'del') {
-    if (!args[1]) {
-      message.reply("`I don't see an filename anywhere... you see one? ._.`");
-      console.log("CloudBot told '"+message.author.username+"' to add an argument");
-    }
-    if (!args[2]) {
-      if (!args[0]) {
-        message.reply('`Too many arguments came to the party, can you take some away?`');
-        console.log("CloudBot replied to '"+message.author.username+"' to use one argument.");
+    var err = 0;
+      if (!args[1]) {
+        message.reply("Where is the folder name? ._.")
+        console.log("CloudBot couldn't find a folder")
+        err++;
       }
-    }
-    const fd = args[1]
-
-    try {
-      if (message.member.hasPermission("ADMINISTRATOR")) {
-        fs.unlinkSync(fd, { recursive: true })
-        message.reply("File named '"+fd+"' was deleted. Wow.");
-        console.log("CloudBot deleted folder named '"+fd+"'");
+      if (!args[2]) {
+        if (err == 1) {
       } else {
-        message.reply('You no have admin! The administrator role is required to delete files.');
-        console.log("CloudBot error: Insufficient privileges to delete the file '"+fd+"'");
+        const fd = args[1]
+
+        try {
+          if (message.member.hasPermission("ADMINISTRATOR")) {
+          fs.unlinkSync(fd, { recursive: true })
+          message.reply("File named '"+fd+"' was deleted. Wow.");
+          console.log("CloudBot deleted folder named '"+fd+"'");
+        } else {
+          message.reply('You no have admin! The administrator role is required to delete files.');
+          console.log("CloudBot error: Insufficient privileges to delete the file '"+fd+"'");
+        }
+      } catch (err) {
+        if (!args[0]) {
+          message.reply('`Is that a file? ._.`');
+          console.log('CloudBot error: File does not exist');
       }
-    } catch (err) {
-      if (!args[0]) {
-        message.reply('`Is that a file? ._.`');
-        console.log('CloudBot error: File does not exist');
-      }
+     }
     }
+   }
   }
 });
 
@@ -324,57 +320,60 @@ bot.on('message', message => {
   const cmd = args[0].slice(prefix.length).toLowerCase();
 
   if (cmd === 'wr') { // Warning! Overwrites files
-    if (!args[1]) {
-      message.reply('`Where is the file and the text? ._.`');
-      console.log("CloudBot told '"+message.author.username+"' to add 2 arguments");
-    }
-    if (!args[2]) {
-      if (!args[0]) {
-      message.reply('`Include the text to write next time ._.`');
-      console.log("CloudBot asked '"+message.author.username+"' to add another argument");
+    var err = 0;
+      if (!args[1]) {
+        message.reply("Where is the folder name? ._.")
+        console.log("CloudBot couldn't find a folder")
+        err++;
       }
-    }
-    const fw = args[1]
-    const wr = args[2]
-
-    try {
-      if (message.member.hasPermission("ADMINISTRATOR")) {
-        fs.writeFileSync(fw, wr)
-        message.reply("`Wrote to '"+fw+"'. Impressive.`")
-        console.log("CloudBot wrote to '"+fw+"'")
+      if (!args[2]) {
+        if (err == 1) {
       } else {
-        message.reply('You no have admin! The administrator role is required to delete files.');
-        console.log("CloudBot error: Insufficient privileges to write to file '"+fw+"'");
-      }
-    } catch (err) {
-      if (!args[0]) {
-        message.reply('`Is that a file? ._.`');
-        console.log('CloudBot error: File does not exist');
+        const fw = args[1]
+        const wr = args[2]
+
+        try {
+          if (message.member.hasPermission("ADMINISTRATOR")) {
+            fs.writeFileSync(fw, wr)
+            message.reply("`Wrote to '"+fw+"'. Impressive.`")
+            console.log("CloudBot wrote to '"+fw+"'")
+          } else {
+            message.reply('You no have admin! The administrator role is required to delete files.');
+            console.log("CloudBot error: Insufficient privileges to write to file '"+fw+"'");
+          }
+        } catch (err) {
+          if (!args[0]) {
+            message.reply('`Is that a file? ._.`');
+            console.log('CloudBot error: File does not exist');
+          }
+        }
       }
     }
-  } 
+  }
+  
   // Return command, joined this
   if (cmd === 'rd') {
-    if (!args[1]) {
-      message.reply('`Where is the file and the text? ._.`');
-      console.log("CloudBot told '"+message.author.username+"' to add 2 arguments");
-    }
-    if (!args[2]) {
-      if (!args[0]) {
-      message.reply('`Too many arguments. Add ONE argument next time.`');
-      console.log("CloudBot replied to '"+message.author.username+"' to add only one argument");
+    var err = 0;
+      if (!args[1]) {
+        message.reply("Where is the folder name? ._.")
+        console.log("CloudBot couldn't find a folder")
+        err++;
       }
-    }
-    const rd = args[1]
+      if (!args[2]) {
+        if (err == 1) {
+      } else {
+        const rd = args[1]
 
-    try { // the only part which took time to make
-      const content = await fs.readFile(rd, 'utf-8');
-      message.reply('`'+`Contents of ${rd}`+'`\n`'+`${content}`+'`')
-    } catch (error) {
-      if (error.code === 'ENOENT') {
-        console.log('`Where is that file? ._.`');
-    } else {
-      throw err;
+        try { // the only part which took time to make
+          const content = await; fs.readFile(rd, 'utf-8');
+          message.reply('`'+`Contents of ${rd}`+'`\n`'+`${content}`+'`')
+        } catch (error) {
+          if (error.code === 'ENOENT') {
+            console.log('`Where is that file? ._.`');
+        } else {
+          throw err;
+        }
+      }
     }
   }
 }
