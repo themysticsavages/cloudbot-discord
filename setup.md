@@ -1,6 +1,6 @@
 # Setup
   If you feel like there is not a command I am including or if there is a bug I never found (probably not gonna happen), you can modify the bot yourself.
-Plus, you can have a different name or avatar to your bot, so go ahead and follow the steps.
+Plus, you can have a different name or avatar to your bot, so yeah uh follow the steps for a working file server on Discord.
 
 ## Making the app
   Login to the Discord developer [portal](https://discord.com/developers). You sign in with your Discord account. After logging in, it will show the applications you
@@ -17,7 +17,7 @@ an invite link to join the bot to your server. Press on the 'Learn more about bo
         - Read Message History
 
   Then copy and paste the Permissions ID after the segment 'permissions='. After you have your link, open it in a web browser.
-It will ask which server you want the bot to connect to, then if you accept to all the permissions the bot has.
+It will ask which server you want the bot to connect to, and if you accept to all the permissions the bot has.
 
   After that, check if your bot is in the server.
 ## Making the bot functional
@@ -32,6 +32,6 @@ token is secret, so keep out of the eyes of the public!
         CloudBot is connected
         ---------------------
         
-  Then, it will log any commands you enter below the line. Type in c/help to get all the commands the bot has to offer.
+  Then, it will log any commands any person enters or anyone's messages below the line. Type in c.help to get all the commands the bot has to offer.
 ## Modifying the bot
-  Now that you know that the bot actually works, you can modify it to include whatever you want.
+  Now that you know that the bot actually works, you can modify it to include whatever you want, like kicking members, stopping them from sending messages in channels (which I will probably add), and much more
