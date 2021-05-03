@@ -23,7 +23,7 @@ For now, most functions can be done by anyone, however, __deleting__ files and f
 
 ## Usage
 
-To get all the commands, type 'c/help'. For more detailed help, type a command 'c/help/' and add a command name like 'random'.
+To get all the commands, type 'c/help'. For more detailed help, type a command 'c.help.' and add a command name like 'random'.
 
 ## Recently added features
 
@@ -37,4 +37,4 @@ To get all the commands, type 'c/help'. For more detailed help, type a command '
 
 ## Current bugs
 
-- Returning text returns *null* instead of actual text (solution found)
+*No bugs. List bugs in issues*
