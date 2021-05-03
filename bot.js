@@ -316,14 +316,14 @@ bot.on('message', message => {
   }
 });
 
-// Writing text to files and returning text; pretty clean code if I do say so myself
+// Writing text to files and returning text; pretty clean code if I do say so myself; you can also make files with this too
 bot.on('message', message => {
   if (!message.content.startsWith(prefix)) return;
 
   const args = message.content.trim().split(/ +/g);
   const cmd = args[0].slice(prefix.length).toLowerCase();
 
-  if (cmd === 'wr') {
+  if (cmd === 'wr') { // Warning! Overwrites files
     if (!args[1]) {
       message.reply('`Where is the file and the text? ._.`');
       console.log("CloudBot told '"+message.author.username+"' to add 2 arguments");
