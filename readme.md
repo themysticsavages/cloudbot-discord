@@ -1,8 +1,7 @@
 #
 ![insert picture here]()
 
-###### Running cloudbot in a channel in a Discord server (mind the image, it does not have the right command names)
-#
+###### Running cloudbot in a channel in a Discord server
 # Information
 
 cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. This bot is officially in a stable release, and it supports file and folder management, banning members, and many other pointless commands.
