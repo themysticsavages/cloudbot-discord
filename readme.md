@@ -6,8 +6,6 @@
 
 cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. This bot is officially in a stable release, and it supports file and folder management, banning members, and many other pointless commands.
 
-You can write to files now, but only one line and one string, plus you can't use "" (still kinda bad but ok)
-
 ## Requirements
 
 You need NodeJS and the npm module 'discordjs'.
