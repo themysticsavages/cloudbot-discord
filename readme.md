@@ -35,4 +35,4 @@ To get all the commands, type 'c.help'. For more detailed help, type a command '
 
 ## Current bugs
 
-*No bugs. List bugs in issues*
+- ```Major``` : __Writing and reading files does nothing__
