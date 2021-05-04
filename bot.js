@@ -193,39 +193,39 @@ bot.on('message', message => {
   
   // Extended help library; a nice touch; had to join code to do MemoryLeak warnings
   if (message.content === 'c.help.mkdir') {
-    message.reply('`\nCreates a directory\nusage: c/mkdir example`'); 
+    message.reply('`\nCreates a directory\nusage: c.mkdir example`'); 
     console.log("CloudBot gave help on making directories to '"+message.author.username+"'");
   }
   if (message.content === 'c.help.ddel') {
-    message.reply('`\nRemoves a directory (needs admin role)\nusage: c/ddel example`')
+    message.reply('`\nRemoves a directory (needs admin role)\nusage: c.ddel example`')
     console.log("CloudBot gave help to '"+message.author.username+"' on removing directories");
   }
   if (message.content === 'c.help.new') {
-    message.reply('`\nMakes a new file with any extension\nusage: c/new example.txt`')
+    message.reply('`\nMakes a new file with any extension\nusage: c.new example.txt`')
     console.log("CloudBot gave help on how to make files to '"+message.author.username+"'")
   }
   if (message.content === 'c.help.del') {
-    message.reply('`\nDeletes a file (needs admin role)\nusage: c/del example.txt`')
+    message.reply('`\nDeletes a file (needs admin role)\nusage: c.del example.txt`')
     console.log("CloudBot gave help on deleting files to '"+message.author.username+"'")
   }
   if (message.content === 'c.help.cd') {
-    message.reply('`\nChanges directory\nusage: c/cd example`')
+    message.reply('`\nChanges directory\nusage: c.cd example`')
     console.log("CloudBot gave more help to '"+message.author.username+"' on how to change directories")
   }
   if (message.content === 'c.help.wr') {
-    message.reply('`\nWrites text to file (needs admin role)\nusage: c/wr example.txt test_file (make sure it is ONE string! multiple string writes will be implemented later)`')
+    message.reply('`\nWrites text to file (needs admin role)\nusage: c.wr example.txt test_file (make sure it is ONE string! multiple string writes will be implemented later)`')
     console.log("CloudBot told '"+message.author.username+"' how to write to files")
   }
   if (message.content === 'c.help.rd') {
-    message.reply('`\nGets text from file\nusage: c/rd example.txt`')
+    message.reply('`\nGets text from file\nusage: c.rd example.txt`')
     console.log("CloudBot helped '"+message.author.username+"' to read from files.")
   }
   if (message.content === 'c.help.ban') {
-    message.reply('`\nBan a member (needs "Ban members" role) with a default reason\nusage: c/ban @examplemember`')
+    message.reply('`\nBan a member (needs "Ban members" role) with a default reason\nusage: c.ban @examplemember`')
     console.log("CloudBot told '"+message.author.username+"' how to ban a member")
   }
   if (message.content === 'c.help.random') {
-    message.reply('`\nMake a random number\nusage: c/random 420`')
+    message.reply('`\nMake a random number\nusage: c.random 420`')
     console.log("CloudBot told '"+message.author.username+"' how to generate random numbers")
   }
 
@@ -315,31 +315,92 @@ bot.on('message', message => {
 
 // Writing text to files and returning text; pretty clean code if I do say so myself; you can also make files with this too
 bot.on('message', message => {
-  if (!message.content.startsWith(prefix)) return;
-  
   const args = message.content.trim().split(/ +/g);
   const cmd = args[0].slice(prefix.length).toLowerCase();
 
   if (cmd === 'write') {
-   if (!message.startsWith(prefix)) return;
+    var err = 0;
+    if (!args[1]) {
+      message.reply("`What file should I write? ._.`")
+      console.log("CloudBot couldn't find any arguments")
+      err++
+    }
+    if (args[2]) {
+      const fw = args[1]
+      const ct = args[2]
 
-   var err = 0; // dang i hope this works
-   if (!args[0]) {
-    message.reply('Where are the arguments? ._.');;
-    console.log('CloudBot could not find any arguments');
-    err++
-   }
-   if (err == 1) {
-   } else {
-     const file = args[1]
-     const text = args[2]
-     
-     fs.writeFileSync(file, text)
-     message.reply('`Wrote to `'+'`'+`${file}`+' sucessfully. Yay.`')
-     console.log("CloudBot wrote to '"+file+"'")
-   }
+      fs.writeFileSync(fw, ct, err => {
+        if (err) {
+          message.reply("Oh no! Not an unknown error!")
+          console.log("CloudBot error: Unrecognized error")
+          return;
+        }
+      });
+      message.reply("`Wrote to "+`'${fw}'`+" successfully. Yay`")
+      console.log("CloudBot wrote to '"+fw+"'")
+    }
+  }
+  if (cmd === 'read') {
+    var err = 0;
+    if (args[1]) {
+      if (err == 0) {
+        const rd = args[1]
+        try {
+          const data = fs.readFileSync(rd, 'utf8')
+          message.reply("`\nContents of '"+rd+"':\n"+data+"`")
+        } catch (err) {
+          message.reply("Where is that file? .-.")
+          console.log("CloudBot error: File doesn't exist")
+        }
+      }
+    } else {
+      message.reply('`Where did you put the file argument? ._.`')
+      console.log('CloudBot failed to find an argument')
+    }
+  }
+});
+
+// Ban people who abuse the system (borrowed code from discordjs readme: https://bit.ly/3e0xbAT)
+bot.on('message', message => {
+  // Don't worry, I modified the code!
+  if (!message.guild) return;
+  if (message.member.hasPermission("ADMINISTRATOR")) {
+    if (message.content.startsWith('c.ban')) {
+      const user = message.mentions.users.first();
+      if (user) { // Resolves user when mentioned in Discord message
+        const member = message.guild.members.resolve(user);
+        if (user.id === message.author.id) {
+          // Some protection
+          message.reply('**No**');
+          console.log('CloudBot stopped '+message.author.username+' from banning him/herself');
+        };
+        if (member) {
+          member
+            .ban({
+              // insert reason here
+              reason: "I wouldn't ban you without a reason! It's probably because the mods noticed that you were abusing the file system in some kind of way.",
+            })
+            .then(() => { // haha spammer go bye bye
+              message.reply(`Banned ${user.tag}. *F to pay respects*`);
+              console.log(`CloudBot banned ${user.tag}`);
+            })
+            .catch(err => {
+              // In case you have a dumb admin on your server...
+              message.reply('`Not today, thank you`');
+              console.log("CloudBot protected himself from getting banned by "+message.author.username);
+            });
+        } else {
+          // .-.
+          message.reply("`That user isn't in this guild ._.`");
+          console.log("CloudBot error: User does not exist");
+        }
+      } else {
+        message.reply("`You didn't mention the user to ban ._.`");
+        console.log("CloudBot error: User not mentioned");
+      }
+    }
   }
 });
 
 // Insert your token here
-bot.login('token');
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.ZQk-e6hTQyUjO-scqcAaWOQ2Cac');
