@@ -316,109 +316,28 @@ bot.on('message', message => {
 // Writing text to files and returning text; pretty clean code if I do say so myself; you can also make files with this too
 bot.on('message', message => {
   if (!message.content.startsWith(prefix)) return;
-
+  
   const args = message.content.trim().split(/ +/g);
   const cmd = args[0].slice(prefix.length).toLowerCase();
 
-  if (cmd === 'wr') { // Warning! Overwrites files
-    var err = 0;
-      if (!args[1]) {
-        message.reply("What file should I write to? ._.")
-        console.log("CloudBot couldn't find a file to write to")
-        err++;
-      }
-      if (!args[2]) {
-        if (err == 1) {
-      } else {
-        const fw = args[1]
-        const wr = args[2]
+  if (cmd === 'write') {
+   if (!message.startsWith(prefix)) return;
 
-        try {
-          if (message.member.hasPermission("ADMINISTRATOR")) {
-            fs.writeFileSync(fw, wr)
-            message.reply("`Wrote to '"+fw+"'. Impressive.`")
-            console.log("CloudBot wrote to '"+fw+"'")
-          } else {
-            message.reply('You no have admin! The administrator role is required to delete files.');
-            console.log("CloudBot error: Insufficient privileges to write to file '"+fw+"'");
-          }
-        } catch (err) {
-          if (!args[0]) {
-            message.reply('`Is that a file? ._.`');
-            console.log('CloudBot error: File does not exist');
-          }
-        }
-      }
-    }
-  }
-  
-  // Return command, joined this
-  if (cmd === 'rd') {
-    var err = 0;
-      if (!args[1]) {
-        message.reply("Where is the folder name? ._.")
-        console.log("CloudBot couldn't find a folder")
-        err++;
-      }
-      if (!args[2]) {
-        if (err == 1) {
-      } else {
-        const rd = args[1]
-
-        try { // the only part which took time to make
-          const content = await; fs.readFile(rd, 'utf-8');
-          message.reply('`'+`Contents of ${rd}`+'`\n`'+`${content}`+'`')
-        } catch (error) {
-          if (error.code === 'ENOENT') {
-            console.log('`Where is that file? ._.`');
-        } else {
-          throw err;
-        }
-      }
-    }
-  }
-}
-});
-
-// Ban people who abuse the system (borrowed code from discordjs readme: https://bit.ly/3e0xbAT)
-bot.on('message', message => {
-  // Don't worry, I modified the code!
-  if (!message.guild) return;
-  if (message.member.hasPermission("ADMINISTRATOR")) {
-    if (message.content.startsWith('c.ban')) {
-      const user = message.mentions.users.first();
-      if (user) { // Resolves user when mentioned in Discord message
-        const member = message.guild.members.resolve(user);
-        if (user.id === message.author.id) {
-          // Some protection
-          message.reply('**No**');
-          console.log('CloudBot stopped '+message.author.username+' from banning him/herself');
-        };
-        if (member) {
-          member
-            .ban({
-              // insert reason here
-              reason: "I wouldn't ban you without a reason! It's probably because the mods noticed that you were abusing the file system in some kind of way.",
-            })
-            .then(() => { // haha spammer go bye bye
-              message.reply(`Banned ${user.tag}. *F to pay respects*`);
-              console.log(`CloudBot banned ${user.tag}`);
-            })
-            .catch(err => {
-              // In case you have a dumb admin on your server...
-              message.reply('`Not today, thank you`');
-              console.log("CloudBot protected himself from getting banned by "+message.author.username);
-            });
-        } else {
-          // .-.
-          message.reply("`That user isn't in this guild ._.`");
-          console.log("CloudBot error: User does not exist");
-        }
-      } else {
-        message.reply("`You didn't mention the user to ban ._.`");
-        console.log("CloudBot error: User not mentioned");
-      }
-    }
+   var err = 0; // dang i hope this works
+   if (!args[0]) {
+    message.reply('Where are the arguments? ._.');;
+    console.log('CloudBot could not find any arguments');
+    err++
+   }
+   if (err == 1) {
+   } else {
+     const file = args[1]
+     const text = args[2]
+     
+     fs.writeFileSync(file, text)
+     message.reply('`Wrote to `'+'`'+`${file}`+' sucessfully. Yay.`')
+     console.log("CloudBot wrote to '"+file+"'")
+   }
   }
 });
 
