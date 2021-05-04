@@ -1,5 +1,7 @@
 <p align="center">
+  <a href="https://google.com">
   <img src="http://shields.io/badge/Sources-ZIP-blue">
+  <a href="https://wow.com">
   <img src="http://shields.io/badge/Sources-TARGZ-green">
 </p>
 
