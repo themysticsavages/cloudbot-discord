@@ -1,5 +1,9 @@
+<p align="center">
+  <img src="http://shields.io/badge/Sources-ZIP-blue">
+  <img src="http://shields.io/badge/Sources-TARGZ-green">
+</p>
+
 #
-![.](https://google.com)
 
 ###### Running cloudbot in a channel in a Discord server
 # Information
