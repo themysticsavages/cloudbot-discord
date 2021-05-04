@@ -17,7 +17,7 @@
   
   <br>
   
-  <a href="">
+  <a href="about:blank">
   <img src="https://img.shields.io/badge/development-release-red?style=plastic">
   
   <a href="https://github.com/themysticsavages/cloudbot-discord/blob/main/LICENSE">
