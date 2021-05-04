@@ -10,8 +10,18 @@
   <a href="https://codeload.github.com/themysticsavages/cloudbot-discord/tar.gz/refs/heads/main">
   <img src="http://shields.io/badge/source--code-TARGZ-green?style=plastic">
   
+  <br>
+  
   <a href="https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612">
-  <img src="https://img.shields.io/badge/%20-Join%20on%20Discord-blue?style=plastic">
+  <img src="https://img.shields.io/badge/%20-Put%20me%20in%20your%20server-blue?style=plastic">
+  
+  <br>
+  
+  <a href="https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612">
+  <img src="https://img.shields.io/badge/development-release-red?style=plastic">
+  
+  <a href="https://github.com/themysticsavages/cloudbot-discord/blob/main/LICENSE">
+  <img src="https://img.shields.io/badge/license-mit-yellow?style=plastic">
 </p>
 
 #
