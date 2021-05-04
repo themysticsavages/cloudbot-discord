@@ -7,6 +7,8 @@
 
 #
 
+![running](https://github.com/ajskateboarder/stuff/blob/main/cloudbot-discord-running.PNG)
+
 ###### Running cloudbot in a channel in a Discord server
 # Information
 
