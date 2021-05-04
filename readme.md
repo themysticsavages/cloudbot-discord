@@ -1,8 +1,17 @@
+<h1 align="center">
+  <br>
+  <b>CloudBot - a file server for Discord</b>
+</h1>
+
 <p align="center">
   <a href="https://codeload.github.com/themysticsavages/cloudbot-discord/zip/refs/heads/main">
-  <img src="http://shields.io/badge/Sources-ZIP-blue">
+  <img src="http://shields.io/badge/source--code-ZIP-blue?style=plastic">
+    
   <a href="https://codeload.github.com/themysticsavages/cloudbot-discord/tar.gz/refs/heads/main">
-  <img src="http://shields.io/badge/Sources-TARGZ-green">
+  <img src="http://shields.io/badge/source--code-TARGZ-green?style=plastic">
+  
+  <a href="https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612">
+  <img src="https://img.shields.io/badge/%20-Join%20on%20Discord-blue?style=plastic">
 </p>
 
 #
@@ -18,7 +27,7 @@ cloudbot-discord is a file server for Discord. It is best used in a __private Di
 
 You need NodeJS and the npm module 'discordjs'.
 
-If you want to use the bot in Discord, link it to a server of yours [here](https://discord.com/api/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68608). I have a virtual server now which runs the bot, so that's great. It has 16 GB of storage and a 4th gen Core i5 single core processor, which is good. Although it may not be online everyday, it is mostly online.
+If you want to use the bot in Discord, link it to a server of yours above. I have a virtual server now which runs the bot, so that's great. It has 16 GB of storage and a 4th gen Core i5 single core processor, which is good. Although it may not be online everyday, it is mostly online.
 
 If you want to run a modified version of the bot, read [setup.md](https://github.com/themysticsavages/cloudbot-discord/blob/main/setup.md).
 
