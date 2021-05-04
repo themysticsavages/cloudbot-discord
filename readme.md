@@ -1,7 +1,7 @@
 <p align="center">
-  <a href="https://google.com">
+  <a href="https://codeload.github.com/themysticsavages/cloudbot-discord/zip/refs/heads/main">
   <img src="http://shields.io/badge/Sources-ZIP-blue">
-  <a href="https://wow.com">
+  <a href="https://codeload.github.com/themysticsavages/cloudbot-discord/tar.gz/refs/heads/main">
   <img src="http://shields.io/badge/Sources-TARGZ-green">
 </p>
 
