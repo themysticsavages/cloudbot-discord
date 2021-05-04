@@ -41,4 +41,4 @@ To get all the commands, type 'c.help'. For more detailed help, type a command '
 
 ## Current bugs
 
-- ```Major``` : __Writing and reading files does nothing__
+*None. List bugs in Issues if any*
