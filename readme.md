@@ -53,9 +53,7 @@ To get all the commands, type 'c.help'. For more detailed help, type a command '
 
 ## Recently added features
 
-- __Clear the console window__
-- Clear an entire channel (almost)
-- Make a random number
+- __Add-ons__
 
 ## Features/hotfixes to be added
 
