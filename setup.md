@@ -28,7 +28,7 @@ token is secret, so keep out of the eyes of the public!
 
   Then run `replace.py`, and paste the token into the input. This Python file replaces the text `token` at the bottom of `bot.js` with your token. You need Python to run replace.py, but you probably have it anyway. If you don't have Python, you can manually insert the token into the bot file. 
   
-  Finally, run it with Node `node bot`. You will see the text:
+  Finally, run it with `node bot` in some terminal or PowerShell window. You will see the text:
   
   ```
   CloudBot is connected
