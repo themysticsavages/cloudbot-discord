@@ -403,4 +403,4 @@ bot.on('message', message => {
 });
 
 // Insert your token here
-bot.login('token');
+bot.login('bot_token');
