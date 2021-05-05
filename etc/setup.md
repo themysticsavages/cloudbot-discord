@@ -2,11 +2,10 @@
   If you feel like there is not a command I am including or if I am having server issues, or something, this is how to run CloudBot on your own.
 
 ## Making the app
-  Login to the Discord developer [portal](https://discord.com/developers). You sign in with your Discord account. After logging in, it will show the applications you
+  Login to the Discord developer [portal](https://discord.com/developers) and sign in with your Discord account. After logging in, it will show the applications you
 have made, which is probably none.
 
-  Click 'New Application', then add an application name like 'FileBot' or something. Then move to the Bot tab and press 'Add Bot'. Now you need to form
-an invite link to join the bot to your server. Press on the 'Learn more about bot users' link, get the example link, and save it somewhere.
+  Click 'New Application', then add an application name. This can be whatever you want, if I will be honest. Then move to the Bot tab and press 'Add Bot'. Now you need to form an invite link to join the bot to your server. Press on the 'Learn more about bot users' link, get the example link, and save it somewhere.
   
   Now we go to the 'General' tab, and copy and paste the application ID into the example link after where it says 'client_id='. Then go back to the Bot tab and scroll all the way down to the Permissions section. Select the following:
   
@@ -26,9 +25,7 @@ Then open the file in some kind of text-editor and scroll down to the bottom whe
   You need to put in an ACTUAL token so it can login. For that, go to the Bot section in the Discord Developer Portal and copy the token. Remember that this
 token is secret, so keep out of the eyes of the public!
 
-  Then run `replace.py`, and paste the token into the input. This Python file replaces the text `token` at the bottom of `bot.js` with your token. You need Python to run replace.py, but you probably have it anyway. If you don't have Python, you can manually insert the token into the bot file. 
-  
-  Finally, run it with `node bot` in some terminal or PowerShell window. You will see the text:
+  Then run `run.bat` (I will make an shell script accomplishing the same thing as well). This small and dependent script asks for the token, which you can paste into the input, then it will run the js file and you will see the text:
   
   ```
   CloudBot is connected
