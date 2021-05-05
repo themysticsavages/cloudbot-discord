@@ -25,7 +25,7 @@ Then open the file in some kind of text-editor and scroll down to the bottom whe
   You need to put in an ACTUAL token so it can login. For that, go to the Bot section in the Discord Developer Portal and copy the token. Remember that this
 token is secret, so keep out of the eyes of the public!
 
-  Then run `run.bat` (I will make an shell script accomplishing the same thing as well). This small and dependent script asks for the token, which you can paste into the input, then it will run the js file and you will see the text:
+  Then go into the `bin` directory and run either `run.bat` or `run.sh`. Both scripts ask for a token and run the bot.js file with that token inserted
   
   ```
   CloudBot is connected
