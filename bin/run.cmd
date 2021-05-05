@@ -4,7 +4,7 @@ echo Replaces text in bot.js and runs it. Continue?
 pause
 cd ..
 
-cd etc
+cd setup
 cls
 
 py replace.py
