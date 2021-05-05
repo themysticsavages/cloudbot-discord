@@ -21,16 +21,18 @@ It will ask which server you want the bot to connect to, and if you accept to al
   After that, check if your bot is in the server.
 ## Making the bot functional
   Of course the bot doesn't do anything because there is no function running for it. For that, go get the bot.js file from [here](https://github.com/themysticsavages/cloudbot-discord).
-Then open the file in some kind of text-editor and scroll down to the bottom where it says ``` bot.login('token')```. 
+Then open the file in some kind of text-editor and scroll down to the bottom where it says `bot.login('token')`. 
 
   You need to put in an ACTUAL token so it can login. For that, go to the Bot section in the Discord Developer Portal and copy the token. Remember that this
 token is secret, so keep out of the eyes of the public!
 
-  Replace the text 'token' in the bot.js file with the copied token. Finally, you can run the bot. It will spit out the text:
+  Then run `replace.py`, and paste the token into the input. This Python file replaces the text `token` at the bottom of `bot.js` with your token. You need Python to run replace.py, but you probably have it anyway. If you don't have Python, you can manually insert the token into the bot file. 
   
-        CloudBot is connected
-        ---------------------
-        
-  Then, it will log any commands any person enters or anyone's messages below the line. Type in c.help to get all the commands the bot has to offer.
+  Finally, run it with Node `node bot`. You will see the text:
+  
+  ```
+  CloudBot is connected
+  ---------------------
+  ```
 ## Modifying the bot
   Now that you know that the bot actually works, you can modify it to include whatever you want, like kicking members, stopping them from sending messages in channels (which I will probably add), and much more
