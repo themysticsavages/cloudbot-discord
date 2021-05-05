@@ -41,7 +41,7 @@ You need NodeJS and the npm module 'discordjs'.
 
 If you want to use the bot in Discord, link it to a server of yours above. I have a virtual server now which runs the bot, so that's great. It has 16 GB of storage and a 4th gen Core i5 single core processor, which is good. Although it may not be online everyday, it is mostly online.
 
-[Read setup.md](https://github.com/themysticsavages/cloudbot-discord/blob/main/etc/setup.md) if you want to self-host the bot.
+[Read setup.md](https://github.com/themysticsavages/cloudbot-discord/blob/main/etc/README.md) if you want to self-host the bot.
 
 ## Role usage
 
