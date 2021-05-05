@@ -23,7 +23,7 @@
   <a href="https://github.com/themysticsavages/cloudbot-discord/blob/main/LICENSE">
   <img src="https://img.shields.io/badge/license-mit-yellow?style=plastic">
   
-  <a href="https://github.com/themysticsavages/cloudbot-discord/blob/main/setup.md">
+  <a href="https://github.com/themysticsavages/cloudbot-discord/etc/blob/main/setup.md">
 </p>
 
 #
