@@ -1,0 +1,22 @@
+{
+  "name": "cloudbot-discord",
+  "version": "1.0.0",
+  "description": "A file manager/server for Discord",
+  "main": "bot.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/themysticsavages/cloudbot-discord.git"
+  },
+  "keywords": [
+    "c."
+  ],
+  "author": "ajskateboarder",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/themysticsavages/cloudbot-discord/issues"
+  },
+  "homepage": "https://github.com/themysticsavages/cloudbot-discord#readme"
+}
