@@ -8,7 +8,7 @@ echo 'This will replace the text in node.js and run it.'
 pause 'Continue?' 
 
 cd ..
-cd etc
+cd setup
 
 clear
 py replace.py
