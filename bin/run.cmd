@@ -1,17 +1,16 @@
 @echo off
-
 echo Replaces text in bot.js and runs it. Continue?
-pause
 
-cls
+pause
+cd ..
 
 cd etc
+cls
+
 py replace.py
-
-cls
-
 pause
-cls
 
+cls
 cd ..
-node bot.js
+
+node bot
