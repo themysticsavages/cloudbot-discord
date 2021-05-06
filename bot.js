@@ -10,6 +10,9 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 
+const spawn = require("child_process").spawn;
+const addon = require('./addons.json')
+
 const bot = new Discord.Client();
 const prefix = 'c.'; // You can edit the prefix, but the prefix is not applied in every command!
 // For example, the help library at line 179 - 229 doesn't use the prefix
@@ -159,20 +162,16 @@ bot.on('message', message => {
          }
        } 
      }
-});
-
-// Lists the content of a directory
-bot.on('message', message => { // verrry simple code, you don't even need args!
-  if (!message.content.startsWith(prefix)) return;
+  // Lists the content of a directory (small, but important)
 
   if (message.content === 'c.ls') {
-    const fld = './'
-
+    const fld = './' // verrry simple code, you don't even need args!
+  
     fs.readdir(fld, (err, files) => {
         files.forEach(file => {
         message.reply(file); // It may or may not be spam, but its the only way to get contents
     })
-  })
+   })
   }
 });
 
@@ -402,5 +401,43 @@ bot.on('message', message => {
   }
 });
 
+// These are just dependent functions from here
+bot.on('message', message => {
+  if (!message.content.startsWith(prefix)) return;
+
+  const args = message.content.trim().split(/ +/g);
+  const cmd = args[0].slice(prefix.length).toLowerCase(); 
+
+  if (cmd === 'ytg') {
+    var err = 0
+    if (!args[1]) {
+      message.reply('`Include a search next time ._.`')
+      err++
+    }
+    if (err == 1) {
+    } else {
+      if (addon.youtubeget == 'true') {
+        text = args[1]
+        const pyproc = spawn('py',["./addons/youtubeget/get.py", text])
+        fs.readFile('./addons/youtubeget/TMP', 'utf8' , (err, data) => {
+          if (err) {
+            return
+          }
+        message.channel.send('**Warning: Video feature is in Alpha**\n'+data)
+        console.log('CloudBot gave video from search '+text)
+      })
+      } else {
+          if (addon.youtubeget == 'false') {
+            message.reply("Hey, this addon isn't enabled! ._.")
+            console.log('CloudBot saw that the youtubeget addon was not enabled')
+          } else {
+            message.reply('Incorrect status')
+            console.log('CloudBot error: addons.json has incorrect syntax')
+        }
+      }
+    }
+  }
+});
+
 // Insert your token here
-bot.login('bot_token');
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.I0-C5uULrsUE6VuVdtM65NpyoUE');
