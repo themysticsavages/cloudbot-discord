@@ -1,3 +1,4 @@
+# YouTubeGet addon for CloudBot. Get YouTube video URLs with a simple command (c.ytg video)
 import urllib.request, re, sys, os
 
 LOCAL = '\\'.join(__file__.split('\\')[0:-1])
