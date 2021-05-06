@@ -11,7 +11,7 @@ cd ..
 cd setup
 
 clear
-py replace.py
+python3 replace.py
 
 pause 'Continue?'
 cd ..
