@@ -33,7 +33,7 @@
 ###### Running cloudbot in a channel in a Discord server
 # Information
 
-cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. ~~This bot is officially in a stable release~~ Nah, it isn't anywhere near stable. It supports file and folder management, banning members, and many other pointless commands.
+cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. ~~This bot is officially in a stable release~~ Nah, it isn't anywhere near stable. It supports file and folder management, banning members, and many other pointless commands. And some addons, as well.
 
 ## Requirements
 
@@ -62,7 +62,7 @@ Addons, like YoutubeGet, are tiny Python extensions which are added on to the ma
 ## Features/hotfixes to be added
 
 - __Rename files__
-- Stop users from creating files that are reserved device names for servers in Windows (aux, nul, etc.)
+- File reserved addon for servers on Windows (stop users from making device reserved files) 
 
 ## Current bugs
 
