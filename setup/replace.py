@@ -1,4 +1,8 @@
 # Simple text replacer for bot thing
+import os
+LOCAL = '\\'.join(__file__.split('\\')[0:-1])
+os.chdir(LOCAL)
+os.chdir('..')
 
 file = 'bot.js'
 token = input('Enter your token here: ')
