@@ -53,7 +53,7 @@ To get all the commands, type 'c.help'. For more detailed help, type a command '
 
 ## Addons
 
-Addons, like YoutubeGet, are tiny Python extensions which are added on to the main bot. It is much simpler to do then incorperate every single piece of code with the bot. If you want a specific extension configuration, you can add and remove extensions by setting extensions in the `addons.json` to either `true` or `false`.
+Addons, like YoutubeGet, are tiny Python extensions which are added on to the main bot. It is much simpler to do then incorperate every single piece of code with the bot. If you want a specific extension configuration, you can add and remove extensions by setting extensions in `addons.json` to either `true` or `false`.
 
 ## Recently added features
 
