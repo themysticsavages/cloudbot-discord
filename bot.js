@@ -10,7 +10,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 
-const spawn = require("child_process").spawn;
 const addon = require('./addons.json')
 
 const bot = new Discord.Client();
@@ -18,6 +17,8 @@ const prefix = 'c.'; // You can edit the prefix, but the prefix is not applied i
 // For example, the help library at line 179 - 229 doesn't use the prefix
 
 const sub = 'CloudBot';
+const reserve = require('./addons/filereserve/check.js')
+
 console.clear()
 
 // Creates space for logging events
@@ -76,10 +77,21 @@ bot.on('message', message => {
       } else { // So much better isn't it?
         const fld = args[1]
         try {
-          fs.mkdirSync(fld)
-          message.reply("`Folder named '"+fld+"' created. Yay.`");
-          console.log("CloudBot created a folder named '"+fld+"'");
-
+          if (addon.filereserve == 'true') {
+            const chck = reserve.LookFor(fld)
+            if (chck == 'true') {
+              message.reply('`The creation of Windows device names has been blocked.`')
+              console.log("CloudBot stopped '"+message.author.username+"' from creating device names in Windows.")
+            } else {
+              fs.mkdirSync(fld)
+              message.reply("`Folder named '"+fld+"' created. Yay.`");
+              console.log("CloudBot created a folder named '"+fld+"'");
+            }
+          } else {
+            fs.mkdirSync(fld)
+            message.reply("`Folder named '"+fld+"' created. Yay.`");
+            console.log("CloudBot created a folder named '"+fld+"'");
+          }
         } catch (err) {
           message.reply('`Aw man, the folder already exists!`');
           console.log("CloudBot reported that '"+fld+"' already exists");
@@ -225,10 +237,6 @@ bot.on('message', message => {
   if (message.content === 'c.help.random') {
     message.reply('`\nMake a random number\nusage: c.random 420`')
     console.log("CloudBot told '"+message.author.username+"' how to generate random numbers")
-  }
-  if (message.content === 'c.help.ytg') {
-    message.reply('`\nGet a YouTube video from a (single) keyword\nusage: c.ytg lemons`') 
-    console.log("CloudBot gave '"+message.author.username+"' help on generating YouTube videos")
   }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
@@ -398,44 +406,6 @@ bot.on('message', message => {
       } else {
         message.reply("`You didn't mention the user to ban ._.`");
         console.log("CloudBot error: User not mentioned");
-      }
-    }
-  }
-});
-
-// These are just dependent functions from here
-bot.on('message', message => {
-  if (!message.content.startsWith(prefix)) return;
-
-  const args = message.content.trim().split(/ +/g);
-  const cmd = args[0].slice(prefix.length).toLowerCase(); 
-
-  if (cmd === 'ytg')  // YoutubeGet
-    var err = 0
-    if (!args[1]) {
-      message.reply('`Include a search next time ._.`')
-      err++
-    }
-    if (err == 1) {
-    } else {
-      if (addon.youtubeget == 'true') {
-        text = args[1]
-        const pyproc = spawn('py',["./addons/youtubeget/get.py", text])
-        fs.readFile('./addons/youtubeget/TMP', 'utf8' , (err, data) => {
-          if (err) {
-            return
-          }
-        message.channel.send('**Warning: Video feature is in Alpha**\n'+data)
-        console.log('CloudBot gave video from search '+text)
-      })
-      } else {
-          if (addon.youtubeget == 'false') {
-            message.reply("Hey, this addon isn't enabled! ._.")
-            console.log('CloudBot saw that the youtubeget addon was not enabled')
-          } else {
-            message.reply('Incorrect status')
-            console.log('CloudBot error: addons.json has incorrect syntax')
-        }
       }
     }
   }
