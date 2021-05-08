@@ -19,6 +19,7 @@ const prefix = 'c.'; // You can edit the prefix, but the prefix is not applied i
 const sub = 'CloudBot';
 const reserve = require('./addons/filereserve/check.js')
 
+const { spawn } = require('child_process');
 console.clear()
 
 // Creates space for logging events
@@ -273,9 +274,21 @@ bot.on('message', message => {
         const f = args[1]
 
         try {
-            fs.appendFileSync(f, '')
-            message.reply("`File named '"+f+"' created. Woohoo.`");
-            console.log("CloudBot created a file named '"+f+"'");
+            if (addons.filereserve == 'true') {
+				chck2 = reserve.LookFor(f)
+				if (chck2 == 'true') {
+					message.reply('`The creation of Windows device names has been blocked.`')
+					console.log("CloudBot stopped '"+message.author.username+"' from creating device names in Windows.")
+				} else {
+					fs.appendFileSync(f, '')
+					message.reply("`File named '"+f+"' created. Woohoo.`");
+					console.log("CloudBot created a file named '"+f+"'");
+				}
+			} else {
+				fs.appendFileSync(f, '')
+				message.reply("`File named '"+f+"' created. Woohoo.`");
+				console.log("CloudBot created a file named '"+f+"'");
+			}
         } catch (err) {
             message.reply('`Aw man, the file already exists!`');
             console.log('CloudBot error: File already exists');
@@ -420,7 +433,7 @@ bot.on('message', message => {
 	
 	if (cmd === 'scrape') {
 		var err = 0;
-		if (args[1]) {
+		if (!args[1]) {
 			message.reply('What is the search you want to scrape? ._.')
 			console.log('CloudBot could not find a search to scrape')
 			err++
@@ -429,15 +442,21 @@ bot.on('message', message => {
 			if (err == 1) {
 			}
 		else {
-			const scrape = args[1]
-			try {
-				const { spawn } = require('child_process');
-				const pypog = spawn('py', ['./addons/webscraper/scrape.py '+scrape])
-		  }
+			if (addons.webscraper == 'true') {
+				const scrape = args[1]
+				const process = spawn('py', ['./addons/webscraper/scrape.py ',scrape]);
+				process.stdout.on('data', (data) => {
+					message.reply('`Search of '+scrape+':`\n`'+data.toString()+'`')
+					console.log("CloudBot gave search for '"+scrape+"'")
+				});	
+			} else {
+				message.reply('`The webscraper addon is blocked.`')
+				console.log('CloudBot noticed that the webscraper addon was blocked.')
+			}
 		}
 	}
   }
 });
 
 // Insert your token here
-bot.login('bot_token');
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.1sevs8_Wwz4SMJT9BdD3iRq7saM');
