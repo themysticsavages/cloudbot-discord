@@ -239,6 +239,10 @@ bot.on('message', message => {
     message.reply('`\nMake a random number\nusage: c.random 420`')
     console.log("CloudBot told '"+message.author.username+"' how to generate random numbers")
   }
+  if (message.content === 'c.help.scrape') {
+    message.reply('`\nGet a Bing search\nusage: c.scrape apples`')
+    console.log("CloudBot told '"+message.author.username+"' how to get searches")
+  }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
     const args = message.content.trim().split(/ +/g);
@@ -459,4 +463,4 @@ bot.on('message', message => {
 });
 
 // Insert your token here
-bot.login('bot_token');
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.pvw6T9JfSBjZQlAbeBx3qdm_gjM');
