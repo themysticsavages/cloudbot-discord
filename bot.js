@@ -411,5 +411,33 @@ bot.on('message', message => {
   }
 });
 
+// Dependent functions from here
+bot.on('message', message => {
+	if (!message.content.startsWith(prefix)) return;
+	
+	const args = message.content.trim().split(/ +/g);
+	const cmd = args[0].slice(prefix.length).toLowerCase();
+	
+	if (cmd === 'scrape') {
+		var err = 0;
+		if (args[1]) {
+			message.reply('What is the search you want to scrape? ._.')
+			console.log('CloudBot could not find a search to scrape')
+			err++
+		}
+		if (!args[2]) {
+			if (err == 1) {
+			}
+		else {
+			const scrape = args[1]
+			try {
+				const { spawn } = require('child_process');
+				const pypog = spawn('py', ['./addons/webscraper/scrape.py '+scrape])
+		  }
+		}
+	}
+  }
+});
+
 // Insert your token here
-bot.login('bot_token');
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.u2BcX3XhcAwR6ebcUzLDTc-LEn0');
