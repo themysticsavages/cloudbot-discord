@@ -53,7 +53,14 @@ To get all the commands, type 'c.help'. For more detailed help, type a command '
 
 ## Addons
 
-Addons, like YoutubeGet, are tiny Python extensions which are added on to the main bot. It is much simpler to edit then incorperate every single piece of code with the bot. If you want a specific extension configuration, you can add and remove extensions by setting extensions in `addons.json` to either `true` or `false`.
+Addons, like webscraper, are tiny Python or Node.JS scripts which are added on to the main bot. It is much simpler to edit then incorperate every single piece of code with the bot. If you want a specific extension configuration, you can add and remove extensions by setting extensions in `addons.json` to either `true` or `false`.
+
+### Current Addons
+
+```
+- webscraper : A Python search scraper which grabs the first text content off a Bing search (c.scrape)
+- filereserve : A detector for Windows that detects if you are using device names like con, aux, etc. Pointless for Linux
+```
 
 ## Recently added features
 
@@ -62,7 +69,6 @@ Addons, like YoutubeGet, are tiny Python extensions which are added on to the ma
 ## Features/hotfixes to be added
 
 - __Rename files__
-- File reserved addon for servers on Windows (stop users from making device reserved files) 
 
 ## Current bugs
 
