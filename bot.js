@@ -434,7 +434,7 @@ bot.on('message', message => {
 	if (cmd === 'scrape') {
 		var err = 0;
 		if (!args[1]) {
-			message.reply('What is the search you want to scrape? ._.')
+			message.reply('`What is the search you want to scrape? ._.`')
 			console.log('CloudBot could not find a search to scrape')
 			err++
 		}
