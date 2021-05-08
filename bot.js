@@ -17,7 +17,7 @@ const prefix = 'c.'; // You can edit the prefix, but the prefix is not applied i
 // For example, the help library at line 179 - 229 doesn't use the prefix
 
 const sub = 'CloudBot';
-const reserve = require('./addons/filereserve/check.js')
+const reserve = require('./addons/filereserve/reserve.js')
 
 const { spawn } = require('child_process');
 console.clear()
@@ -68,10 +68,10 @@ bot.on('message', message => {
 
   if (cmd === 'mkdir') {
     var err = 0; // Error VARIABLE
-      if (!args[1]) {
-        message.reply("`Where is the folder name? ._.`")
-        console.log("CloudBot couldn't find the folder you are looking for")
-        err++; // Increases the error var by one
+    if (!args[1]) {
+      message.reply("`Where is the folder name? ._.`")
+      console.log("CloudBot couldn't find the folder you are looking for")
+      err++; // Increases the error var by one
     }
     if (!args[2]) {
       if (err == 1) { // If the error variable is one, nothing.
@@ -79,10 +79,10 @@ bot.on('message', message => {
         const fld = args[1]
         try {
           if (addon.filereserve == 'true') {
-            const chck = reserve.LookFor(fld)
-            if (chck == 'true') {
-              message.reply('`The creation of Windows device names has been blocked.`')
-              console.log("CloudBot stopped '"+message.author.username+"' from creating device names in Windows.")
+            const check1 = reserve.LookFor(fld)
+            if (check1 == 'true') {
+              message.reply('`Hey, no Windows reserved device names allowed!`')
+              console.log("CloudBot stopped '"+message.author.username+"' from making Windows device names.")
             } else {
               fs.mkdirSync(fld)
               message.reply("`Folder named '"+fld+"' created. Yay.`");
@@ -274,21 +274,21 @@ bot.on('message', message => {
         const f = args[1]
 
         try {
-            if (addons.filereserve == 'true') {
-				chck2 = reserve.LookFor(f)
-				if (chck2 == 'true') {
-					message.reply('`The creation of Windows device names has been blocked.`')
-					console.log("CloudBot stopped '"+message.author.username+"' from creating device names in Windows.")
-				} else {
-					fs.appendFileSync(f, '')
-					message.reply("`File named '"+f+"' created. Woohoo.`");
-					console.log("CloudBot created a file named '"+f+"'");
-				}
-			} else {
-				fs.appendFileSync(f, '')
-				message.reply("`File named '"+f+"' created. Woohoo.`");
-				console.log("CloudBot created a file named '"+f+"'");
-			}
+					  if (addon.filereserve == 'true') {
+              const res = reserve.LookFor(f)
+              if (res == 'true') {
+                message.reply('`Hey, no Windows reserved device names allowed!`')
+                console.log("CloudBot stopped '"+message.author.username+"' from making Windows device names.")
+              } else {
+                fs.appendFileSync(f, '')
+                message.reply("`File named '"+f+"' created. Woohoo.`");
+                console.log("CloudBot created a file named '"+f+"'");
+              }
+            } else {
+              fs.appendFileSync(f, '')
+              message.reply("`File named '"+f+"' created. Woohoo.`");
+              console.log("CloudBot created a file named '"+f+"'");
+            }
         } catch (err) {
             message.reply('`Aw man, the file already exists!`');
             console.log('CloudBot error: File already exists');
@@ -434,7 +434,7 @@ bot.on('message', message => {
 	if (cmd === 'scrape') {
 		var err = 0;
 		if (!args[1]) {
-			message.reply('`What is the search you want to scrape? ._.`')
+			message.reply('What is the search you want to scrape? ._.')
 			console.log('CloudBot could not find a search to scrape')
 			err++
 		}
@@ -459,4 +459,4 @@ bot.on('message', message => {
 });
 
 // Insert your token here
-bot.login('bot_token');
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.wm3Gx11mi3tE3hXZgNvBKSYbM-o');
