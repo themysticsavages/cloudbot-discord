@@ -442,7 +442,7 @@ bot.on('message', message => {
 			if (err == 1) {
 			}
 		else {
-			if (addons.webscraper == 'true') {
+			if (addon.webscraper == 'true') {
 				const scrape = args[1]
 				const process = spawn('py', ['./addons/webscraper/scrape.py ',scrape]);
 				process.stdout.on('data', (data) => {
