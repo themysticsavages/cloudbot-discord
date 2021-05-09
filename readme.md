@@ -68,6 +68,10 @@ or else it won't run. Look [here](https://github.com/themysticsavages/cloudbot-d
 - filereserve : A detector for Windows that detects if you are using device names like con, aux, etc.
 ```
 
+```
+- asciitext : A small Python script which converts text to ASCII. Converting ASCII to text needs work.
+```
+
 ## Recently added features
 
 - __Add-ons__
