@@ -1,4 +1,5 @@
 {
-    "youtubeget" : "true",
-    "webscraper" : "true"
+    "filereserve" : "true",
+    "webscraper" : "true",
+    "asciitext" : "true"
 }
