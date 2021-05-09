@@ -72,4 +72,4 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 
 ## Current bugs
 
-*None. List bugs in Issues if any*
+- __Writing does nothing__
