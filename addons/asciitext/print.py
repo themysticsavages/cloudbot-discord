@@ -9,7 +9,6 @@ index = 0
 index2 = 0
 
 chars = list(msg_r)
-print(chars)
 translate = []
 
 # Simple translation from text to ascii
