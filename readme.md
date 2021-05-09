@@ -62,7 +62,7 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 ```
 
 *WARNING: webscraper runs a Python file using py, if you are running a legacy version of Python or if you are using Linux, edit this,
-or else it won't run.*
+or else it won't run. Look [here](https://github.com/themysticsavages/cloudbot-discord/blob/main/bot.js#L451).*
 
 ```
 - filereserve : A detector for Windows that detects if you are using device names like con, aux, etc.
