@@ -65,8 +65,7 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 or else it won't run.*
 
 ```
-- filereserve : A detector for Windows that detects if you are using device names like con, aux, etc. 
-Pointless for Linux
+- filereserve : A detector for Windows that detects if you are using device names like con, aux, etc.
 ```
 
 ## Recently added features
