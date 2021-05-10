@@ -198,7 +198,7 @@ bot.on('message', message => {
     console.log("CloudBot told '"+message.author.username+"' about why he exists");
   }
   if (message.content === 'c.help') {
-    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c.help : prints this message\n  c.hi : Say hi back to you\n  c.purpose : Why I'm here\n  c.cclear : Clears console\n  c.clear : Clears channel (almost)\n\nFile server commands:\n  c.mkdir : Make a folder\n  c.ddel : Delete a folder (admin)\n  c.cd : Change directory\n  c.new : Make a new file with any extension\n  c.del : Delete file (admin)\n  c.ls : List contents of folder\n  c.write : Write to file (admin)\n  c.read : Get text from file\n\nModerator commands: (admin)\n  c.ban : Ban a member\n  c.cclear : Clears the console (admin)\n  c.clear : Clears a channel (admin)\n\nFun commands:\n  c.random : Make a random number\n\nAddons (alpha):\n  c.scrape : Get the first search from a keyword```" + "**You're welcome**");
+    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c.help : prints this message\n  c.hi : Say hi back to you\n  c.purpose : Why I'm here\n  c.cclear : Clears console\n  c.clear : Clears channel (almost)\n\nFile server commands:\n  c.mkdir : Make a folder\n  c.ddel : Delete a folder (admin)\n  c.cd : Change directory\n  c.new : Make a new file with any extension\n  c.del : Delete file (admin)\n  c.ls : List contents of folder\n  c.wr : Write to file (admin)\n  c.rd : Get text from file\n\nModerator commands: (admin)\n  c.ban : Ban a member\n  c.cclear : Clears the console (admin)\n  c.clear : Clears a channel (admin)\n\nFun commands:\n  c.random : Make a random number\n\nAddons (alpha):\n  c.scrape : Get the first search from a keyword```" + "**You're welcome**");
     console.log("CloudBot gave help to '"+message.author.username+"'");
   }
   
@@ -243,10 +243,6 @@ bot.on('message', message => {
     message.reply('`\nGet a Bing search\nusage: c.scrape apples`')
     console.log("CloudBot told '"+message.author.username+"' how to get searches")
   }
-  if (message.content === 'c.help.translate') {
-    message.reply('`\nTranslate text to 97 115 99 105 105 (ASCII) and back!`')
-    console.log("CloudBot helped '"+message.author.username+" on translating text to ASCII'")
-  }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
     const args = message.content.trim().split(/ +/g);
@@ -282,7 +278,7 @@ bot.on('message', message => {
         const f = args[1]
 
         try {
-	   if (addon.filereserve == 'true') {
+					  if (addon.filereserve == 'true') {
               const res = reserve.LookFor(f)
               if (res == 'true') {
                 message.reply('`Hey, no Windows reserved device names allowed!`')
@@ -442,7 +438,7 @@ bot.on('message', message => {
 	if (cmd === 'scrape') {
 		var err = 0;
 		if (!args[1]) {
-			message.reply('What is the search you want to scrape? ._.')
+			message.reply('`What is the search you want to scrape? ._.`')
 			console.log('CloudBot could not find a search to scrape')
 			err++
 		}
@@ -464,7 +460,34 @@ bot.on('message', message => {
 		}
 	}
   }
+  if (cmd === 'translate') {
+    var err = 0;
+		if (!args[1]) {
+			message.reply('`What is the thing you want to translate? ._.`')
+			console.log('CloudBot could not find a string to translate')
+			err++
+		}
+    if (!args[3]) {
+			if (err == 1) {
+			}
+		else {
+			if (addon.asciitext == 'true') {
+        const fn = args[1]
+        const text = args[2]
+
+        const py = spawn('py', ['./addons/asciitext/print.py',fn,text]);
+        py.stdout.on('data', function (data) {
+          message.reply('`Conversion of '+text+'`\n`'+data.toString()+'`')
+          console.log("CloudBot gave ASCII-Text conversion for '"+text+"'")
+        });
+			} else {
+				message.reply('`The asciitext addon is blocked.`')
+				console.log('CloudBot noticed that the asciitext addon was blocked.')
+			}
+		}
+	}
+  }
 });
 
 // Insert your token here
-bot.login('bot_token');
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.e8tN6vaknF4QjusFm_Vv7pw7t-E');
