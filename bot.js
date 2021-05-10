@@ -494,4 +494,4 @@ bot.on('message', message => {
 });
 
 // Insert your token here
-bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.vM1RD_0rNjeXd6m6dXDRd1vU0QM');
+bot.login('bot_token');
