@@ -243,6 +243,10 @@ bot.on('message', message => {
     message.reply('`\nGet a Bing search\nusage: c.scrape apples`')
     console.log("CloudBot told '"+message.author.username+"' how to get searches")
   }
+  if (message.content === 'c.help.translate') {
+    message.reply('`\nTranslate text to ASCII and back\nusage: c.translate ascii meme`\n     : c.translate text 109-101-109-101')
+    console.log("CloudBot helped '"+message.author.username+"' translate things")
+  }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
     const args = message.content.trim().split(/ +/g);
