@@ -198,7 +198,7 @@ bot.on('message', message => {
     console.log("CloudBot told '"+message.author.username+"' about why he exists");
   }
   if (message.content === 'c.help') {
-    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c.help : prints this message\n  c.hi : Say hi back to you\n  c.purpose : Why I'm here\n  c.cclear : Clears console\n  c.clear : Clears channel (almost)\n\nFile server commands:\n  c.mkdir : Make a folder\n  c.ddel : Delete a folder (admin)\n  c.cd : Change directory\n  c.new : Make a new file with any extension\n  c.del : Delete file (admin)\n  c.ls : List contents of folder\n  c.wr : Write to file (admin)\n  c.rd : Get text from file\n\nModerator commands: (admin)\n  c.ban : Ban a member\n  c.cclear : Clears the console (admin)\n  c.clear : Clears a channel (admin)\n\nFun commands:\n  c.random : Make a random number\n\nAddons (alpha):\n  c.scrape : Get the first search from a keyword```" + "**You're welcome**");
+    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c.help : prints this message\n  c.hi : Say hi back to you\n  c.purpose : Why I'm here\n  c.cclear : Clears console\n  c.clear : Clears channel (almost)\n\nFile server commands:\n  c.mkdir : Make a folder\n  c.ddel : Delete a folder (admin)\n  c.cd : Change directory\n  c.new : Make a new file with any extension\n  c.del : Delete file (admin)\n  c.ls : List contents of folder\n  c.wr : Write to file (admin)\n  c.rd : Get text from file\n\nModerator commands: (admin)\n  c.ban : Ban a member\n  c.cclear : Clears the console (admin)\n  c.clear : Clears a channel (admin)\n\nFun commands:\n  c.random : Make a random number\n\nAddons (alpha):\n  c.scrape : Get the first search from a keyword\n  c.translate : Translate text to ASCII and back```" + "**You're welcome**");
     console.log("CloudBot gave help to '"+message.author.username+"'");
   }
   
@@ -244,7 +244,7 @@ bot.on('message', message => {
     console.log("CloudBot told '"+message.author.username+"' how to get searches")
   }
   if (message.content === 'c.help.translate') {
-    message.reply('`\nTranslate text to ASCII and back\nusage: c.translate ascii meme`\n     : c.translate text 109-101-109-101')
+    message.reply('`\nTranslate text to ASCII and back\nusage: c.translate ascii meme\n     : c.translate text 109-101-109-101`')
     console.log("CloudBot helped '"+message.author.username+"' translate things")
   }
   // Commands for fun
@@ -494,4 +494,4 @@ bot.on('message', message => {
 });
 
 // Insert your token here
-bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.e8tN6vaknF4QjusFm_Vv7pw7t-E');
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.vM1RD_0rNjeXd6m6dXDRd1vU0QM');
