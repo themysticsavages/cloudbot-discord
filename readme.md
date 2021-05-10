@@ -82,4 +82,4 @@ or else it won't run. Look [here](https://github.com/themysticsavages/cloudbot-d
 
 ## Current bugs
 
-- __Writing does nothing__
+*No bugs. Report bugs in Issues*
