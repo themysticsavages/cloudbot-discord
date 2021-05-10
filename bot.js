@@ -243,6 +243,10 @@ bot.on('message', message => {
     message.reply('`\nGet a Bing search\nusage: c.scrape apples`')
     console.log("CloudBot told '"+message.author.username+"' how to get searches")
   }
+  if (message.content === 'c.help.translate') {
+    message.reply('`\nTranslate text to 97 115 99 105 105 (ASCII) and back!`')
+    console.log("CloudBot helped '"+message.author.username+" on translating text to ASCII'")
+  }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
     const args = message.content.trim().split(/ +/g);
@@ -278,7 +282,7 @@ bot.on('message', message => {
         const f = args[1]
 
         try {
-					  if (addon.filereserve == 'true') {
+	   if (addon.filereserve == 'true') {
               const res = reserve.LookFor(f)
               if (res == 'true') {
                 message.reply('`Hey, no Windows reserved device names allowed!`')
