@@ -27,7 +27,10 @@ bot.on('ready', () => {
   console.info('CloudBot is connected\n---------------------');
 });
 
-// Little message recorder, console clearer, and channel wiper
+function getRandInt(max) {
+  return Math.floor(Math.random() * max);
+}
+// Little message recorder, console clearer, and channel wiper. Does other stuff too
 bot.on('message', async message => {
   if (message.author.username.includes(sub)) { // If the message includes the substring 'CloudBot', it won't print any replies
     
@@ -53,7 +56,32 @@ bot.on('message', async message => {
     message.reply('`You no have admin! The administrator role is required to clear channels.`');
     console.log("CloudBot error: Insufficient privileges to clear channels");
   }
-} 
+}
+  if (message.content === 'c.ping') {
+    var number = getRandInt(5);
+
+    if (number == 0) {
+      var comment = 'P o n g. '
+    }
+    if (number == 1) {
+      var comment = 'Who called? '
+    }
+    if (number == 2) {
+      var comment = 'How may I help you? '
+    }
+    if (number == 3) {
+      var comment = '._. '
+    }
+    if (number == 4) {
+      var comment = '😩 '
+    }
+    if (number == 5) {
+      var comment = 'hehehe  '
+    }
+
+    message.channel.send('`'+comment+'('+Math.round(bot.ws.ping)+'ms)`');
+    console.log("'"+message.author.username+"' pinged CloudBot")
+  }
 });
 
 // Creates folders
@@ -85,12 +113,12 @@ bot.on('message', message => {
               console.log("CloudBot stopped '"+message.author.username+"' from making Windows device names.")
             } else {
               fs.mkdirSync(fld)
-              message.reply("`Folder named '"+fld+"' created. Yay.`");
+              message.channel.send("`Folder named '"+fld+"' created. Yay.`");
               console.log("CloudBot created a folder named '"+fld+"'");
             }
           } else {
             fs.mkdirSync(fld)
-            message.reply("`Folder named '"+fld+"' created. Yay.`");
+            message.channel.send("`Folder named '"+fld+"' created. Yay.`");
             console.log("CloudBot created a folder named '"+fld+"'");
           }
         } catch (err) {
@@ -123,7 +151,7 @@ bot.on('message', message => {
         try {
           if (message.member.hasPermission("ADMINISTRATOR")) {
             fs.rmdirSync(dfld, { recursive: true })
-            message.reply("`Directory '"+dfld+"' deleted. Hip hip hooray.`");
+            message.channel.send("`Directory '"+dfld+"' deleted. Hip hip hooray.`");
             console.log("CloudBot deleted folder named '"+dfld+"'");
         } else {
           message.reply('`You no have admin! The administrator role is required to delete folders.`');
@@ -161,7 +189,7 @@ bot.on('message', message => {
       try {
           process.chdir(cfld)
           if (process.cwd().includes(substr)) {
-            message.reply("`Changed directory to '"+cfld+"'. *CLAP CLAP*`");
+            message.channel.send("`Changed directory to '"+cfld+"'. *CLAP CLAP*`");
             console.log("CloudBot went into the directory '"+cfld+"'");
           } else {
             process.chdir('cloudbot') // If you change to a directory outside the root folder, then it will go back into the root directory
@@ -190,7 +218,7 @@ bot.on('message', message => {
 // A couple of sentient replies for this nice bot
 bot.on('message', message => {
   if (message.content === 'c.hi') {
-    message.reply('`hi :)`'); // you know, this is more of a test command to see if the bot is up and running
+    message.reply('`hi :)`');
     console.log("CloudBot said hi to '"+message.author.username+"'");
   }
   if (message.content === 'c.purpose') {
@@ -198,53 +226,61 @@ bot.on('message', message => {
     console.log("CloudBot told '"+message.author.username+"' about why he exists");
   }
   if (message.content === 'c.help') {
-    message.reply("```Commands for CloudBot:\n\nNot file server commands:\n  c.help : prints this message\n  c.hi : Say hi back to you\n  c.purpose : Why I'm here\n  c.cclear : Clears console\n  c.clear : Clears channel (almost)\n\nFile server commands:\n  c.mkdir : Make a folder\n  c.ddel : Delete a folder (admin)\n  c.cd : Change directory\n  c.new : Make a new file with any extension\n  c.del : Delete file (admin)\n  c.ls : List contents of folder\n  c.wr : Write to file (admin)\n  c.rd : Get text from file\n\nModerator commands: (admin)\n  c.ban : Ban a member\n  c.cclear : Clears the console (admin)\n  c.clear : Clears a channel (admin)\n\nFun commands:\n  c.random : Make a random number\n\nAddons (alpha):\n  c.scrape : Get the first search from a keyword\n  c.translate : Translate text to ASCII and back```" + "**You're welcome**");
+    const Embed = new Discord.MessageEmbed()
+	    .setColor('#0099ff')
+	    .setTitle('Commands')
+      .setAuthor('CloudBot', 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/bin/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`'+'\n📁 File-server commands > `'+'mkdir`, `ddel`, `new`, `del`, `write`, `read`'+'\n❓ Just random > `'+"random`, `translate`, `scrape`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setTimestamp()
+      .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
+
+    message.reply(Embed);
     console.log("CloudBot gave help to '"+message.author.username+"'");
   }
   
   // Extended help library; a nice touch; had to join code to do MemoryLeak warnings
   if (message.content === 'c.help.mkdir') {
-    message.reply('`\nCreates a directory\nusage: c.mkdir example`'); 
+    message.reply('`Creates a directory\nusage: c.mkdir example`'); 
     console.log("CloudBot gave help on making directories to '"+message.author.username+"'");
   }
   if (message.content === 'c.help.ddel') {
-    message.reply('`\nRemoves a directory (needs admin role)\nusage: c.ddel example`')
+    message.reply('`Removes a directory (needs admin role)\nusage: c.ddel example`')
     console.log("CloudBot gave help to '"+message.author.username+"' on removing directories");
   }
   if (message.content === 'c.help.new') {
-    message.reply('`\nMakes a new file with any extension\nusage: c.new example.txt`')
+    message.reply('`Makes a new file with any extension\nusage: c.new example.txt`')
     console.log("CloudBot gave help on how to make files to '"+message.author.username+"'")
   }
   if (message.content === 'c.help.del') {
-    message.reply('`\nDeletes a file (needs admin role)\nusage: c.del example.txt`')
+    message.reply('`Deletes a file (needs admin role)\nusage: c.del example.txt`')
     console.log("CloudBot gave help on deleting files to '"+message.author.username+"'")
   }
   if (message.content === 'c.help.cd') {
-    message.reply('`\nChanges directory\nusage: c.cd example`')
+    message.reply('`Changes directory\nusage: c.cd example`')
     console.log("CloudBot gave more help to '"+message.author.username+"' on how to change directories")
   }
-  if (message.content === 'c.help.wr') {
-    message.reply('`\nWrites text to file (needs admin role)\nusage: c.wr example.txt test_file (make sure it is ONE string! multiple string writes will be implemented later)`')
+  if (message.content === 'c.help.write') {
+    message.reply('`Writes text to file (needs admin role)\nusage: c.wr example.txt test_file (make sure it is ONE string! multiple string writes will be implemented later)`')
     console.log("CloudBot told '"+message.author.username+"' how to write to files")
   }
-  if (message.content === 'c.help.rd') {
-    message.reply('`\nGets text from file\nusage: c.rd example.txt`')
+  if (message.content === 'c.help.read') {
+    message.reply('`Gets text from file\nusage: c.rd example.txt`')
     console.log("CloudBot helped '"+message.author.username+"' to read from files.")
   }
   if (message.content === 'c.help.ban') {
-    message.reply('`\nBan a member (needs "Ban members" role) with a default reason\nusage: c.ban @examplemember`')
+    message.reply('`Ban a member (needs "Ban members" role) with a default reason\nusage: c.ban @examplemember`')
     console.log("CloudBot told '"+message.author.username+"' how to ban a member")
   }
   if (message.content === 'c.help.random') {
-    message.reply('`\nMake a random number\nusage: c.random 420`')
+    message.reply('`Make a random number\nusage: c.random 420`')
     console.log("CloudBot told '"+message.author.username+"' how to generate random numbers")
   }
   if (message.content === 'c.help.scrape') {
-    message.reply('`\nGet a Bing search\nusage: c.scrape apples`')
+    message.reply('`Get a Bing search\nusage: c.scrape apples`')
     console.log("CloudBot told '"+message.author.username+"' how to get searches")
   }
   if (message.content === 'c.help.translate') {
-    message.reply('`\nTranslate text to ASCII and back\nusage: c.translate ascii meme\n     : c.translate text 109-101-109-101`')
+    message.reply('`Translate text to ASCII and back\nusage: c.translate ascii meme\n     : c.translate text 109-101-109-101`')
     console.log("CloudBot helped '"+message.author.username+"' translate things")
   }
   // Commands for fun
@@ -258,7 +294,7 @@ bot.on('message', message => {
       var randomnumber = Math.floor(Math.random() * max)
       message.reply("`"+randomnumber+"`");
       console.log('CloudBot generated a random number');
-  }
+    }
 }
 });
 
@@ -494,4 +530,4 @@ bot.on('message', message => {
 });
 
 // Insert your token here
-bot.login('bot_token');
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.CqC3ORmzlrHOwLKTHsDm-c7fTa8');
