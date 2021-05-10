@@ -3,26 +3,26 @@ import re, sys
 function = sys.argv[1]
 msg = sys.argv[2]
 
-msg_r = msg.replace('_', " ")
-
 index = 0
 index2 = 0
 
-chars = list(msg_r)
+nohash = msg.replace('-', ' ')
+chars = list(nohash)
+
 translate = []
 
 # Simple translation from text to ascii
-if function == 'to':
+if function == 'ascii':
     for letter in chars:
         translate.append(ord(chars[index]))
         index += 1
-
-    print(*translate)
+    transstring = ' '.join([str(elem) for elem in translate])
+    print(transstring.replace(' ', '-'))
     sys.stdout.flush()
 
 # Whoa there; ascii to text
-if function == 'from':
-    split = msg.split()
+if function == 'text':
+    split = nohash.split()
     # Appends all the numbers split to list
     try:
         for integer in chars:
