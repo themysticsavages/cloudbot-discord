@@ -49,7 +49,7 @@ For now, most functions can be done by anyone, however, __deleting__ files and f
 
 ## Usage
 
-To get all the commands, type `c.help`. For more detailed help, type a command `c.help.` and add a command name like `random`.
+To get all the commands, type `c.help`. For more detailed help, type `c.help.` and add a command name like `random`.
 
 ## Addons
 
@@ -82,6 +82,7 @@ py as well.*
 ## Features/hotfixes to be added
 
 - __Rename files__
+- scratch.mit.edu Python plugin to get user data
 
 ## Current bugs
 
