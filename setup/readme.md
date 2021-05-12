@@ -19,7 +19,7 @@ It will ask which server you want the bot to connect to, and if you accept to al
 
   After that, check if your bot is in the server.
 ## Making the bot functional
-  Of course the bot doesn't do anything because there is no function running for it. For that, go get the bot.js file from [here](https://github.com/themysticsavages/cloudbot-discord).
+  Of course the bot doesn't do anything because there is no function running for it. For that, go get the project from [here](https://github.com/themysticsavages/cloudbot-discord)!
 Then open the file in some kind of text-editor and scroll down to the bottom where it says `bot.login('token')`. 
 
   You need to put in an ACTUAL token so it can login. For that, go to the Bot section in the Discord Developer Portal and copy the token. Remember that this
