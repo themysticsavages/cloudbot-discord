@@ -51,7 +51,27 @@ If you want to use the bot in Discord, link it to a server of yours above. I hav
 
 ## Role usage
 
-For now, most functions can be done by anyone, however, __deleting__ files and folders requires the *Administrator* role. This is because core files needed by the bot or files that people want to store could be deleted on purpose or by accident.
+A list of what commands can be done with roles. 
+```
+Adminstrator commands:
+  - c.cclear
+  - c.clear
+  - c.ddel
+  - c.del
+  - c.ban
+```
+```
+Member commands:
+  - c.mkdir
+  - c.new
+  - c.random
+  - c.help
+  - c.help.
+  - c.write
+  - c.read
+  - c.scrape
+  - c.translate
+```
 
 ## Usage
 
