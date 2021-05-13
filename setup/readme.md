@@ -25,7 +25,7 @@ Then open the file in some kind of text-editor and scroll down to the bottom whe
   You need to put in an ACTUAL token so it can login. For that, go to the Bot section in the Discord Developer Portal and copy the token. Remember that this
 token is secret, so keep out of the eyes of the public!
 
-  Then go into the `bin` directory and run either `run.bat` or `run.sh`. Both scripts ask for a token and run the bot.js file with that token inserted
+  Then go into the `bin` directory and run either `run.bat` or `run.sh`. Both scripts ask for a token and run the bot.js file with that token inserted. Optionally, you can edit the token in the bot manually. Running the bot in any way will show this:
   
   ```
   CloudBot is connected
