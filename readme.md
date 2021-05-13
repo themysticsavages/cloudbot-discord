@@ -37,7 +37,13 @@ cloudbot-discord is a file server for Discord. It is best used in a __private Di
 
 ## Requirements
 
-You need NodeJS and the npm module `discordjs`.
+You need NodeJS and the npm module `discord.js`. You will also need Python for most plugins.
+
+**Required pip modules:**
+```
+  - bs4
+  - requests
+```
 
 If you want to use the bot in Discord, link it to a server of yours above. I have a virtual server now which runs the bot, so that's great. It has 16 GB of storage and a 4th gen Core i5 single core processor, which is good. Although it may not be online everyday, it is mostly online.
 
