@@ -84,7 +84,7 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 ### Current Addons
 
 ```
-- webscraper : A Python search scraper which grabs the first text content off a Bing search (c.scrape)
+- webscraper : A Python search scraper which grabs the first text content off a Bing search
 ```
 
 *WARNING: webscraper runs a Python file using py, if you are running a legacy version of Python or if you are using Linux, edit this,
