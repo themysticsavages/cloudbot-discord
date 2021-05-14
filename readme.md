@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/%20-Put%20me%20in%20your%20server-blue?style=plastic">
   
   <a href="about:blank">
-  <img src="https://img.shields.io/badge/channel-release-red?style=plastic">
+  <img src="https://img.shields.io/badge/channel-release-orange?style=plastic">
   
   <a href="https://github.com/themysticsavages/cloudbot-discord/blob/main/LICENSE">
   <img src="https://img.shields.io/badge/license-mit-yellow?style=plastic">
