@@ -531,3 +531,17 @@ bot.on('message', message => {
 
 // Insert your token here; replace.py should also do this job too.
 bot.login('bot_token');
+
+/*
+   Problem? 
+   
+   Report bugs to Issues?
+   It would definetly help, although most of the time, 
+   I do find the issue during testing.
+   
+   Want to copy?
+   
+   pls don't copy the entire bot ._.
+   You can take functions like addons, however.
+   I don't think the MIT license allows full copying, anyway.
+*/
