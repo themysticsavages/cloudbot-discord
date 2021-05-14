@@ -19,12 +19,6 @@
   <a href="https://github.com/themysticsavages/cloudbot-discord/blob/main/LICENSE">
   <img src="https://img.shields.io/badge/license-mit-yellow?style=plastic">
   
-  <a href="https://nodejs.org">
-  <img src="https://shields.io/badge/%20---?style=plastic-square&logo=javascript&color=lightgrey">
-  
-  <a href="https://python.org/downloads">
-  <img src="https://shields.io/badge/%20---?style=plastic-square&logo=python&color=lightgrey">
-  
   <a href="https://github.com/themysticsavages/cloudbot-discord/blob/main/setup/readme.md">
 </p>
 
@@ -115,3 +109,9 @@ py as well.*
 ## Current bugs
 
 *No bugs. Report bugs in Issues*
+  
+<a href="https://nodejs.org" target="_blank">
+<img src="https://shields.io/badge/%20---?style=plastic-square&logo=javascript&color=lightgrey">
+  
+<a href="https://python.org/downloads" target="_blank">
+<img src="https://shields.io/badge/%20---?style=plastic-square&logo=python&color=lightgrey">
