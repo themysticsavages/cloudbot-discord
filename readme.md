@@ -114,4 +114,4 @@ py as well.*
 <img src="https://shields.io/badge/%20---?style=plastic-square&logo=javascript&color=lightgrey">
   
 <a href="https://python.org/downloads" target="_blank">
-<img src="https://shields.io/badge/%20---?style=plastic-square&logo=python&color=lightgrey">
+<img src="https://shields.io/badge/%20---?style=plastic-square&logo=python&color=lightgrey" value="Download Python">
