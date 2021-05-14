@@ -1,11 +1,11 @@
-// CloudBot - A file server for Discord 
+/* CloudBot - A file server for Discord 
 
-// Best used in a private server among responsible members
-// It was hard adding semi-colons to everything, just to have "better syntax"
-// You're lucky I made this bot open-source!
-// not a lot of people do that
+   Best used in a private server among responsible members
+   It was hard adding semi-colons to everything, just to have "better syntax"
+   You're lucky I made this bot open-source!
+   not a lot of people do that
 
-// (c) 2021 themysticsavages
+(c) 2021 themysticsavages */
 
 const Discord = require('discord.js');
 const fs = require('fs');
@@ -59,7 +59,7 @@ bot.on('message', async message => {
 }
   if (message.content === 'c.ping') {
     var number = getRandInt(5);
-
+    // Lmao I copied RoboTop a little
     if (number == 0) {
       var comment = 'P o n g. '
     }
@@ -529,5 +529,5 @@ bot.on('message', message => {
   }
 });
 
-// Insert your token here
+// Insert your token here; replace.py should also do this job too.
 bot.login('bot_token');
