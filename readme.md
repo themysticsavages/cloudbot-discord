@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/%20-Put%20me%20in%20your%20server-blue?style=plastic">
   
   <a href="about:blank">
-  <img src="https://img.shields.io/badge/release-beta-red?style=plastic">
+  <img src="https://img.shields.io/badge/channel-release-red?style=plastic">
   
   <a href="https://github.com/themysticsavages/cloudbot-discord/blob/main/LICENSE">
   <img src="https://img.shields.io/badge/license-mit-yellow?style=plastic">
@@ -29,7 +29,7 @@
 ###### Running cloudbot in a channel in a Discord server
 # Information
 
-cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. ~~This bot is officially in a stable release~~ Nah, it isn't anywhere near stable. It supports file and folder management, banning members, and many other pointless commands. And some addons, as well.
+cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. __This bot is officially in a release channel__. It supports file and folder management, banning members, and many other pointless commands. And some addons, as well.
 
 ## Requirements
 
