@@ -541,7 +541,7 @@ bot.login('bot_token');
    
    Want to copy?
    
-   pls don't copy the entire bot ._.
-   You can take functions like addons, however.
-   I don't think the MIT license allows full copying, anyway.
+   pls don't copy the entire bot and claim it as your own ._.
+   You can take functions like addons, however, and use them as a part of your own bot.
+   And yes, running the bot on your own privately does not count as copying it
 */
