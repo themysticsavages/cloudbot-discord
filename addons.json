@@ -1,5 +1,6 @@
 {
     "filereserve" : "true",
     "webscraper" : "true",
-    "asciitext" : "true"
+    "asciitext" : "true",
+    "weather" : "true"
 }
