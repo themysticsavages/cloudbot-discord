@@ -1,11 +1,11 @@
-/* CloudBot - A file server for Discord 
+// CloudBot - A file server for Discord 
 
-   Best used in a private server among responsible members
-   It was hard adding semi-colons to everything, just to have "better syntax"
-   You're lucky I made this bot open-source!
-   not a lot of people do that
+// Best used in a private server among responsible members
+// It was hard adding semi-colons to everything, just to have "better syntax"
+// You're lucky I made this bot open-source!
+// not a lot of people do that
 
-(c) 2021 themysticsavages */
+// (c) 2021 themysticsavages
 
 const Discord = require('discord.js');
 const fs = require('fs');
@@ -59,7 +59,7 @@ bot.on('message', async message => {
 }
   if (message.content === 'c.ping') {
     var number = getRandInt(5);
-    // Lmao I copied RoboTop a little
+
     if (number == 0) {
       var comment = 'P o n g. '
     }
@@ -78,7 +78,7 @@ bot.on('message', async message => {
     if (number == 5) {
       var comment = 'hehehe  '
     }
-
+    
     message.channel.send('`'+comment+'('+Math.round(bot.ws.ping)+'ms)`');
     console.log("'"+message.author.username+"' pinged CloudBot")
   }
@@ -526,22 +526,29 @@ bot.on('message', message => {
 			}
 		}
 	}
+}
+if (cmd === 'weather') {
+  var err = 0;
+  if (addon.weather == 'true') {
+    if (!args[1]) {
+      message.reply('`Where do you want to get the weather? ._.`')
+      console.log('CloudBot could not find the place to get the weather')
+      err++
+    }
+    const place = args[1]
+    const weather = require('./addons/weather/get.js')
+
+
+    weather.get(place, function(response){
+      message.reply('`'+response+'`');
+      console.log('CloudBot gave the weather in '+place)
+    })
   }
+} else {
+  message.reply('`The weather addon is blocked.`')
+  console.log('CloudBot noticed that the weather addon was blocked.')
+}
 });
 
-// Insert your token here; replace.py should also do this job too.
+// Insert your token here
 bot.login('bot_token');
-
-/*
-   Problem? 
-   
-   Report bugs to Issues?
-   It would definetly help, although most of the time, 
-   I do find the issue during testing.
-   
-   Want to copy?
-   
-   pls don't copy the entire bot and claim it as your own ._.
-   You can take functions like addons, however, and use them as a part of your own bot.
-   And yes, running the bot on your own privately does not count as copying it
-*/
