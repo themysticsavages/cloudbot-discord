@@ -36,6 +36,7 @@ cloudbot-discord is a file server for Discord. It is best used in a __private Di
 You need NodeJS and the npm module `discord.js`. You will also need Python for most plugins.
 
 **Required modules for addons:**
+
 Python (pip install):
 ```
   - bs4
