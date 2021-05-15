@@ -103,6 +103,10 @@ py as well.*
 - asciitext : A small Python script which converts text to ASCII and back.
 ```
 
+```
+- weather : A small API dependent addon which gets the weather from OpenWeatherMap
+```
+
 ## Recently added features
 
 - __Add-ons__
