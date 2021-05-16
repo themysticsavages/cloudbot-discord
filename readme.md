@@ -107,6 +107,8 @@ py as well.*
 - weather : A small API dependent addon which gets the weather from OpenWeatherMap
 ```
 
+*Note: You need an API key to use the weather command when self-hosting the bot. Set one up [here](https://openweathermap.org/)*
+
 ## Recently added features
 
 - __Add-ons__
