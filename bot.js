@@ -302,51 +302,7 @@ bot.on('message', message => {
 }
 });
 
-// Create new files (this was a big accomplishment when I finished this code, even though you couldn't write to files)
-bot.on('message', message => {
-  if (!message.content.startsWith(prefix)) return;
-
-  const args = message.content.trim().split(/ +/g);
-  const cmd = args[0].slice(prefix.length).toLowerCase();
-
-  if (cmd === 'new') {
-    var err = 0;
-      if (!args[1]) {
-        message.reply("`Where is the file name? ._.`")
-        console.log("CloudBot couldn't find a filename to use")
-        err++;
-    }
-    if (!args[2]) {
-      if (err == 1) {
-      } else {
-        const f = args[1]
-
-        try {
-					  if (addon.filereserve == 'true') {
-              const res = reserve.LookFor(f)
-              if (res == 'true') {
-                message.reply('`Hey, no Windows reserved device names allowed!`')
-                console.log("CloudBot stopped '"+message.author.username+"' from making Windows device names.")
-              } else {
-                fs.appendFileSync(f, '')
-                message.reply("`File named '"+f+"' created. Woohoo.`");
-                console.log("CloudBot created a file named '"+f+"'");
-              }
-            } else {
-              fs.appendFileSync(f, '')
-              message.reply("`File named '"+f+"' created. Woohoo.`");
-              console.log("CloudBot created a file named '"+f+"'");
-            }
-        } catch (err) {
-            message.reply('`Aw man, the file already exists!`');
-            console.log('CloudBot error: File already exists');
-          }
-        }
-      }
-    }
-});
-
-// Delete files; requires admin role too
+// Delete files; requires admin role
 bot.on('message', message => {
   if (!message.content.startsWith(prefix)) return;
 
