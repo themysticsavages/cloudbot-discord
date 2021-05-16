@@ -108,9 +108,9 @@ or else it won't run. ACIIText uses py as well.*
 
 *Note: You need an API key to use the weather command when self-hosting the bot. Set one up [here](https://openweathermap.org/)*
 
-## Recently added features
+## Recently added features/hotfixes
 
-- __Add-ons__
+- __Removed c.new because of bugs
 
 ## Features/hotfixes to be added
 
