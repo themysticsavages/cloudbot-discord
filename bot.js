@@ -230,7 +230,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor('CloudBot', 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/bin/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`'+'\n📁 File-server commands > `'+'mkdir`, `ddel`, `new`, `del`, `write`, `read`'+'\n❓ Just random > `'+"random`, `translate`, `scrape`, `weather`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`'+'\n📁 File-server commands > `'+'mkdir`, `ddel`, `del`, `write`, `read`'+'\n❓ Just random > `'+"random`, `translate`, `scrape`, `weather`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -240,16 +240,12 @@ bot.on('message', message => {
   
   // Extended help library; a nice touch; had to join code to do MemoryLeak warnings
   if (message.content === 'c.help.mkdir' || message.content === 'c.?.md') {
-    message.reply('`Creates a directory\nusage: c.mkdir example`'); 
+    message.reply('`Creates a directory\nusage: c.mkdir example\nAliases: c.mkdir, c.md`'); 
     console.log("CloudBot gave help on making directories to '"+message.author.username+"'");
   }
   if (message.content === 'c.help.ddel' || message.content === 'c.?.dd') {
-    message.reply('`Removes a directory (needs admin role)\nusage: c.ddel example`')
+    message.reply('`Removes a directory (needs admin role)\nusage: c.ddel example\nAliases: c.ddel, c.dd`')
     console.log("CloudBot gave help to '"+message.author.username+"' on removing directories");
-  }
-  if (message.content === 'c.help.new' || message.content === 'c.?.new') {
-    message.reply('`Makes a new file with any extension\nusage: c.new example.txt`')
-    console.log("CloudBot gave help on how to make files to '"+message.author.username+"'")
   }
   if (message.content === 'c.help.del') {
     message.reply('`Deletes a file (needs admin role)\nusage: c.del example.txt`')
@@ -260,11 +256,11 @@ bot.on('message', message => {
     console.log("CloudBot gave more help to '"+message.author.username+"' on how to change directories")
   }
   if (message.content === 'c.help.write' || message.content === 'c.?.wr') {
-    message.reply('`Writes text to file (needs admin role)\nusage: c.wr example.txt test_file (make sure it is ONE string! multiple string writes will be implemented later)`')
+    message.reply('`Writes text to file (needs admin role)\nusage: c.wr example.txt test_file (make sure it is ONE string! multiple string writes will be implemented later)\nAliases: c.write, c.wr`')
     console.log("CloudBot told '"+message.author.username+"' how to write to files")
   }
   if (message.content === 'c.help.read' || message.content === 'c.?.rd') {
-    message.reply('`Gets text from file\nusage: c.rd example.txt`')
+    message.reply('`Gets text from file\nusage: c.rd example.txt\nAliases: c.read, c.rd`')
     console.log("CloudBot helped '"+message.author.username+"' to read from files.")
   }
   if (message.content === 'c.help.ban' || message.content === 'c.?.ban') {
@@ -272,19 +268,19 @@ bot.on('message', message => {
     console.log("CloudBot told '"+message.author.username+"' how to ban a member")
   }
   if (message.content === 'c.help.random' || message.content === 'c.?.r') {
-    message.reply('`Make a random number\nusage: c.random 420`')
+    message.reply('`Make a random number\nusage: c.random 420\nAliases: c.read, c.r`')
     console.log("CloudBot told '"+message.author.username+"' how to generate random numbers")
   }
   if (message.content === 'c.help.scrape' || message.content === 'c.?.scr') {
-    message.reply('`Get a Bing search\nusage: c.scrape apples`')
+    message.reply('`Get a Bing search\nusage: c.scrape apples\nAliases: c.scrape, c.scr`')
     console.log("CloudBot told '"+message.author.username+"' how to get searches")
   }
   if (message.content === 'c.help.translate' || message.content === 'c.?.tr') {
-    message.reply('`Translate text to ASCII and back\nusage: c.translate ascii meme\n     : c.translate text 109-101-109-101`')
+    message.reply('`Translate text to ASCII and back\nusage: c.translate ascii meme\n     : c.translate text 109-101-109-101\nAliases: c.translate, c.tr`')
     console.log("CloudBot helped '"+message.author.username+"' translate things")
   }
   if (message.content === 'c.help.weather' || message.content === 'c.?.w') {
-    message.reply('`Get the weather in a certain area (One word only)\nusage: c.weather Frankfurt`')
+    message.reply('`Get the weather in a certain area (One word only)\nusage: c.weather Frankfurt\nAliases: c.weather, c.w`')
     console.log("CloudBot helped '"+message.author.username+"' with the weather command")
   }
   // Commands for fun
@@ -511,4 +507,4 @@ if (cmd === 'weather' || cmd === 'w') {
 });
 
 // Insert your token here
-bot.login('bot_token');
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.koQuQa9XZcuYragqhCL5r_2ouUE');
