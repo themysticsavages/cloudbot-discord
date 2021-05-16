@@ -110,7 +110,7 @@ or else it won't run. ACIIText uses py as well.*
 
 ## Recently added features/hotfixes
 
-- __Removed c.new because of bugs
+- __Removed c.new because of bugs__
 
 ## Features/hotfixes to be added
 
