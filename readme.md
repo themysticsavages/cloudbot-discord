@@ -119,7 +119,7 @@ or else it won't run. ACIIText uses py as well.*
 
 ## Current bugs
 
-*No bugs. Report bugs in Issues*
+- __Python functions fail to run on different operating systems__
   
 <a href="https://nodejs.org" target="_blank">
 <img src="https://shields.io/badge/%20---?style=plastic-square&logo=javascript&color=lightgrey">
