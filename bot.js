@@ -14,7 +14,7 @@ const addon = require('./addons.json')
 
 const bot = new Discord.Client();
 const prefix = 'c.'; // You can edit the prefix, but the prefix is not applied in every command!
-// For example, the help library at line 179 - 229 doesn't use the prefix
+// For example, the help library doesn't use the prefix
 
 const sub = 'CloudBot';
 const reserve = require('./addons/filereserve/reserve.js')
@@ -37,7 +37,7 @@ bot.on('message', async message => {
   } else {
     console.log(message.author.username+' > '+message.content)
   }
-  if (message.content === 'c.cclear') {
+  if (message.content === 'c.cclear' || message.content === 'c.cls') {
     if (message.member.hasPermission("ADMINISTRATOR")) {
       console.clear()
       console.info('CloudBot is connected\n---------------------');
@@ -46,7 +46,7 @@ bot.on('message', async message => {
       console.log("CloudBot error: Insufficient privileges to clear console");
     }
   }
-  if (message.content === 'c.clear') {
+  if (message.content === 'c.clear' || message.content === 'c.c') {
     if (message.member.hasPermission("ADMINISTRATOR")) {
     const dmsg = 99 // You can change this but uh probably not
 
@@ -57,7 +57,7 @@ bot.on('message', async message => {
     console.log("CloudBot error: Insufficient privileges to clear channels");
   }
 }
-  if (message.content === 'c.ping') {
+  if (message.content === 'c.ping' || message.content == 'CloudBot!') {
     var number = getRandInt(5);
 
     if (number == 0) {
@@ -94,7 +94,7 @@ bot.on('message', message => {
   // Since the old syntax for detecting args didn't work, I made a new detector altogether
   // Demonstration time
 
-  if (cmd === 'mkdir') {
+  if (cmd === 'mkdir' || cmd === 'md') {
     var err = 0; // Error VARIABLE
     if (!args[1]) {
       message.reply("`Where is the folder name? ._.`")
@@ -137,7 +137,7 @@ bot.on('message', message => {
   const args = message.content.trim().split(/ +/g);
   const cmd = args[0].slice(prefix.length).toLowerCase();
 
-  if (cmd === 'ddel') {
+  if (cmd === 'ddel' || cmd === 'dd') {
     var err = 0;
       if (!args[1]) {
         message.reply("`Hey, I couldn't find a folder name! ._.`")
@@ -225,12 +225,12 @@ bot.on('message', message => {
     message.reply('`I am basically a cloud server for Discord. I am pure Node.JS. Although I may not have that many functions, the cloud server functions make up for this!`');
     console.log("CloudBot told '"+message.author.username+"' about why he exists");
   }
-  if (message.content === 'c.help') {
+  if (message.content === 'c.help' || message.content === 'c.?') {
     const Embed = new Discord.MessageEmbed()
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor('CloudBot', 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/bin/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`'+'\n📁 File-server commands > `'+'mkdir`, `ddel`, `new`, `del`, `write`, `read`'+'\n❓ Just random > `'+"random`, `translate`, `scrape`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`'+'\n📁 File-server commands > `'+'mkdir`, `ddel`, `new`, `del`, `write`, `read`'+'\n❓ Just random > `'+"random`, `translate`, `scrape`, `weather`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -239,15 +239,15 @@ bot.on('message', message => {
   }
   
   // Extended help library; a nice touch; had to join code to do MemoryLeak warnings
-  if (message.content === 'c.help.mkdir') {
+  if (message.content === 'c.help.mkdir' || message.content === 'c.?.md') {
     message.reply('`Creates a directory\nusage: c.mkdir example`'); 
     console.log("CloudBot gave help on making directories to '"+message.author.username+"'");
   }
-  if (message.content === 'c.help.ddel') {
+  if (message.content === 'c.help.ddel' || message.content === 'c.?.dd') {
     message.reply('`Removes a directory (needs admin role)\nusage: c.ddel example`')
     console.log("CloudBot gave help to '"+message.author.username+"' on removing directories");
   }
-  if (message.content === 'c.help.new') {
+  if (message.content === 'c.help.new' || message.content === 'c.?.new') {
     message.reply('`Makes a new file with any extension\nusage: c.new example.txt`')
     console.log("CloudBot gave help on how to make files to '"+message.author.username+"'")
   }
@@ -259,36 +259,40 @@ bot.on('message', message => {
     message.reply('`Changes directory\nusage: c.cd example`')
     console.log("CloudBot gave more help to '"+message.author.username+"' on how to change directories")
   }
-  if (message.content === 'c.help.write') {
+  if (message.content === 'c.help.write' || message.content === 'c.?.wr') {
     message.reply('`Writes text to file (needs admin role)\nusage: c.wr example.txt test_file (make sure it is ONE string! multiple string writes will be implemented later)`')
     console.log("CloudBot told '"+message.author.username+"' how to write to files")
   }
-  if (message.content === 'c.help.read') {
+  if (message.content === 'c.help.read' || message.content === 'c.?.rd') {
     message.reply('`Gets text from file\nusage: c.rd example.txt`')
     console.log("CloudBot helped '"+message.author.username+"' to read from files.")
   }
-  if (message.content === 'c.help.ban') {
+  if (message.content === 'c.help.ban' || message.content === 'c.?.ban') {
     message.reply('`Ban a member (needs "Ban members" role) with a default reason\nusage: c.ban @examplemember`')
     console.log("CloudBot told '"+message.author.username+"' how to ban a member")
   }
-  if (message.content === 'c.help.random') {
+  if (message.content === 'c.help.random' || message.content === 'c.?.r') {
     message.reply('`Make a random number\nusage: c.random 420`')
     console.log("CloudBot told '"+message.author.username+"' how to generate random numbers")
   }
-  if (message.content === 'c.help.scrape') {
+  if (message.content === 'c.help.scrape' || message.content === 'c.?.scr') {
     message.reply('`Get a Bing search\nusage: c.scrape apples`')
     console.log("CloudBot told '"+message.author.username+"' how to get searches")
   }
-  if (message.content === 'c.help.translate') {
+  if (message.content === 'c.help.translate' || message.content === 'c.?.tr') {
     message.reply('`Translate text to ASCII and back\nusage: c.translate ascii meme\n     : c.translate text 109-101-109-101`')
     console.log("CloudBot helped '"+message.author.username+"' translate things")
+  }
+  if (message.content === 'c.help.weather' || message.content === 'c.?.w') {
+    message.reply('`Get the weather in a certain area (One word only)\nusage: c.weather Frankfurt`')
+    console.log("CloudBot helped '"+message.author.username+"' with the weather command")
   }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
     const args = message.content.trim().split(/ +/g);
     const cmd = args[0].slice(prefix.length).toLowerCase();
 
-    if (cmd === 'random') {
+    if (cmd === 'random' || cmd === 'r') {
       const max = args[1]
 
       var randomnumber = Math.floor(Math.random() * max)
@@ -384,7 +388,7 @@ bot.on('message', message => {
   const args = message.content.trim().split(/ +/g);
   const cmd = args[0].slice(prefix.length).toLowerCase();
 
-  if (cmd === 'write') {
+  if (cmd === 'write' || cmd === 'wr') {
     var err = 0;
     if (!args[1]) {
       message.reply("`What file should I write? ._.`")
@@ -406,7 +410,7 @@ bot.on('message', message => {
       console.log("CloudBot wrote to '"+fw+"'")
     }
   }
-  if (cmd === 'read') {
+  if (cmd === 'read' || cmd === 'rd') {
     var err = 0;
     if (args[1]) {
       if (err == 0) {
@@ -475,7 +479,7 @@ bot.on('message', message => {
 	const args = message.content.trim().split(/ +/g);
 	const cmd = args[0].slice(prefix.length).toLowerCase();
 	
-	if (cmd === 'scrape') {
+	if (cmd === 'scrape' || cmd === 'scr') {
 		var err = 0;
 		if (!args[1]) {
 			message.reply('`What is the search you want to scrape? ._.`')
@@ -490,7 +494,7 @@ bot.on('message', message => {
 				const scrape = args[1]
 				const process = spawn('py', ['./addons/webscraper/scrape.py ',scrape]);
 				process.stdout.on('data', (data) => {
-					message.reply('`Search of '+scrape+':`\n`'+data.toString()+'`')
+					message.channel.send('`Search of '+scrape+':`\n`'+data.toString()+'`')
 					console.log("CloudBot gave search for '"+scrape+"'")
 				});	
 			} else {
@@ -500,7 +504,7 @@ bot.on('message', message => {
 		}
 	}
   }
-  if (cmd === 'translate') {
+  if (cmd === 'translate' || cmd === 'tr') {
     var err = 0;
 		if (!args[1]) {
 			message.reply('`What is the thing you want to translate? ._.`')
@@ -527,9 +531,8 @@ bot.on('message', message => {
 		}
 	}
 }
-if (cmd === 'weather') {
+if (cmd === 'weather' || cmd === 'w') {
   var err = 0;
-  if (addon.weather == 'true') {
     if (!args[1]) {
       message.reply('`Where do you want to get the weather? ._.`')
       console.log('CloudBot could not find the place to get the weather')
@@ -539,15 +542,16 @@ if (cmd === 'weather') {
     const weather = require('./addons/weather/get.js')
 
 
-    weather.get(place, function(response){
-      message.reply('`'+response+'`');
-      console.log('CloudBot gave the weather in '+place)
-    })
+    if (addon.weather == 'true') {
+      weather.get(place, function(response){
+        message.channel.send('`'+response+'`');
+        console.log('CloudBot gave the weather in '+place)
+      })
+    } else {
+      message.reply('`The weather addon is blocked.`')
+      console.log('CloudBot noticed that the weather addon was blocked.')
+    }
   }
-} else {
-  message.reply('`The weather addon is blocked.`')
-  console.log('CloudBot noticed that the weather addon was blocked.')
-}
 });
 
 // Insert your token here
