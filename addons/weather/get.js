@@ -7,7 +7,7 @@ function get(place, callback) {
         rp(url)
         .then(function(html){
           var json = JSON.parse(html)
-          
+
           // Weather synthisizing
           var weather = json['weather']
           var weather = JSON.stringify(weather)
@@ -37,7 +37,7 @@ function get(place, callback) {
           if (temp > 70) { var emoji = '😎' }
           if (temp > 80) { var emoji = '🌡' }
 
-          return callback(emoji+' Today in '+json['name']+', it is '+temp+'° with '+weather+'. You can expect a high of '+high+'° and a low of '+low+'°.')
+          return callback(emoji+' Today in '+json['name']+', '+json['sys']['country']+', it is '+temp+'° with '+weather+'. You can expect a high of '+high+'° and a low of '+low+'°.')
         })
         .catch(function(err){
         });
