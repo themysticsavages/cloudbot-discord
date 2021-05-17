@@ -1,3 +1,32 @@
+/*
+  Someone please help me make this code better
+  
+  ////////////////////////////////////////////
+  /      HOW TO USE THE WEATHER COMMAND      /
+  ////////////////////////////////////////////
+  
+    Since I was too lazy to make a README, I
+  incorporated a how-to inside the code!
+  So let me explain.
+  
+    First, you need a OpenWeatherMap account.
+  Luckily, you can make one for free. Just
+  head over to openweathermap.org.
+  
+    Second, you need to get the API key. 
+  Note that the default key takes a few 
+  minutes to activate once you create 
+  your account. After a bit, you can
+  try it with an api link, like:
+  
+  api.openweathermap.org/data/2.5/weather?q=place&appid=key
+  
+    Then put the api key into api.json,
+  start the bot, and run c.weather place (single str)
+  You should get the temperature, the weather, 
+  and the high and low. And that's it.
+*/
+
 const rp = require('request-promise');
 const api = require('./api.json')
 
