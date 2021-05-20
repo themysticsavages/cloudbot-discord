@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-import requests, sys, os
+import requests, sys
 
 page = requests.get("https://bing.com/search?q="+sys.argv[1])
 soup = BeautifulSoup(page.content, 'html.parser')
