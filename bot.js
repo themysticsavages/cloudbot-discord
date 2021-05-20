@@ -4,6 +4,8 @@
    It was hard adding semi-colons to everything, just to have "better syntax"
    You're lucky I made this bot open-source!
    not a lot of people do that
+   
+   Read the MIT license; for it will help you with bot usage
 
 (c) 2021 themysticsavages */
 
@@ -296,7 +298,7 @@ bot.on('message', message => {
   if (cmd === 'del') {
     var err = 0;
       if (!args[1]) {
-        message.reply("What is the file name? ._.")
+        message.reply("`What is the file name? ._.`")
         console.log("CloudBot couldn't find the file argument")
         err++;
       }
@@ -308,7 +310,7 @@ bot.on('message', message => {
         try {
           if (message.member.hasPermission("ADMINISTRATOR")) {
           fs.unlinkSync(fd, { recursive: true })
-          message.reply("File named '"+fd+"' was deleted. Wow.");
+          message.reply("`File named '"+fd+"' was deleted. Wow.`");
           console.log("CloudBot deleted folder named '"+fd+"'");
         } else {
           message.reply('You no have admin! The administrator role is required to delete files.');
