@@ -59,26 +59,14 @@ bot.on('message', async message => {
 }
   if (message.content === 'c.ping' || message.content == 'CloudBot!') {
     var number = getRandInt(5);
-
-    if (number == 0) {
-      var comment = 'P o n g. '
-    }
-    if (number == 1) {
-      var comment = 'Who called? '
-    }
-    if (number == 2) {
-      var comment = 'How may I help you? '
-    }
-    if (number == 3) {
-      var comment = '._. '
-    }
-    if (number == 4) {
-      var comment = '😩 '
-    }
-    if (number == 5) {
-      var comment = 'hehehe  '
-    }
     
+    if (number == 0) { var comment = 'P o n g. ' }
+    if (number == 1) { var comment = 'Who called? ' }
+    if (number == 2) { var comment = 'How may I help you? ' }
+    if (number == 3) { var comment = '._. ' }
+    if (number == 4) { var comment = '😩 ' }
+    if (number == 5) { var comment = 'hehehe  ' }
+   
     message.channel.send('`'+comment+'('+Math.round(bot.ws.ping)+'ms)`');
     console.log("'"+message.author.username+"' pinged CloudBot")
   }
