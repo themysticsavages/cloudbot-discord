@@ -89,10 +89,6 @@ or else it won't run. ACIIText uses py as well.*
 *Note: You need BeautifulSoup and requests to run webscraper. Install BeautifulSoup with `python -m pip install bs4` and requests with `python -m pip install requests`.*
 
 ```
-- filereserve : A name detector that detects if you are using device names like con, aux, etc.
-```
-
-```
 - asciitext : A small Python script which converts text to ASCII and back - c.translate
 ```
 
