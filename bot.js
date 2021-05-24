@@ -410,7 +410,7 @@ bot.on('message', message => {
               reason: "I wouldn't ban you without a reason! It's probably because the mods noticed that you were abusing the file system in some kind of way.",
             })
             .then(() => { // haha spammer go bye bye
-              message.reply(`Banned ${user.tag}. *F to pay respects*`);
+              message.channel.send(`Banned ${user.tag}. *F to pay respects*`);
               console.log(`CloudBot banned ${user.tag}`);
             })
             .catch(err => {
