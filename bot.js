@@ -60,15 +60,23 @@ bot.on('message', async message => {
   }
 }
   if (message.content === 'c.ping' || message.content == 'CloudBot!') {
-    var number = getRandInt(5);
+    var number = getRandInt(13);
     
-    if (number == 0) { var comment = 'P o n g. ' }
-    if (number == 1) { var comment = 'Who called? ' }
-    if (number == 2) { var comment = 'How may I help you? ' }
+    if (number == 0) { var comment = 'B O O P. ' }
+    if (number == 1) { var comment = 'Yes? ' }
+    if (number == 2) { var comment = 'Hi how are ya  ' }
     if (number == 3) { var comment = '._. ' }
-    if (number == 4) { var comment = '😩 ' }
-    if (number == 5) { var comment = 'hehehe  ' }
-   
+    if (number == 4) { var comment = 'why tho ' }
+    if (number == 5) { var comment = 'G`day ' }
+    if (number == 6) { var comment = '¯\_(ツ)_/¯ ' }
+    if (number == 7) { var comment = 'When bot is pinged: ' }
+    if (number == 8) { var comment = "Don't you have anything to do besides ping me? " }
+    if (number == 9) { var comment = 'helo ' }
+    if (number == 10) { var comment = '😳 Ping is 🆘 💯% ' }
+    if (number == 11) { var comment = 'POV: you are bot dev and you are trying to make unique reply ' }
+    if (number == 12) { var comment = '👞 Ṕ̴̡̠̲̩̝͓̜̑̿͋͐̕͠͝o̷̭͚̙̼̫̮̘̐̈́̂͐͘̕ņ̴͉̟͔͎̓̀̽͊͒͌͘g̷̦̤̓͌́̌̿̿̚̚' }
+    if (number == 13) { var comment = 'BOT REPLY SPEEDRUN ANY% ' }
+	  
     message.channel.send('`'+comment+'('+Math.round(bot.ws.ping)+'ms)`');
     console.log("'"+message.author.username+"' pinged CloudBot")
   }
