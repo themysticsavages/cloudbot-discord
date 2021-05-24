@@ -51,33 +51,27 @@ If you want to use the bot in Discord, link it to a server of yours above. I hav
 
 [Read setup.md](https://github.com/themysticsavages/cloudbot-discord/blob/main/setup/readme.md) if you want to self-host the bot.
 
-## Role usage
+## Usage
 
 A list of what commands can be done with roles. 
 ```
 Adminstrator commands:
-  - c.cclear
-  - c.clear
-  - c.ddel
-  - c.del
-  - c.ban
+    cclear - Clear the console
+    clear - Clear 99 messages from a channel
+    ddel - Delete a folder
+    del - Delete a file
+    ban - Ban a user regardless of roles
 ```
 ```
-Member commands:
-  - c.mkdir
-  - c.new
-  - c.random
-  - c.help
-  - c.help.
-  - c.write
-  - c.read
-  - c.scrape
-  - c.translate
+User commands:
+    mkdir - Make a folder
+    new - Make a file
+    random - Generate a random number from a specific range
+    help - Get all the commands availible
+    help. - Get more info on a command (e.g. c.help.random)
+    write - Write to a file
+    read - Get the content of a file
 ```
-
-## Usage
-
-To get all the commands, type `c.help`. For more detailed help, type `c.help.` and add a command name like `random`.
 
 ## Addons
 
@@ -86,7 +80,7 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 ### Current Addons
 
 ```
-- webscraper : A Python search scraper which grabs the first text content off a Bing search
+- webscraper : A Python search scraper which grabs the first text content off a Bing search - c.scrape
 ```
 
 *WARNING: webscraper runs a Python file using py, if you are running a legacy version of Python or if you are using Linux, edit this,
@@ -99,11 +93,11 @@ or else it won't run. ACIIText uses py as well.*
 ```
 
 ```
-- asciitext : A small Python script which converts text to ASCII and back.
+- asciitext : A small Python script which converts text to ASCII and back - c.translate
 ```
 
 ```
-- weather : A small API dependent addon which gets the weather from OpenWeatherMap
+- weather : A small API dependent addon which gets the weather forecast for an area from OpenWeatherMap - c.weather
 ```
 
 *Note: You need an API key to use the weather command when self-hosting the bot. Set one up [here](https://openweathermap.org/)*
