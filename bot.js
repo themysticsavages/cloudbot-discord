@@ -233,7 +233,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor('CloudBot', 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/bin/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`'+'\n📁 File-server commands > `'+'mkdir`, `ddel`, `del`, `write`, `read`'+'\n❓ Just random > `'+"random`, `translate`, `scrape`, `weather`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n📁 File-server commands > `'+'mkdir`, `ddel`, `del`, `write`, `read`'+'\n❓ Just random > `'+"random`, `translate`, `scrape`, `weather`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
