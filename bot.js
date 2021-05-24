@@ -19,9 +19,9 @@ const prefix = 'c.'; // You can edit the prefix, but the prefix is not applied i
 // For example, the help library doesn't use the prefix
 
 const sub = 'CloudBot';
-const reserve = require('./addons/filereserve/reserve.js')
-
 const { spawn } = require('child_process');
+
+const process = require('process')
 console.clear()
 
 // Creates space for logging events
@@ -79,6 +79,10 @@ bot.on('message', async message => {
 	  
     message.channel.send('`'+comment+'('+Math.round(bot.ws.ping)+'ms)`');
     console.log("'"+message.author.username+"' pinged CloudBot")
+  }
+  if (message.content === 'c.uptime' || message.content == 'c.up') {
+    message.channel.send('`CloudBot uptime: '+Math.round(process.uptime())+' seconds`')
+    console.log('CloudBot gave the bot uptime')
   }
 });
 
@@ -220,6 +224,7 @@ bot.on('message', message => {
     console.log("CloudBot said hi to '"+message.author.username+"'");
   }
   if (message.content === 'c.purpose') {
+    // This is one of the first functions for this Discord bot 😁
     message.reply('`I am basically a cloud server for Discord. I am pure Node.JS. Although I may not have that many functions, the cloud server functions make up for this!`');
     console.log("CloudBot told '"+message.author.username+"' about why he exists");
   }
@@ -348,16 +353,20 @@ bot.on('message', message => {
     if (args[2]) {
       const fw = args[1]
       const ct = args[2]
-
-      fs.writeFileSync(fw, ct, err => {
-        if (err) {
-          message.reply("Oh no! Not an unknown error!")
-          console.log("CloudBot error: Unrecognized error")
-          return;
+        if (fw === 'con' || 'aux' || 'nul' || 'prn' || 'com1' || 'com2' || 'com3' || 'com4' || 'com5' || 'com6' || 'com7' || 'com8' || 'com9' || 'lpt1' || 'lpt2' || 'lpt3' || 'lpt4' || 'lpt5' || 'lpt6' || 'lpt7' || 'lpt8' || 'lpt9') {
+          message.reply('`Hey, no Windows reserved device names allowed!`')
+          console.log("CloudBot stopped '"+message.author.username+"' from making Windows device names.")
+        } else {
+        fs.writeFileSync(fw, ct, err => {
+          if (err) {
+            message.reply("Oh no! Not an unknown error!")
+            console.log("CloudBot error: Unrecognized error")
+            return;
+          }
+        });
+        message.reply("`Wrote to "+`'${fw}'`+" successfully. Yay`")
+        console.log("CloudBot wrote to '"+fw+"'")
         }
-      });
-      message.reply("`Wrote to "+`'${fw}'`+" successfully. Yay`")
-      console.log("CloudBot wrote to '"+fw+"'")
     }
   }
   if (cmd === 'read' || cmd === 'rd') {
@@ -505,4 +514,4 @@ if (cmd === 'weather' || cmd === 'w') {
 });
 
 // Insert your token here
-bot.login('bot_token');
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.5eGN8P74_EmmtkeLprrzH0W4IBk');
