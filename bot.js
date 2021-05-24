@@ -514,4 +514,4 @@ if (cmd === 'weather' || cmd === 'w') {
 });
 
 // Insert your token here
-bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.5eGN8P74_EmmtkeLprrzH0W4IBk');
+bot.login('bot_token');
