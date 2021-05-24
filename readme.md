@@ -116,7 +116,7 @@ or else it won't run. ACIIText uses py as well.*
 *No bugs. List bugs in issues*
   
 <a href="https://nodejs.org" target="_blank">
-<img src="https://shields.io/badge/%20---?style=plastic-square&logo=javascript&color=lightgrey">
+<img src="https://shields.io/badge/%20---?style=plastic-square&logo=javascript&color=black">
   
 <a href="https://python.org/downloads" target="_blank">
-<img src="https://shields.io/badge/%20---?style=plastic-square&logo=python&color=lightgrey" value="Download Python">
+<img src="https://shields.io/badge/%20---?style=plastic-square&logo=python&color=black" value="Download Python">
