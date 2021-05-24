@@ -33,4 +33,4 @@ token is secret, so keep out of the eyes of the public!
   ```
 ## Modifying the bot
   Now that you know that the bot actually works, you can modify it to include whatever you want, like kicking members, stopping them from sending messages 
-in channels (which I will probably add), and much more. I highly suggest that you run the bot in Heroku, or a local Linux server, you probably don't need a full blown Windows operating system to run something as simple as a NodeJS bot.
+in channels (which I will probably add), and much more. I highly suggest that you run the bot in Heroku, or a local Linux server, you ~~probably don't need a full blown Windows operating system to run something as simple as a~~ probably do need a Windows operating system to run the NodeJS bot, since some Python functions may not function properly. :L
