@@ -1,5 +1,5 @@
 {
-    "webscraper" : "true"
+    "webscraper" : "true",
     "asciitext" : "true",
     "weather" : "true"
 }
