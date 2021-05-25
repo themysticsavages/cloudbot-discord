@@ -24,14 +24,36 @@ const { spawn } = require('child_process');
 const process = require('process')
 console.clear()
 
-// Creates space for logging events
-bot.on('ready', () => {
-  console.info('CloudBot is connected\n---------------------');
-});
-
 function getRandInt(max) {
   return Math.floor(Math.random() * max);
 }
+
+// Creates space for logging events
+bot.on('ready', () => {
+  var video = getRandInt(10)
+
+  if (video == 1) {var video = 'https://www.youtube.com/watch?v=_5w8SJ3yVsc'}
+  if (video == 2) {var video = 'https://www.youtube.com/watch?v=lrpS69H1RRU'}
+  if (video == 3) {var video = 'https://www.youtube.com/watch?v=yanwIwtlzEI'}
+  if (video == 4) {var video = 'https://www.youtube.com/watch?v=Cf5KOTB7Ew8'}
+  if (video == 5) {var video = 'https://www.youtube.com/watch?v=5WXyCJ1w3Ks'}
+  if (video == 6) {var video = 'https://www.youtube.com/watch?v=UHGvNoRPCQA'}
+  if (video == 7) {var video = 'https://www.youtube.com/watch?v=LfgzPpmjM0M'}
+  if (video == 8) {var video = 'https://www.youtube.com/watch?v=GcopfMYIApQ'}
+  if (video == 9) {var video = 'https://www.youtube.com/watch?v=4BD2Bxv2_qI'}
+  if (video == 10) {var video = 'https://www.youtube.com/watch?v=uxo-NasJslw'}
+
+  console.info('CloudBot is connected\n---------------------');
+  bot.user.setPresence({
+    status: 'online',
+    activity: {
+        name: 'Callback Hell 2 | c.?',
+        type: 'STREAMING',
+        url: video
+      }
+  });
+});
+
 // Little message recorder, console clearer, and channel wiper. Does other stuff too
 bot.on('message', async message => {
   if (message.author.username.includes(sub)) { // If the message includes the substring 'CloudBot', it won't print any replies
@@ -410,7 +432,7 @@ bot.on('message', message => {
               reason: "I wouldn't ban you without a reason! It's probably because the mods noticed that you were abusing the file system in some kind of way.",
             })
             .then(() => { // haha spammer go bye bye
-              message.channel.send(`Banned ${user.tag}. *F to pay respects*`);
+              message.reply(`Banned ${user.tag}. *F to pay respects*`);
               console.log(`CloudBot banned ${user.tag}`);
             })
             .catch(err => {
@@ -514,4 +536,4 @@ if (cmd === 'weather' || cmd === 'w') {
 });
 
 // Insert your token here
-bot.login('bot_token');
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.IWLSHbVEsI2fAwm3lGmAeOEjvX0')
