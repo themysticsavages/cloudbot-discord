@@ -1,4 +1,4 @@
-/* CloudBot - A file server for Discord 
+﻿/* CloudBot - A file server for Discord 
 
    Best used in a private server among responsible members
    It was hard adding semi-colons to everything, just to have "better syntax"
@@ -293,7 +293,7 @@ bot.on('message', message => {
     console.log("CloudBot told '"+message.author.username+"' how to ban a member")
   }
   if (message.content === 'c.help.random' || message.content === 'c.?.r') {
-    message.reply('`Make a random number\nusage: c.random 420\nAliases: c.read, c.r`')
+    message.reply('`Make a random number\nusage: c.random 420\nAliases: c.random, c.r`')
     console.log("CloudBot told '"+message.author.username+"' how to generate random numbers")
   }
   if (message.content === 'c.help.scrape' || message.content === 'c.?.scr') {
@@ -536,4 +536,4 @@ if (cmd === 'weather' || cmd === 'w') {
 });
 
 // Insert your token here
-bot.login('bot_token')
+bot.login('ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.upm28gS9jPzM6fb01-zF0nzZ4ws')
