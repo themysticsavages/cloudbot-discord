@@ -105,7 +105,7 @@ or else it won't run. ACIIText uses py as well.*
 
 ## Features/hotfixes to be added
 
-- Predict gender and nationality (command may be c.whois)
+- __Extension to fun commands (dog images, gender and nationality, and yoda speak!)__
 - Downloading files (command may be c.get)
 
 ## Current bugs
