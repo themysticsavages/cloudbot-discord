@@ -1,4 +1,4 @@
-/* CloudBot - A file server for Discord 
+﻿/* CloudBot - A file server for Discord 
 
    Best used in a private server among responsible members
    It was hard adding semi-colons to everything, just to have "better syntax"
@@ -109,43 +109,7 @@ bot.on('message', async message => {
   }
 });
 
-// Changes directories; had to make it even more complicated to fix security holes.
-bot.on('message', message => {
-  if (!message.content.startsWith(prefix)) return;
 
-  const args = message.content.trim().split(/ +/g);
-  const cmd = args[0].slice(prefix.length).toLowerCase();
-
-  if (cmd === 'cd') {
-    var err = 0;
-      if (!args[1]) {
-        message.reply("`Hmmm... that's a folder? ._.`")
-        console.log(sub+" couldn't find a folder name")
-        err++;
-      }
-      if (!args[2]) {
-        if (err == 1) {
-        } else {
-          const cfld = args[1]
-          const substr = 'env'
-
-      try {
-          process.chdir(cfld)
-          if (process.cwd().includes(substr)) {
-            message.channel.send("`Changed directory to '"+cfld+"'. *CLAP CLAP*`");
-            console.log(sub+" went into the directory '"+cfld+"'");
-          } else {
-            process.chdir('env') // If you change to a directory outside the root folder, then it will go back into the root directory
-            message.reply("`I don't think you can go there!`");
-            console.log(sub+' error: Access to folders outside root folder is denied');
-          }
-        } catch (err) {
-            message.reply('`Is that a folder? ._.`');
-            console.log(sub+' error: Could not find the directory.');
-           }
-         }
-       } 
-     }
   // Lists the content of a directory (small, but important)
   if (message.content === prefix+'ls') {
     const fld = './' // verrry simple code, you don't even need args!
