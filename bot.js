@@ -1,4 +1,4 @@
-﻿/* CloudBot - A file server for Discord 
+/* CloudBot - A file server for Discord 
 
    Best used in a private server among responsible members
    It was hard adding semi-colons to everything, just to have "better syntax"
@@ -28,10 +28,11 @@ function getRandInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-// Creates space for logging events
+// Creates space for logging events; oh yeah, it also 'streams', so I made it so that the 'Watch' button plays a random video from the 10.
 bot.on('ready', () => {
   var video = getRandInt(10)
-
+  
+  // They are just songs
   if (video == 1) {var video = 'https://www.youtube.com/watch?v=_5w8SJ3yVsc'}
   if (video == 2) {var video = 'https://www.youtube.com/watch?v=lrpS69H1RRU'}
   if (video == 3) {var video = 'https://www.youtube.com/watch?v=yanwIwtlzEI'}
@@ -47,7 +48,7 @@ bot.on('ready', () => {
   bot.user.setPresence({
     status: 'online',
     activity: {
-        name: 'Callback Hell 2 | c.?',
+        name: 'Callback Hell 2 | c.?', // lmao i hate callbacks
         type: 'STREAMING',
         url: video
       }
@@ -84,6 +85,7 @@ bot.on('message', async message => {
   if (message.content === 'c.ping' || message.content == 'CloudBot!') {
     var number = getRandInt(13);
     
+    // More randomization!
     if (number == 0) { var comment = 'B O O P. ' }
     if (number == 1) { var comment = 'Yes? ' }
     if (number == 2) { var comment = 'Hi how are ya  ' }
@@ -115,7 +117,7 @@ bot.on('message', message => {
   const args = message.content.trim().split(/ +/g); // used this code althroughout the program
   const cmd = args[0].slice(prefix.length).toLowerCase(); 
 
-  // Since the old syntax for detecting args didn't work, I made a new detector altogether
+  // Since the old syntax for detecting args didn't work, I made a (not so new) new detector altogether
   // Demonstration time
 
   if (cmd === 'mkdir' || cmd === 'md') {
@@ -130,9 +132,7 @@ bot.on('message', message => {
       } else { // So much better isn't it?
         const fld = args[1]
         try {
-          if (addon.filereserve == 'true') {
-            const check1 = reserve.LookFor(fld)
-            if (check1 == 'true') {
+            if (fld == 'con' || 'aux' || 'nul' || 'prn' || 'com1' || 'com2' || 'com3' || 'com4' || 'com5' || 'com6' || 'com7' || 'com8' || 'com9' || 'lpt1' || 'lpt2' || 'lpt3' || 'lpt4' || 'lpt5' || 'lpt6' || 'lpt7' || 'lpt8' || 'lpt9') {
               message.reply('`Hey, no Windows reserved device names allowed!`')
               console.log("CloudBot stopped '"+message.author.username+"' from making Windows device names.")
             } else {
@@ -208,7 +208,7 @@ bot.on('message', message => {
         if (err == 1) {
         } else {
           const cfld = args[1]
-          const substr = 'cloudbot'
+          const substr = 'cloudbot' // If the folder doesn't have the name 'cloudbot', change either this string or the folder name!
 
       try {
           process.chdir(cfld)
@@ -230,7 +230,7 @@ bot.on('message', message => {
   // Lists the content of a directory (small, but important)
   if (message.content === 'c.ls') {
     const fld = './' // verrry simple code, you don't even need args!
-  
+    
     fs.readdir(fld, (err, files) => {
         files.forEach(file => {
         message.reply(file); // It may or may not be spam, but its the only way to get contents
@@ -375,7 +375,7 @@ bot.on('message', message => {
     if (args[2]) {
       const fw = args[1]
       const ct = args[2]
-        if (fw === 'con' || 'aux' || 'nul' || 'prn' || 'com1' || 'com2' || 'com3' || 'com4' || 'com5' || 'com6' || 'com7' || 'com8' || 'com9' || 'lpt1' || 'lpt2' || 'lpt3' || 'lpt4' || 'lpt5' || 'lpt6' || 'lpt7' || 'lpt8' || 'lpt9') {
+        if (fw == 'con' || 'aux' || 'nul' || 'prn' || 'com1' || 'com2' || 'com3' || 'com4' || 'com5' || 'com6' || 'com7' || 'com8' || 'com9' || 'lpt1' || 'lpt2' || 'lpt3' || 'lpt4' || 'lpt5' || 'lpt6' || 'lpt7' || 'lpt8' || 'lpt9') {
           message.reply('`Hey, no Windows reserved device names allowed!`')
           console.log("CloudBot stopped '"+message.author.username+"' from making Windows device names.")
         } else {
