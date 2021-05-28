@@ -64,6 +64,8 @@ Adminstrator commands:
 ```
 User commands:
     random - Generate a random number from a specific range
+    weather - Get the weather in an area
+    search - Get the first result of a Bing search
     gif - Get a GIF based on a keyword from GIPHY (not Tenor)
     scratch - Get info for a Scratch user
     help - Get all the commands availible
@@ -79,7 +81,7 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 
 ## Recently added features/hotfixes
 
-- __Removed any kind of folder usage since other commands wouldn't run (ps: you can still make files)
+- __Removed any kind of folder usage since other commands wouldn't run (ps: you can still make files)__
 
 ## Features/hotfixes to be added
 
