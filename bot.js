@@ -107,20 +107,19 @@ bot.on('message', async message => {
     message.channel.send('`'+sub+' uptime: '+Math.round(process.uptime())+' seconds`')
     console.log(sub+' gave the bot uptime')
   }
-});
-
-
   // Lists the content of a directory (small, but important)
   if (message.content === prefix+'ls') {
     const fld = './' // verrry simple code, you don't even need args!
-    
-    fs.readdir(fld, (err, files) => {
+    fs.readdir(testFolder, (err, files) => {
         files.forEach(file => {
-        message.reply(file); // It may or may not be spam, but its the only way to get contents
-    })
-   })
-  }
+          message.channel.send(file);
+        });
+      });
+    }
 });
+
+
+
 
 // A couple of sentient replies for this nice bot
 bot.on('message', message => {
