@@ -18,19 +18,31 @@ have made, which is probably none.
 It will ask which server you want the bot to connect to, and if you accept to all the permissions the bot has.
 
   After that, check if your bot is in the server.
+  
 ## Making the bot functional
-  Of course the bot doesn't do anything because there is no function running for it. For that, go get the project from [here](https://github.com/themysticsavages/cloudbot-discord)!
-Then open the file in some kind of text-editor and scroll down to the bottom where it says `bot.login('token')`. 
+  Of course the bot doesn't do anything because there is no function running for it. For that, go get the project from [here!](https://github.com/themysticsavages/cloudbot-discord) Then get the bot token and put it into `config.json`.
+  
+## Getting optional API keys
+  If you don't want to go through this nightmare, you can turn the extensions that require an API key off by setting the addon value to `false` in `config.json`. That way, CloudBot won't let you run the extension, which eliminates the need to get an API key. 
+  
+  If you DO want the extensions on, look at these subsections. Also, make sure you put the API keys into `config.json`. 
 
-  You need to put in an ACTUAL token so it can login. For that, go to the Bot section in the Discord Developer Portal and copy the token. Remember that this
-token is secret, so keep out of the eyes of the public!
-
-  Then go into the `bin` directory and run either `run.bat` or `run.sh`. Both scripts ask for a token and run the bot.js file with that token inserted. Optionally, you can edit the token in the bot manually. Running the bot in any way will show this:
+### OpenWeatherMap API
+  To get an API key for OpenWeatherMap, simply create an account at their [website](https://openweathermap.org), go to the API Key page, and then try the default API key with this url:
   
   ```
-  CloudBot is connected
-  ---------------------
+  http://api.openweathermap.org/data/2.5/weather?q=london&appid=apikey
   ```
+  
+  Good chance it will work.
+
+### Giphy
+  This process is a little less straight-forward. First you have to create an app [here](https://developers.giphy.com/dashboard/?create=true) (it's free). It is recommended that you create a SDK app instead of an API one. Giphy will tell you that you will have a beta key until your app is approved, but there aren't much limitations with a beta key compared to an approved key. With your app made, grab your key and try this url:
+  
+  ```
+  https://api.giphy.com/v1/gifs/random?api_key=apikey
+  ```
+
 ## Modifying the bot
   Now that you know that the bot actually works, you can modify it to include whatever you want, like kicking members, stopping them from sending messages 
 in channels (which I will probably add), and much more. I highly suggest that you run the bot in Heroku, or a local Linux server, you ~~probably don't need a full blown Windows operating system to run something as simple as a~~ probably do need a Windows operating system to run the NodeJS bot, since some Python functions may not function properly. :L
