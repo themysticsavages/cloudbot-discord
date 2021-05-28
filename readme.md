@@ -58,14 +58,14 @@ A list of what commands can be done with roles.
 Adminstrator commands:
     cclear - Clear the console
     clear - Clear 99 messages from a channel
-    ddel - Delete a folder
     del - Delete a file
     ban - Ban a user regardless of roles
 ```
 ```
 User commands:
-    mkdir - Make a folder
     random - Generate a random number from a specific range
+    gif - Get a GIF based on a keyword from GIPHY (not Tenor)
+    scratch - Get info for a Scratch user
     help - Get all the commands availible
     help. - Get more info on a command (e.g. c.help.random)
     write - Write to a file
@@ -75,32 +75,11 @@ User commands:
 
 ## Addons
 
-Addons, like webscraper, are tiny Python or Node.JS scripts which are added on to the main bot. It is much simpler to edit then incorperate every single piece of code with the bot. If you want a specific extension configuration, you can add and remove extensions by setting extensions in `addons.json` to either `true` or `false`.
-
-### Current Addons
-
-```
-- webscraper : A Python search scraper which grabs the first text content off a Bing search - c.scrape
-```
-
-*WARNING: webscraper runs a Python file using py, if you are running a legacy version of Python or if you are using Linux, edit this,
-or else it won't run. ACIIText uses py as well.*
-
-*Note: You need BeautifulSoup and requests to run webscraper. Install BeautifulSoup with `python -m pip install bs4` and requests with `python -m pip install requests`.*
-
-```
-- asciitext : A small Python script which converts text to ASCII and back - c.translate
-```
-
-```
-- weather : A small API dependent addon which gets the weather forecast for an area from OpenWeatherMap - c.weather
-```
-
-*Note: You need an API key to use the weather command when self-hosting the bot. Set one up [here](https://openweathermap.org/)*
+Addons, like webscraper, are tiny Python or Node.JS scripts which are added on to the main bot. It is much simpler to edit then incorperate every single piece of code with the bot. If you want a specific extension configuration, you can add and remove extensions by setting extensions in the addons section of `config.json` to either `true` or `false`.
 
 ## Recently added features/hotfixes
 
-- __Removed c.new because of bugs__
+- __Removed any kind of folder usage since other commands wouldn't run (ps: you can still make files)
 
 ## Features/hotfixes to be added
 
