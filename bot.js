@@ -137,7 +137,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/bin/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n📁 File-server commands > `'+'write`, `read`, `del`'+'\n❓ Just random > `'+"random`, `translate`, `scrape`, `weather`, `gifpy`, `scratch`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n📁 File-server commands > `'+'write`, `read`, `del`'+'\n❓ Just random > `'+"random`, `translate`, `search`, `weather`, `gifpy`, `scratch`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -350,6 +350,7 @@ bot.on('message', message => {
 	const cmd = args[0].slice(prefix.length).toLowerCase();
 	
 	if (cmd === 'search' || cmd === 'sr') {
+    
 		var err = 0;
 		if (!args[1]) {
 			message.reply('`What is the keyword you want to search? ._.`')
@@ -361,18 +362,20 @@ bot.on('message', message => {
 			}
 		else {
 			if (cfg['addons']['webscraper'] == 'true') {
+
 				const scrape = args[1]
-				const process = spawn('py', ['./addons/webscraper/webscaper.py ',scrape]);
-				process.stdout.on('data', (data) => {
-					message.channel.send('`Search of '+scrape+':`\n`'+data.toString()+'`')
-					console.log(sub+" gave search for '"+scrape+"'")
-				});	
+
+				var response = spawn('py', ['./addons/webscraper/webscraper.py', scrape]);
+        response.stdout.on('data', function(data) {
+          message.channel.send('`'+data.toString()+'`');
+          console.log(sub+' gave the results for '+scrape)
+        });
 			} else {
 				message.reply('`The webscraper addon is blocked.`')
 				console.log(sub+' noticed that the webscraper addon was blocked')
 			}
-		}
-	}
+		} 
+	} 
   }
   if (cmd === 'endecode' || cmd === 'edc') {
     var err = 0;
