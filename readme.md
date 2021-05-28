@@ -105,8 +105,8 @@ or else it won't run. ACIIText uses py as well.*
 
 ## Features/hotfixes to be added
 
-- __Rename files__
-- scratch.mit.edu Python plugin to get user data
+- Image search API (command may be c.img)
+- Downloading files (command may be c.get)
 
 ## Current bugs
 
