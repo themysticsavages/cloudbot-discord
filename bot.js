@@ -110,7 +110,7 @@ bot.on('message', async message => {
   // Lists the content of a directory (small, but important)
   if (message.content === prefix+'ls') {
     const fld = './' // verrry simple code, you don't even need args!
-    fs.readdir(testFolder, (err, files) => {
+    fs.readdir(fld, (err, files) => {
         files.forEach(file => {
           message.channel.send(file);
         });
@@ -137,7 +137,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/bin/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n📁 File-server commands > `'+'`write`, `read`, `del`'+'\n❓ Just random > `'+"random`, `translate`, `scrape`, `weather`, `gifpy`, `scratch`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n📁 File-server commands > `'+'write`, `read`, `del`'+'\n❓ Just random > `'+"random`, `translate`, `scrape`, `weather`, `gifpy`, `scratch`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -210,7 +210,7 @@ bot.on('message', message => {
         console.log(sub+" couldn't find the number to use")
       } else {
         var randomnumber = Math.floor(Math.random() * max)
-        message.channel.send("`"+randomnumber+"`");
+        message.reply("`"+randomnumber+"`");
         console.log(sub+' generated a random number');
       }
    }
@@ -239,7 +239,7 @@ bot.on('message', message => {
         try {
           if (message.member.hasPermission("ADMINISTRATOR")) {
           fs.unlinkSync(fd, { recursive: true })
-          message.channel.send("`File named '"+fd+"' was deleted. Wow.`");
+          message.reply("`File named '"+fd+"' was deleted. Wow.`");
           console.log(sub+" deleted folder named '"+fd+"'");
         } else {
           message.reply('You no have admin! The administrator role is required to delete files.');
@@ -276,7 +276,7 @@ bot.on('message', message => {
             return;
           }
         });
-        message.channel.send("`Wrote to "+`'${fw}'`+" successfully. Yay`")
+        message.reply("`Wrote to "+`'${fw}'`+" successfully. Yay`")
         console.log(sub+" wrote to '"+fw+"'")
     }
   }
@@ -287,7 +287,7 @@ bot.on('message', message => {
         const rd = args[1]
         try {
           const data = fs.readFileSync(rd, 'utf8')
-          message.channel.send("`Contents of '"+rd+"':\n"+data+"`")
+          message.reply("`\nContents of '"+rd+"':\n"+data+"`")
         } catch (err) {
           message.reply("Where is that file? .-.")
           console.log("sub+ error: File doesn't exist")
@@ -321,7 +321,7 @@ bot.on('message', message => {
               reason: "I wouldn't ban you without a reason! It's probably because the mod(s) noticed that you were abusing the file system in some kind of way.",
             })
             .then(() => { // haha spammer go bye bye
-              message.channel.send(`Banned ${user.tag}. *F to pay respects*`);
+              message.reply(`Banned ${user.tag}. *F to pay respects*`);
               console.log(sub+` banned ${user.tag}`);
             })
             .catch(err => {
@@ -391,7 +391,7 @@ bot.on('message', message => {
 
         const py = spawn('py', ['./addons/asciitext/asciitext.py',fn,text]);
         py.stdout.on('data', function (data) {
-          message.channel.send('`Encoding or decoding of '+text+'`\n`'+data.toString()+'`')
+          message.reply('`Encoding or decoding of '+text+'`\n`'+data.toString()+'`')
           console.log(sub+" gave endecoding for '"+text+"'")
         });
 			} else {
@@ -481,11 +481,12 @@ if (cmd === 'scratch' || cmd === 'scr') {
                   .setTimestamp()
                   .setFooter('Join date: '+date+'\n')
             
-                message.channel.send(Embed);
+                message.reply(Embed);
+		console.log(sub+" gave info on the Scratch user '"+query+"'")
       });	
     } else {
-      message.reply('`The gifpy addon is blocked.`')
-      console.log(sub+' noticed that the gifpy addon was blocked')
+      message.reply('`The scratch addon is blocked.`')
+      console.log(sub+' noticed that the scratch addon was blocked')
     }
   }
 }
