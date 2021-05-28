@@ -65,7 +65,6 @@ Adminstrator commands:
 ```
 User commands:
     mkdir - Make a folder
-    new - Make a file
     random - Generate a random number from a specific range
     help - Get all the commands availible
     help. - Get more info on a command (e.g. c.help.random)
