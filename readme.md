@@ -105,7 +105,7 @@ or else it won't run. ACIIText uses py as well.*
 
 ## Features/hotfixes to be added
 
-- Image search API (command may be c.img)
+- Predict gender and nationality (command may be c.whois)
 - Downloading files (command may be c.get)
 
 ## Current bugs
