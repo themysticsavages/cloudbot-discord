@@ -1,0 +1,14 @@
+{   
+    "DISCORD_TOKEN" : "bot_token",
+    "api" : {
+        "OWP_KEY" : "openweathermap_token",
+        "GIPHY_KEY" : "giphy_token"
+    },
+    "addons" : {
+        "webscraper" : "true",
+        "asciitext" : "true",
+        "weather" : "true",
+        "gifpy" : "true",
+        "scratch" : "true"
+    }
+}

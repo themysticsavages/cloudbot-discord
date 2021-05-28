@@ -12,8 +12,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 
-const addon = require('./addons.json')
-
+const cfg = require('./config.json')
 const bot = new Discord.Client();
 
 const prefix = 'c.'; // You can edit the prefix
@@ -93,7 +92,7 @@ bot.on('message', async message => {
     if (number == 4) { var comment = 'why tho ' }
     if (number == 5) { var comment = 'G`day ' }
     if (number == 6) { var comment = '¯\_(ツ)_/¯ ' }
-    if (number == 7) { var comment = 'When bot is pinged: ' }
+    if (number == 7) { var comment = 'When bot is ping: ' }
     if (number == 8) { var comment = "Don't you have anything to do besides ping me? " }
     if (number == 9) { var comment = 'helo ' }
     if (number == 10) { var comment = '😳 Ping is 🆘 💯% ' }
@@ -107,86 +106,6 @@ bot.on('message', async message => {
   if (message.content === prefix+'uptime' || message.content == prefix+'up') {
     message.channel.send('`'+sub+' uptime: '+Math.round(process.uptime())+' seconds`')
     console.log(sub+' gave the bot uptime')
-  }
-});
-
-// Creates folders
-bot.on('message', async message => {
-  if (!message.content.startsWith(prefix)) return;
-
-  const args = message.content.trim().split(/ +/g); // used this code althroughout the program
-  const cmd = args[0].slice(prefix.length).toLowerCase(); 
-
-  // Since the old syntax for detecting args didn't work, I made a (not so new) new detector altogether
-  // Demonstration time
-
-  if (cmd === 'mkdir' || cmd === 'md') {
-    var err = 0; // Error VARIABLE
-    if (!args[1]) {
-      message.reply("`Where is the folder name? ._.`")
-      console.log(sub+" couldn't find the folder you are looking for")
-      err++; // Increases the error var by one
-    }
-    if (!args[2]) {
-      if (err == 1) { // If the error variable is one, nothing.
-      } else { // So much better isn't it?
-        const fld = args[1]
-        try {
-            if (fld == 'con' || 'aux' || 'nul' || 'prn' || 'com1' || 'com2' || 'com3' || 'com4' || 'com5' || 'com6' || 'com7' || 'com8' || 'com9' || 'lpt1' || 'lpt2' || 'lpt3' || 'lpt4' || 'lpt5' || 'lpt6' || 'lpt7' || 'lpt8' || 'lpt9') {
-              message.reply('`Hey, no Windows reserved device names allowed!`')
-              console.log(sub+" stopped '"+message.author.username+"' from making Windows device names.")
-            } else {
-              fs.mkdirSync(fld)
-              message.channel.send("`Folder named '"+fld+"' created. Yay.`");
-              console.log(sub+" created a folder named '"+fld+"'");
-            }
-          } else {
-            fs.mkdirSync(fld)
-            message.channel.send("`Folder named '"+fld+"' created. Yay.`");
-            console.log(sub+" created a folder named '"+fld+"'");
-          }
-        } catch (err) {
-          message.reply('`Aw man, the folder already exists!`');
-          console.log(sub+" reported that '"+fld+"' already exists");
-        }
-      }
-    }
-  }
-});
-
-// Deletes folders; requires the admin role
-bot.on('message', async message => {
-  if (!message.content.startsWith(prefix)) return;
-
-  const args = message.content.trim().split(/ +/g);
-  const cmd = args[0].slice(prefix.length).toLowerCase();
-
-  if (cmd === 'ddel' || cmd === 'dd') {
-    var err = 0;
-      if (!args[1]) {
-        message.reply("`Hey, I couldn't find a folder name! ._.`")
-        console.log(sub+" couldn't find a folder argument in the command")
-        err++;
-    }
-    if (!args[2]) {
-      if (err == 1) {
-      } else {
-        const dfld = args[1]
-        try {
-          if (message.member.hasPermission("ADMINISTRATOR")) {
-            fs.rmdirSync(dfld, { recursive: true })
-            message.channel.send("`Directory '"+dfld+"' deleted. Hip hip hooray.`");
-            console.log(sub+" deleted folder named '"+dfld+"'");
-        } else {
-          message.reply('`You no have admin! The administrator role is required to delete folders.`');
-          console.log(sub+" error: Insufficient privileges to delete the directory '"+dfld+"'");
-        }
-      } catch (err) {
-          message.reply('`Is that a folder? ._.`');
-          console.log(sub+' error: Directory does not exist');
-        }
-      }
-    }
   }
 });
 
@@ -208,7 +127,7 @@ bot.on('message', message => {
         if (err == 1) {
         } else {
           const cfld = args[1]
-          const substr = 'cloudbot' // If the folder doesn't have the name 'cloudbot', change either this string or the folder name!
+          const substr = 'env'
 
       try {
           process.chdir(cfld)
@@ -216,7 +135,7 @@ bot.on('message', message => {
             message.channel.send("`Changed directory to '"+cfld+"'. *CLAP CLAP*`");
             console.log(sub+" went into the directory '"+cfld+"'");
           } else {
-            process.chdir('cloudbot') // If you change to a directory outside the root folder, then it will go back into the root directory
+            process.chdir('env') // If you change to a directory outside the root folder, then it will go back into the root directory
             message.reply("`I don't think you can go there!`");
             console.log(sub+' error: Access to folders outside root folder is denied');
           }
@@ -255,12 +174,12 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/bin/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n📁 File-server commands > `'+'mkdir`, `ddel`, `del`, `write`, `read`'+'\n❓ Just random > `'+"random`, `translate`, `scrape`, `weather`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n📁 File-server commands > `'+'`write`, `read`, `del`'+'\n❓ Just random > `'+"random`, `translate`, `scrape`, `weather`, `gifpy`, `scratch`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
     message.reply(Embed);
-    console.log(sub+"gave help to '"+message.author.username+"'");
+    console.log(sub+" gave help to '"+message.author.username+"'");
   }
   
   // Extended help library; a nice touch; had to join code to do MemoryLeak warnings
@@ -296,8 +215,8 @@ bot.on('message', message => {
     message.reply('`Make a random number\nusage: '+prefix+'random 420\nAliases: '+prefix+'random, '+prefix+'r`')
     console.log(sub+" told '"+message.author.username+"' how to generate random numbers")
   }
-  if (message.content === prefix+'help.scrape' || message.content === prefix+'?.scr') {
-    message.reply('`Get a Bing search\nusage: c.scrape apples\nAliases: c.scrape, c.scr`')
+  if (message.content === prefix+'help.search' || message.content === prefix+'?.sr') {
+    message.reply('`Get a Bing search\nusage: c.search apples\nAliases: c.search, c.sr`')
     console.log(sub+" told '"+message.author.username+"' how to get searches")
   }
   if (message.content === prefix+'help.translate' || message.content === prefix+'?.tr') {
@@ -306,6 +225,14 @@ bot.on('message', message => {
   }
   if (message.content === prefix+'help.weather' || message.content === prefix+'?.w') {
     message.reply('`Get the weather in a certain area (One word only)\nusage: '+prefix+'weather Frankfurt\nAliases: '+prefix+'weather, '+prefix+'w`')
+    console.log(sub+" helped '"+message.author.username+"' with the weather command")
+  }
+  if (message.content === prefix+'help.gif') {
+    message.reply('`Get a GIF from GIPHY with a single keyword\nusage: '+prefix+'gif minecraft`')
+    console.log(sub+" helped '"+message.author.username+"' with the weather command")
+  }
+  if (message.content === prefix+'help.scratch' || message.content === prefix+'?.scr') {
+    message.reply('`Get info about a Scratch user\nusage: '+prefix+'scratch ajskateboarder`\nAliases: c.scratch, c.scr')
     console.log(sub+" helped '"+message.author.username+"' with the weather command")
   }
   // Commands for fun
@@ -379,10 +306,6 @@ bot.on('message', message => {
     if (args[2]) {
       const fw = args[1]
       const ct = args[2]
-        if (fw == 'con' || 'aux' || 'nul' || 'prn' || 'com1' || 'com2' || 'com3' || 'com4' || 'com5' || 'com6' || 'com7' || 'com8' || 'com9' || 'lpt1' || 'lpt2' || 'lpt3' || 'lpt4' || 'lpt5' || 'lpt6' || 'lpt7' || 'lpt8' || 'lpt9') {
-          message.reply('`Hey, no Windows reserved device names allowed!`')
-          console.log(sub+" stopped '"+message.author.username+"' from making Windows device names.")
-        } else {
         fs.writeFileSync(fw, ct, err => {
           if (err) {
             message.reply("Oh no! Not an unknown error!")
@@ -392,7 +315,6 @@ bot.on('message', message => {
         });
         message.reply("`Wrote to "+`'${fw}'`+" successfully. Yay`")
         console.log(sub+" wrote to '"+fw+"'")
-        }
     }
   }
   if (cmd === 'read' || cmd === 'rd') {
@@ -475,43 +397,43 @@ bot.on('message', message => {
 			if (err == 1) {
 			}
 		else {
-			if (addon.webscraper == 'true') {
+			if (cfg['addons']['webscraper'] == 'true') {
 				const scrape = args[1]
-				const process = spawn('py', ['./addons/webscraper/scrape.py ',scrape]);
+				const process = spawn('py', ['./addons/webscraper/webscaper.py ',scrape]);
 				process.stdout.on('data', (data) => {
 					message.channel.send('`Search of '+scrape+':`\n`'+data.toString()+'`')
 					console.log(sub+" gave search for '"+scrape+"'")
 				});	
 			} else {
 				message.reply('`The webscraper addon is blocked.`')
-				console.log(sub+' noticed that the webscraper addon was blocked.')
+				console.log(sub+' noticed that the webscraper addon was blocked')
 			}
 		}
 	}
   }
-  if (cmd === 'translate' || cmd === 'tr') {
+  if (cmd === 'endecode' || cmd === 'edc') {
     var err = 0;
 		if (!args[1]) {
-			message.reply('`What is the thing you want to translate? ._.`')
-			console.log(sub+' could not find a string to translate')
+			message.reply('`What is the thing you want to encode/decode? ._.`')
+			console.log(sub+' could not find a string to encode or decode')
 			err++
 		}
     if (!args[3]) {
 			if (err == 1) {
 			}
 		else {
-			if (addon.asciitext == 'true') {
+			if (cfg['addons']['asciitext'] == 'true') {
         const fn = args[1]
         const text = args[2]
 
-        const py = spawn('py', ['./addons/asciitext/print.py',fn,text]);
+        const py = spawn('py', ['./addons/asciitext/asciitext.py',fn,text]);
         py.stdout.on('data', function (data) {
-          message.reply('`Conversion of '+text+'`\n`'+data.toString()+'`')
-          console.log(sub+" gave ASCII-Text conversion for '"+text+"'")
+          message.reply('`Encoding or decoding of '+text+'`\n`'+data.toString()+'`')
+          console.log(sub+" gave endecoding for '"+text+"'")
         });
 			} else {
 				message.reply('`The asciitext addon is blocked.`')
-				console.log(sub+' noticed that the asciitext addon was blocked.')
+				console.log(sub+' noticed that the asciitext addon was blocked')
 			}
 		}
 	}
@@ -524,20 +446,88 @@ if (cmd === 'weather' || cmd === 'w') {
       err++
     }
     const place = args[1]
-    const weather = require('./addons/weather/get.js')
+    const weather = require('./addons/weather/weather.js')
 
 
-    if (addon.weather == 'true') {
+    if (cfg['addons']['weather'] == 'true') {
       weather.get(place, function(response){
         message.channel.send('`'+response+'`');
         console.log(sub+' gave the weather in '+place)
       })
     } else {
       message.reply('`The weather addon is blocked.`')
-      console.log(sub+' noticed that the weather addon was blocked.')
+      console.log(sub+' noticed that the weather addon was blocked')
     }
   }
+  if (cmd === 'gif') {
+    var err = 0;
+		if (!args[1]) {
+			message.reply('`What is the GIF you want to find? ._.`')
+			console.log(sub+' could not find a keyword to search')
+			err++
+		}
+    if (!args[3]) {
+			if (err == 1) {
+			}
+		else {
+			if (cfg['addons']['gifpy'] == 'true') {
+        const query = args[1]
+
+        const py = spawn('py', ['./addons/gifpy/gifpy.py',query]);
+        py.stdout.on('data', function (data) {
+          message.channel.send(data.toString())
+          console.log(sub+' gave a GIF for the keyword '+query)
+        });
+
+			} else {
+				message.reply('`The gifpy addon is blocked.`')
+				console.log(sub+' noticed that the gifpy addon was blocked')
+			}
+		}
+	}
+}
+if (cmd === 'scratch' || cmd === 'scr') {
+  var err = 0;
+  if (!args[1]) {
+    message.reply('`What is the account info you want? ._.`')
+    console.log(sub+' could not find a user to search')
+    err++
+  }
+  if (!args[3]) {
+    if (err == 1) {
+    }
+  else {
+    if (cfg['addons']['scratch'] == 'true') {
+      const query = args[1]
+
+      const process = spawn('py', ['./addons/scratch/scratch.py',query]);
+      process.stdout.on('data', (data) => {
+                  const result = data.toString().split(',')
+
+                  const date = result[0]
+                  const avatar = result[1]
+                  const bio = result[2]
+
+                  const Embed = new Discord.MessageEmbed()
+                  .setColor('#0099ff')
+                  .setTitle(query)
+                  .setURL('https://scratch.mit.edu/users/'+query)
+                  .setAuthor('Scratch', 'https://u.cubeupload.com/csf30816/5aVuDN.png', 'https://scratch.mit.edu')
+                  .setDescription('Desc: '+bio)
+                  .setThumbnail(avatar)
+                  .setTimestamp()
+                  .setFooter('Join date: '+date+'\n')
+            
+                message.reply(Embed);
+      });	
+    } else {
+      message.reply('`The gifpy addon is blocked.`')
+      console.log(sub+' noticed that the gifpy addon was blocked')
+    }
+  }
+}
+}
 });
 
 // Insert your token here
-bot.login('bot_token')
+bot.login(cfg.DISCORD_TOKEN)

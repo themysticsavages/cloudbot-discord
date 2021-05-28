@@ -28,10 +28,10 @@
 */
 
 const rp = require('request-promise');
-const api = require('./api.json')
+const api = require('../../config.json')
 
 function get(place, callback) {
-        var url = 'http://api.openweathermap.org/data/2.5/weather?q='+place+'&appid='+api.apikey
+        var url = 'http://api.openweathermap.org/data/2.5/weather?q='+place+'&appid='+api['api']['OWP_KEY']
 
         rp(url)
         .then(function(html){
