@@ -31,9 +31,9 @@
 
 cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. __This bot is officially in a release channel__. It supports file and folder management, banning members, and many other pointless commands. And some addons, as well.
 
-## Requirements
+## Self hosting
 
-You need NodeJS and the npm module `discord.js`. You will also need Python for most plugins.
+You need NodeJS. You will also need Python for most plugins. Download both of these things right [here](https://google.com).
 
 **Required modules for addons:**
 
@@ -44,7 +44,8 @@ Python (pip install):
 ```
 Node.JS (npm install):
 ```
-  - request
+  - discord.js
+  - request-promise
 ```
 
 If you want to use the bot in Discord, link it to a server of yours above. I have a virtual server now which runs the bot, so that's great. It has 16 GB of storage and a 4th gen Core i5 single core processor, which is good. Although it may not be online everyday, it is mostly online.
@@ -91,9 +92,12 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 ## Current bugs
 
 *No bugs. List bugs in issues*
-  
+
+#### Downloads    
+
 <a href="https://nodejs.org" target="_blank">
 <img src="https://shields.io/badge/%20---?style=plastic-square&logo=javascript&color=black">
   
 <a href="https://python.org/downloads" target="_blank">
 <img src="https://shields.io/badge/%20---?style=plastic-square&logo=python&color=black" value="Download Python">
+
