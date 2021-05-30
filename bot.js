@@ -47,7 +47,7 @@ bot.on('ready', () => {
   bot.user.setPresence({
     status: 'online',
     activity: {
-        name: 'Callback Hell 2 | '+prefix+'.?', // lmao i hate callbacks
+        name: 'Callback Hell 2 | '+prefix+'?', // lmao i hate callbacks
         type: 'STREAMING',
         url: video
       }
@@ -117,9 +117,6 @@ bot.on('message', async message => {
       });
     }
 });
-
-
-
 
 // A couple of sentient replies for this nice bot
 bot.on('message', message => {
