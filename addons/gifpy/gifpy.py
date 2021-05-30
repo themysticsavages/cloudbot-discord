@@ -15,7 +15,11 @@ key = data['api']['GIPHY_KEY']
 url = 'https://api.giphy.com/v1/gifs/search?api_key='+key+'&q='+query+'&limit=1&offset=0&rating=g&lang=en'
 
 res = requests.request('GET', url)
-JSON = json.loads(res.text)['data'][0]['url']
 
-print(JSON)
-sys.stdout.flush()
+try:
+  JSON = json.loads(res.text)['data'][0]['url']
+  print(JSON)
+  sys.stdout.flush()
+except IndexError:
+  print('`Failed to find '+query+'. Try looking for something else.`')
+  sys.stdout.flush()
