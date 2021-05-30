@@ -22,7 +22,7 @@
   <a href='https://github.com/themysticsavages/cloudbot-discord/blob/main/readme.md'>
 </p>
 
-![running](https://github.com/ajskateboarder/stuff/blob/main/cloudbot-discord-running.PNG)
+![running](https://github.com/ajskateboarder/stuff/blob/main/recording4.gif)
 
 ###### Running cloudbot in a channel in a Discord server
 #
