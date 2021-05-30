@@ -22,11 +22,10 @@
   <a href='https://github.com/themysticsavages/cloudbot-discord/blob/main/readme.md'>
 </p>
 
-#
-
 ![running](https://github.com/ajskateboarder/stuff/blob/main/cloudbot-discord-running.PNG)
 
 ###### Running cloudbot in a channel in a Discord server
+#
 # Information
 
 cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. __This bot is officially in a release channel__. It supports file and folder management, banning members, and many other pointless commands. And some addons, as well.
