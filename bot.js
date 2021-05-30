@@ -137,7 +137,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/bin/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n📁 File-server commands > `'+'write`, `read`, `del`'+'\n❓ Just random > `'+"random`, `translate`, `search`, `weather`, `gifpy`, `scratch`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n📁 File-server commands > `'+'write`, `read`, `del`'+'\n❓ Just random > `'+"random`, `translate`, `search`, `weather`, `gif`, `scratch`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -353,9 +353,9 @@ bot.on('message', message => {
     
 		var err = 0;
 		if (!args[1]) {
-			message.reply('`What is the keyword you want to search? ._.`')
-			console.log(sub+' could not find a keyword to search')
-			err++
+      err++
+      console.log(sub+' could not find a keyword to search')
+			message.reply('`What keyword do you want to search? ._.`')
 		}
 		if (!args[2]) {
 			if (err == 1) {
@@ -364,15 +364,17 @@ bot.on('message', message => {
 			if (cfg['addons']['webscraper'] == 'true') {
 
 				const scrape = args[1]
-
+        
+        message.channel.send('`Searching for '+scrape+'...`').then((sentmessage) => {
 				var response = spawn('py', ['./addons/webscraper/webscraper.py', scrape]);
         response.stdout.on('data', function(data) {
-          message.channel.send('`'+data.toString()+'`');
+          sentmessage.edit('`'+data.toString()+'`');
           console.log(sub+' gave the results for '+scrape)
-        });
+          });
+        })
 			} else {
+        console.log(sub+' noticed that the webscraper addon was blocked')
 				message.reply('`The webscraper addon is blocked.`')
-				console.log(sub+' noticed that the webscraper addon was blocked')
 			}
 		} 
 	} 
@@ -414,12 +416,13 @@ if (cmd === 'weather' || cmd === 'w') {
     const place = args[1]
     const weather = require('./addons/weather/weather.js')
 
-
     if (cfg['addons']['weather'] == 'true') {
+      message.channel.send('`Getting the weather in '+place+'...`').then((sentmessage) => {
       weather.get(place, function(response){
-        message.channel.send('`'+response+'`');
-        console.log(sub+' gave the weather in '+place)
+          sentmessage.edit('`'+response+'`')
+          console.log('CloudBot gave the weather in '+place)
       })
+    })
     } else {
       message.reply('`The weather addon is blocked.`')
       console.log(sub+' noticed that the weather addon was blocked')
@@ -439,12 +442,21 @@ if (cmd === 'weather' || cmd === 'w') {
 			if (cfg['addons']['gifpy'] == 'true') {
         const query = args[1]
 
-        const py = spawn('py', ['./addons/gifpy/gifpy.py',query]);
-        py.stdout.on('data', function (data) {
-          message.channel.send(data.toString())
-          console.log(sub+' gave a GIF for the keyword '+query)
-        });
-
+        message.channel.send('`Searching for '+query+' on GIPHY...`').then((sentmessage) => {
+          const py = spawn('py', ['./addons/gifpy/gifpy.py',query]);
+          py.stdout.on('data', function (data) {
+            if (data.toString().includes('Failed')) {
+              sentmessage.edit('`❌ Search for '+query+' failed. Look for something else, please.`')
+              console.log("CloudBot failed to find '"+query+"'")
+              err++
+            }
+              if (err == 1) {
+              } else {
+                sentmessage.edit(data.toString())
+                console.log(sub+' gave a GIF for the keyword '+query)
+              }
+            });
+          })
 			} else {
 				message.reply('`The gifpy addon is blocked.`')
 				console.log(sub+' noticed that the gifpy addon was blocked')
@@ -466,25 +478,37 @@ if (cmd === 'scratch' || cmd === 'scr') {
     if (cfg['addons']['scratch'] == 'true') {
       const query = args[1]
 
-      const process = spawn('py', ['./addons/scratch/scratch.py',query]);
-      process.stdout.on('data', (data) => {
-                  const result = data.toString().split(',')
+      message.channel.send('`Searching on Scratch for '+query+'...`').then((sentmessage) => {
+        const process = spawn('py', ['./addons/scratch/scratch.py',query]);
+        process.stdout.on('data', (data) => {
+          if (data.toString().includes('Failed')) {
+            sentmessage.edit('`❌ Search for '+query+' failed. Try looking for a different Scratcher.`')
+            console.log("CloudBot failed to find '"+query+"'")
+            err++
+          }
+          if (err == 1) {
+          } else {
+                    sentmessage.delete()
 
-                  const date = result[0]
-                  const avatar = result[1]
-                  const bio = result[2]
+                    const result = data.toString().split(',')
 
-                  const Embed = new Discord.MessageEmbed()
-                  .setColor('#0099ff')
-                  .setTitle(query)
-                  .setURL('https://scratch.mit.edu/users/'+query)
-                  .setAuthor('Scratch', 'https://u.cubeupload.com/csf30816/5aVuDN.png', 'https://scratch.mit.edu')
-                  .setDescription('Desc: '+bio)
-                  .setThumbnail(avatar)
-                  .setTimestamp()
-                  .setFooter('Join date: '+date+'\n')
-            
-                message.reply(Embed);
+                    const date = result[0]
+                    const avatar = result[1]
+                    const bio = result[2]
+
+                    const Embed = new Discord.MessageEmbed()
+                    .setColor('#0099ff')
+                    .setTitle(query)
+                    .setURL('https://scratch.mit.edu/users/'+query)
+                    .setAuthor('Scratch', 'https://u.cubeupload.com/csf30816/5aVuDN.png', 'https://scratch.mit.edu')
+                    .setDescription('Desc: '+bio)
+                    .setThumbnail(avatar)
+                    .setTimestamp()
+                    .setFooter('Join date: '+date+'\n')
+              
+                  message.channel.send(Embed);
+          }
+        })
 		console.log(sub+" gave info on the Scratch user '"+query+"'")
       });	
     } else {
