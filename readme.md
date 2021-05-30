@@ -72,6 +72,7 @@ User commands:
     help. - Get more info on a command (e.g. c.help.random)
     write - Write to a file
     read - Get the content of a file
+    ls - Get the contents of a directory
     uptime - Get the bot uptime
 ```
 
