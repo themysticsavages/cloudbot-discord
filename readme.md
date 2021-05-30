@@ -74,6 +74,7 @@ User commands:
     read - Get the content of a file
     ls - Get the contents of a directory
     uptime - Get the bot uptime
+    youtube - Get the first five videos from a keyword
 ```
 
 ## Addons
