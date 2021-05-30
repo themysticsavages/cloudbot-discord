@@ -134,7 +134,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/bin/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n📁 File-server commands > `'+'write`, `read`, `del`'+'\n❓ Just random > `'+"random`, `translate`, `search`, `weather`, `gif`, `scratch`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n📁 File-server commands > `'+'write`, `read`, `del`'+'\n❓ Just random > `'+"random`, `translate`, `search`, `weather`, `gif`, `scratch`, `youtube`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -189,11 +189,15 @@ bot.on('message', message => {
   }
   if (message.content === prefix+'help.gif') {
     message.reply('`Get a GIF from GIPHY with a single keyword\nusage: '+prefix+'gif minecraft`')
-    console.log(sub+" helped '"+message.author.username+"' with the weather command")
+    console.log(sub+" helped '"+message.author.username+"' with the GIF command")
   }
   if (message.content === prefix+'help.scratch' || message.content === prefix+'?.scr') {
-    message.reply('`Get info about a Scratch user\nusage: '+prefix+'scratch ajskateboarder`\nAliases: c.scratch, c.scr')
-    console.log(sub+" helped '"+message.author.username+"' with the weather command")
+    message.reply('`Get info about a Scratch user\nusage: '+prefix+'scratch ajskateboarder\nAliases: c.scratch, c.scr`')
+    console.log(sub+" helped '"+message.author.username+"' with the Scratch command")
+  }
+  if (message.content === prefix+'help.youtube' || message.content === prefix+'?.yt') {
+    message.reply('`Get the first five YouTube videos\nusage: '+prefix+'youtube cat\nAliases: c.youtube, c.yt`')
+    console.log(sub+" helped '"+message.author.username+"' with the YouTube command")
   }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
@@ -236,7 +240,7 @@ bot.on('message', message => {
         try {
           if (message.member.hasPermission("ADMINISTRATOR")) {
           fs.unlinkSync(fd, { recursive: true })
-          message.reply("`File named '"+fd+"' was deleted. Wow.`");
+          message.channel.send("`File named '"+fd+"' was deleted. Wow.`");
           console.log(sub+" deleted folder named '"+fd+"'");
         } else {
           message.reply('You no have admin! The administrator role is required to delete files.');
@@ -273,7 +277,7 @@ bot.on('message', message => {
             return;
           }
         });
-        message.reply("`Wrote to "+`'${fw}'`+" successfully. Yay`")
+        message.channel.send("`Wrote to "+`'${fw}'`+" successfully. Yay`")
         console.log(sub+" wrote to '"+fw+"'")
     }
   }
@@ -284,7 +288,7 @@ bot.on('message', message => {
         const rd = args[1]
         try {
           const data = fs.readFileSync(rd, 'utf8')
-          message.reply("`\nContents of '"+rd+"':\n"+data+"`")
+          message.channel.send("`Contents of '"+rd+"':\n"+data+"`")
         } catch (err) {
           message.reply("Where is that file? .-.")
           console.log("sub+ error: File doesn't exist")
@@ -318,7 +322,7 @@ bot.on('message', message => {
               reason: "I wouldn't ban you without a reason! It's probably because the mod(s) noticed that you were abusing the file system in some kind of way.",
             })
             .then(() => { // haha spammer go bye bye
-              message.reply(`Banned ${user.tag}. *F to pay respects*`);
+              message.channel.send(`Banned ${user.tag}. *F to pay respects*`);
               console.log(sub+` banned ${user.tag}`);
             })
             .catch(err => {
@@ -511,6 +515,56 @@ if (cmd === 'scratch' || cmd === 'scr') {
     } else {
       message.reply('`The scratch addon is blocked.`')
       console.log(sub+' noticed that the scratch addon was blocked')
+    }
+  }
+}
+}
+if (cmd === 'youtube' || cmd === 'yt') {
+  var err = 0;
+  if (!args[1]) {
+    message.reply('`What are the videos you want to find? ._.`')
+    console.log(sub+' could not find a keyword to search')
+    err++
+  }
+  if (!args[3]) {
+    if (err == 1) {
+    }
+  else {
+    if (cfg['addons']['youtube'] == 'true') {
+      const query = args[1]
+      
+      message.channel.send('`Searching on YouTube for '+query+'...`').then((sentmessage) => {
+      const process = spawn('py', ['./addons/youtube/youtube.py',query]);
+      process.stdout.on('data', (data) => {
+        if (data.toString().includes('Failed')) {
+          sentmessage.edit('`❌ Search for '+query+' failed. Why not go back in time with some cat videos?`')
+          console.log("CloudBot failed to find '"+query+"'")
+          err++
+        } else {
+        var v1 = 'https://www.youtube.com/watch?v=' + data.toString().split(',')[0]
+        var v2 = 'https://www.youtube.com/watch?v=' + data.toString().split(',')[1]
+        var v3 = 'https://www.youtube.com/watch?v=' + data.toString().split(',')[2]
+        var v4 = 'https://www.youtube.com/watch?v=' + data.toString().split(',')[3]
+        var v5 = 'https://www.youtube.com/watch?v=' + data.toString().split(',')[4]
+
+        sentmessage.delete()
+
+        const Embed = new Discord.MessageEmbed()
+
+        .setColor('#0099ff')
+        .setTitle(query)
+        .setAuthor('YouTube', 'https://1.bp.blogspot.com/-zaoiLHspoKI/XeI_0uFAeCI/AAAAAAAAF38/CyHgdY8bdOQ7d979yOJ0voSIA8b5bAF2wCLcBGAsYHQ/s1600/Youtube-Icon-2000x2000.png', 'https://www.youtube.com')
+        .setDescription(v1 + '\n' + v2 + '\n' + v3 + '\n' + v4 + '\n' + v5)
+        .setTimestamp()
+  
+        message.channel.send(Embed);
+        console.log("CloudBot gave the first five searches for '"+query+"'")
+        }
+      })
+    })
+    } else {
+      message.reply('`The gifpy addon is blocked.`')
+      console.log(sub+' noticed that the gifpy addon was blocked')
     }
   }
 }
