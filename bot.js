@@ -192,12 +192,16 @@ bot.on('message', message => {
     console.log(sub+" helped '"+message.author.username+"' with the GIF command")
   }
   if (message.content === prefix+'help.scratch' || message.content === prefix+'?.scr') {
-    message.reply('`Get info about a Scratch user\nusage: '+prefix+'scratch ajskateboarder\nAliases: c.scratch, c.scr`')
+    message.reply('`Get info about a Scratch user\nusage: '+prefix+'scratch ajskateboarder\nAliases: '+prefix+'scratch, '+prefix+'scr`')
     console.log(sub+" helped '"+message.author.username+"' with the Scratch command")
   }
   if (message.content === prefix+'help.youtube' || message.content === prefix+'?.yt') {
-    message.reply('`Get the first five YouTube videos\nusage: '+prefix+'youtube cat\nAliases: c.youtube, c.yt`')
+    message.reply('`Get the first five YouTube videos\nusage: '+prefix+'youtube cat\nAliases: '+prefix+'youtube, '+prefix+'yt`')
     console.log(sub+" helped '"+message.author.username+"' with the YouTube command")
+  }
+  if (message.content === prefix+'help.shorten' || message.content === prefix+'?.sh') {
+    message.reply('`Shorten a URL with Rebrandly\nusage: '+prefix+'shorten https://google.com \nAliases: '+prefix+'shorten, '+prefix+'sh`')
+    console.log(sub+" helped '"+message.author.username+"' shorten URLs")
   }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
@@ -454,7 +458,7 @@ if (cmd === 'weather' || cmd === 'w') {
               if (err == 1) {
               } else {
                 sentmessage.edit(data.toString())
-                console.log(sub+' gave a GIF for the keyword '+query)
+                console.log(sub+" gave a GIF for the keyword '"+query+"'")
               }
             });
           })
@@ -563,8 +567,44 @@ if (cmd === 'youtube' || cmd === 'yt') {
       })
     })
     } else {
-      message.reply('`The gifpy addon is blocked.`')
-      console.log(sub+' noticed that the gifpy addon was blocked')
+      message.reply('`The youtube addon is blocked.`')
+      console.log(sub+' noticed that the youtube addon was blocked')
+    }
+  }
+}
+}
+if (cmd === 'shorten' || cmd === 'sh') {
+  var err = 0;
+  if (!args[1]) {
+    message.reply('`What is the URL to shorten? ._.`')
+    console.log(sub+' could not find a URL to shorten')
+    err++
+  }
+  if (!args[3]) {
+    if (err == 1) {
+    }
+  else {
+    if (cfg['addons']['snipp.er'] == 'true') {
+      const url = args[1]
+
+      message.channel.send('`Shortening '+url+'...`').then((sentmessage) => {
+        const py = spawn('py', ['./addons/snipp.er/snipper.py',url]);
+        py.stdout.on('data', function (data) {
+          if (data.toString().includes('Failed')) {
+            sentmessage.edit('`❌ Shortening of '+url+' failed. Maybe take a look at your URL?`')
+            console.log("CloudBot failed to shorten '"+url+"'")
+            err++
+          }
+            if (err == 1) {
+            } else {
+              sentmessage.edit('`Shortened URL: https://'+data.toString()+'`')
+              console.log(sub+" shortened '"+url+"'")
+            }
+          });
+        })
+    } else {
+      message.reply('`The snipp.er addon is blocked.`')
+      console.log(sub+' noticed that the snipp.er addon was blocked')
     }
   }
 }
