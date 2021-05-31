@@ -1,14 +1,17 @@
 {   
-    "DISCORD_TOKEN" : "bot_token",
+    "DISCORD_TOKEN" : "ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.ioK-HKdtFfAmmoKYFHSMokCplh4",
     "api" : {
-        "OWP_KEY" : "openweathermap_token",
-        "GIPHY_KEY" : "giphy_token"
+        "OWP_KEY" : "f8d099bcf15f79bd951b68bfd7f721aa",
+        "GIPHY_KEY" : "gulKpXO69ZkUlW1SsEjuUpPplUZ1msmM",
+        "REBRAND_KEY" : "b50a2c0a64ae470b9c2e88d56950fa47"
     },
     "addons" : {
         "webscraper" : "true",
         "asciitext" : "true",
         "weather" : "true",
         "gifpy" : "true",
-        "scratch" : "true"
+        "scratch" : "true",
+        "youtube" : "true",
+        "snipp.er" : "true"
     }
 }
