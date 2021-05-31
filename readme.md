@@ -88,7 +88,6 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 
 ## Features/hotfixes to be added
 
-- __Extension to fun commands (dog images, gender and nationality, and yoda speak!)__
 - Downloading files (command may be c.get)
 
 ## Current bugs
