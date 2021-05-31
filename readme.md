@@ -39,7 +39,8 @@ For self-hosting, you will need nodejs and python. You can download both of thes
 Python (pip install):
 ```
   - bs4
-  - requests
+  - requests (included with Python < 3.7)
+  - urllib.request (included)
 ```
 Node.JS (npm install):
 ```
