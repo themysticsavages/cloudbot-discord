@@ -10,8 +10,13 @@ with open('../../config.json') as fh:
     key = json.loads(fh.read())
 key = key['api']['REBRAND_KEY']
 
+if 'https://' or 'http://' in sys.argv[1]:
+    url = sys.argv[1]
+else:
+    url = 'https://' + sys.argv[1]
+
 linkRequest = {
-  "destination": sys.argv[1]
+  "destination": url
   , "domain": { "fullName": "rebrand.ly" }
 }
 
@@ -29,5 +34,5 @@ if (r.status_code == requests.codes.ok):
     print(str(link["shortUrl"]).replace('/\n|\r/g', ''))
     sys.stdout.flush()
 else:
-    print("`Failed to shorten "+sys.argv[1]+". Maybe it's not a correct URL?`")
+    print("`Failed to shorten "+url+". Maybe it's not a correct URL?`")
     sys.stdout.flush()
