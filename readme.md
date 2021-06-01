@@ -76,6 +76,7 @@ User commands:
     ls - Get the contents of a directory
     uptime - Get the bot uptime
     youtube - Get the first five videos from a keyword
+    shorten - Shorten down a URL with Rebrandly
 ```
 
 ## Addons
