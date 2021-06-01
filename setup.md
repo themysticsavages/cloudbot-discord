@@ -43,6 +43,9 @@ It will ask which server you want the bot to connect to, and if you accept to al
   https://api.giphy.com/v1/gifs/random?api_key=apikey
   ```
 
+### Rebrandly
+  To get an API key, just simply go [here](https://rebrandly.com/developers), create an account, and regenerate your API key. Then insert the key into config.json and try out snipper.py from the addon.
+
 ## Modifying the bot
   Now that you know that the bot actually works, you can modify it to include whatever you want, like kicking members, stopping them from sending messages 
 in channels (which I will probably add), and much more. ~~I highly suggest that you run the bot in Heroku, or a local Linux server, you probably don't need a full blown Windows operating system to run something as simple as a~~ You may need a Windows operating system to run the bot, since some Python functions may not work properly. However, noone's stopping you from using whatever version you want! You can use a legacy Windows OS, a Windows Server OS, and even a __Nano__ server! ([Don't know what Nano Server is?](https://docs.microsoft.com/en-us/windows-server/get-started/getting-started-with-nano-server))
