@@ -40,7 +40,6 @@ Python (pip install):
 ```
   - bs4
   - requests (included with Python < 3.7)
-  - urllib.request (included)
 ```
 Node.JS (npm install):
 ```
