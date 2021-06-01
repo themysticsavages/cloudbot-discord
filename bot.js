@@ -243,7 +243,6 @@ if (cmd2 === 'poll') {
       }
    }
 }
-}
 });
 
 // Delete files; requires admin role
