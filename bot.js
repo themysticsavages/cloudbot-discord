@@ -212,6 +212,9 @@ bot.on('message', message => {
   if (message.content.startsWith(prefix)) {
     const args = message.content.trim().split(/ +/g);
     const cmd = args[0].slice(prefix.length).toLowerCase();
+	  
+    const args2 = message.content.trim().split(' | ');
+    const cmd2 = args[0].slice(prefix.length).toLowerCase();
 
     if (cmd === 'random' || cmd === 'r') {
       const max = args[1]
