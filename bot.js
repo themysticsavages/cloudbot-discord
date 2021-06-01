@@ -203,6 +203,10 @@ bot.on('message', message => {
     message.reply('`Shorten a URL with Rebrandly\nusage: '+prefix+'shorten https://google.com \nAliases: '+prefix+'shorten, '+prefix+'sh`')
     console.log(sub+" helped '"+message.author.username+"' shorten URLs")
   }
+  if (message.content === prefix+'help.poll') {
+    message.reply("`Start a poll\nusage: "+prefix+"poll | like this feature?\n     :"+prefix+"poll | is it better than you thought? | ✔ | ❌ \nAliases: "+prefix+"shorten, "+prefix+"sh`")
+    console.log(sub+" helped '"+message.author.username+"' shorten URLs")
+  }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
     const args = message.content.trim().split(/ +/g);
@@ -219,6 +223,26 @@ bot.on('message', message => {
         console.log(sub+' generated a random number');
       }
    }
+if (cmd2 === 'poll') {
+      const poll = args2[1]
+
+      if (!args2[2] && !args2[3]) { 
+        const up = '⬆'
+        const down = '⬇'
+        message.channel.send(poll).then((msg) => {
+          msg.react(up)
+          msg.react(down)
+        })
+      } else {
+        const up = args2[2]
+        const down = args2[3]
+        message.channel.send(poll).then((msg) => {
+          msg.react(up)
+          msg.react(down)
+        })
+      }
+   }
+}
 }
 });
 
