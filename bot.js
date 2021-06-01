@@ -134,7 +134,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/bin/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n📁 File-server commands > `'+'write`, `read`, `del`'+'\n❓ Just random > `'+"random`, `translate`, `search`, `weather`, `gif`, `scratch`, `youtube`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`,'+'\n👌 Cool commands > `search`, `weather`, `gif`, `scratch`, `youtube`'+'\n📁 File-server commands > `'+'write`, `read`, `del`'+'\n❓ Just random > `'+"random`, `translate`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -204,9 +204,10 @@ bot.on('message', message => {
     console.log(sub+" helped '"+message.author.username+"' shorten URLs")
   }
   if (message.content === prefix+'help.poll') {
-    message.reply("`Start a poll\nusage: "+prefix+"poll | like this feature?\n     :"+prefix+"poll | is it better than you thought? | ✔ | ❌ \nAliases: "+prefix+"shorten, "+prefix+"sh`")
+    message.reply("`Start a poll\nusage: "+prefix+"poll | like this feature?\n     :"+prefix+"poll | is it better than you thought? | ✔ | ❌`")
     console.log(sub+" helped '"+message.author.username+"' shorten URLs")
   }
+
   // Commands for fun
   if (message.content.startsWith(prefix)) {
     const args = message.content.trim().split(/ +/g);
