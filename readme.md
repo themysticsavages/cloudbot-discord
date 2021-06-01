@@ -86,6 +86,7 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 ## Recently added features/hotfixes
 
 - __Removed any kind of folder usage since other commands wouldn't run (ps: you can still make files)__
+- __Added shortener addon__
 
 ## Features/hotfixes to be added
 
