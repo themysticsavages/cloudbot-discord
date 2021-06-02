@@ -134,7 +134,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/bin/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n👌 Cool commands > `search`, `weather`, `gif`, `scratch`, `youtube`'+'\n📁 File-server commands > `'+'write`, `read`, `del`'+'\n❓ Just random > `'+"random`, `translate`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n👌 Cool commands > `search`, `weather`, `gif`, `scratch`, `youtube`'+'\n📁 File-server commands > `'+'write`, `read`, `del`'+'\n❓ Just random > `'+"random`, `endecode`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -179,8 +179,8 @@ bot.on('message', message => {
     message.reply('`Get a Bing search\nusage: c.search apples\nAliases: c.search, c.sr`')
     console.log(sub+" told '"+message.author.username+"' how to get searches")
   }
-  if (message.content === prefix+'help.translate' || message.content === prefix+'?.tr') {
-    message.reply('`Translate text to ASCII and back\nusage: '+prefix+'translate ascii meme\n     : '+prefix+'translate text 109-101-109-101\nAliases: '+prefix+'translate, '+prefix+'tr`')
+  if (message.content === prefix+'help.endecode' || message.content === prefix+'?.en') {
+    message.reply('`Encode text to ASCII and decode back\nusage: '+prefix+'endecode ascii meme\n     : '+prefix+'endecode text 109-101-109-101\nAliases: '+prefix+'translate, '+prefix+'tr`')
     console.log(sub+" helped '"+message.author.username+"' translate things")
   }
   if (message.content === prefix+'help.weather' || message.content === prefix+'?.w') {
