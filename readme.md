@@ -19,7 +19,7 @@
   <a href="https://github.com/themysticsavages/cloudbot-discord/blob/main/LICENSE">
   <img src="https://img.shields.io/badge/license-mit-yellow?style=plastic">
     
-  <a href="https://github.com/themysticsavages/cloudbot-discord/#downloads">
+  <a href="">
 </p>
 
 ![running](https://github.com/ajskateboarder/stuff/blob/main/recording4.gif)
@@ -32,7 +32,7 @@ cloudbot-discord is a file server for Discord. It is best used in a __private Di
 
 ## Self hosting
 
-For self-hosting, you will need nodejs and python. You can download both of these things at the bottom of the [README](https://github.com/themysticsavages/cloudbot-discord#downloads). Then just run `npm install i` and `python -m pip install -r requirements.txt` in the bot directory.
+For self-hosting, you will need nodejs and python. You can download both of these things at the bottom of the README. Then just run `npm install i` and `python -m pip install -r requirements.txt` in the bot directory (tell me if the requirements file actually works).
 
 *[Read setup.md](https://github.com/themysticsavages/cloudbot-discord/blob/main/setup.md) for further information on self-hosting.*
 
