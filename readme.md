@@ -32,22 +32,7 @@ cloudbot-discord is a file server for Discord. It is best used in a __private Di
 
 ## Self hosting
 
-For self-hosting, you will need nodejs and python. You can download both of these things at the bottom of the README.
-
-**Required modules for addons:**
-
-Python (pip install):
-```
-  - bs4
-  - requests (included with Python < 3.7)
-```
-Node.JS (npm install):
-```
-  - discord.js
-  - request-promise
-```
-
-If you want to use the bot in Discord, link it to a server of yours above. I have a virtual server now which runs the bot, so that's great. It has 16 GB of storage and a 4th gen Core i5 single core processor, which is good. Although it may not be online everyday, it is mostly online.
+For self-hosting, you will need nodejs and python. You can download both of these things at the bottom of the README. Then just run `npm install i` and `python -m pip install -r requirements.txt` in the bot directory.
 
 *[Read setup.md](https://github.com/themysticsavages/cloudbot-discord/blob/main/setup.md) for further information on self-hosting.*
 
