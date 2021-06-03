@@ -207,6 +207,10 @@ bot.on('message', message => {
     message.reply("`Start a poll\nusage: "+prefix+"poll | like this feature?\n     : "+prefix+"poll | is it better than you thought? | ✔ | ❌`")
     console.log(sub+" helped '"+message.author.username+"' make polls")
   }
+  if (message.content === prefix+'help.fortnite' || message.content === prefix+'?.frte') {
+    message.reply("`Get recent news in Fortnite and the current map\nusage: "+prefix+"fortnite news/stw\n      :"+prefix+"fortnite news/br\n      :"+prefix+"fortnite news/c\n      :"+prefix+"fortnite map\nAliases: "+prefix+"fortnite, "+prefix+"frte`")
+    console.log(sub+" helped '"+message.author.username+"' with the Fortnite command")
+  }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
     const args = message.content.trim().split(/ +/g);
@@ -229,13 +233,40 @@ bot.on('message', message => {
   }
   if (message.content.startsWith('c.poll')) {
     const args = message.content.trim().split(' | ');
-    var reg = /[a-zA-Z]/g;
 
-    if (!args[4] || args[4].includes('-') || reg.test(args[4])) {
-      message.reply('`Please specify a proper vote end count first ._.`')
-      console.log(sub+' did not find a proper end count')
-    } else {
-        message.channel.send(args[1] + ' (get to '+args[4]+' votes to win)').then((question) => {
+    if (args[4] > 1) {
+        message.channel.send(args[1] + ' (get to '+args[4]+' votes to win!)').then((question) => {
+        
+        const emoji1 = args[2]
+        const emoji2 = args[3]
+
+        question.react(emoji1);
+        question.react(emoji2);
+    
+        const filter = (reaction, user) => {
+            return [emoji1, emoji2].includes(reaction.emoji.name) && !user.bot;
+        };
+    
+        const collector = question.createReactionCollector(filter, {
+            max: args[4],
+        });
+    
+        collector.on('end', (collected, reason) => {
+            let userReaction = collected.array()[0];
+            let emoji = userReaction._emoji.name;
+    
+            if (emoji === emoji1) {
+                question.edit('Option 1 won!');
+            } else if (emoji === emoji2) {
+                question.edit('Option 2 won!');
+            } else {
+                question.edit(`I dont understand ${emoji}...`);   
+            }
+        });
+        });
+    }
+    if (args[4] == 1) {
+        message.channel.send(args[1] + ' (get to '+args[4]+' vote to win)').then((question) => {
         
         const emoji1 = args[2]
         const emoji2 = args[3]
@@ -263,8 +294,9 @@ bot.on('message', message => {
                 question.edit(`I dont understand ${emoji}...`);   
             }
         });
-        });   
+        });
     }
+    
   }
 });
 
@@ -654,6 +686,39 @@ if (cmd === 'shorten' || cmd === 'sh') {
     }
   }
 }
+}
+if (cmd === 'fortnite' || 'frte') {
+  if (args[0]===prefix+'fortnite' && !args[1]) {
+      message.reply('`Please specify a correct query next time ._.`')
+      console.log(sub+' did not find a proper query')
+  } else {
+      if (cfg['addons']['fortnite'] == 'true') {
+        const query = args[1]
+        const py = spawn('py', ['./addons/fortnite/fortnite.py',query]);
+        py.stdout.on('data', function (data) {
+            data = data.toString().split(',')
+
+            if (args[1] === 'news/stw' || args[1] === 'news/br' || args[1] === 'news/c') {
+                const title = data[0]
+                const desc = data[1]
+                
+                const embed = new Discord.MessageEmbed()
+                        .setTitle(title)
+                        .setDescription(desc)
+                        .setTimestamp()
+                    message.channel.send(embed)
+                console.log(sub+' got the latest news from Fortnite')
+            }
+            if (args[1] === 'map') {
+                message.channel.send(data[0])
+                console.log(sub+' gave the current map')
+            }
+        })
+      } else {
+        message.reply('`The fortnite addon is blocked.`')
+        console.log(sub+' noticed that the fortnite addon was blocked')
+      }
+  }
 }
 });
 
