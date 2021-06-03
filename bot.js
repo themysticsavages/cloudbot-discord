@@ -1,4 +1,4 @@
-/* CloudBot - A file server for Discord 
+﻿/* CloudBot - A file server for Discord 
 
    Best used in a private server among responsible members
    It was hard adding semi-colons to everything, just to have "better syntax"
@@ -134,7 +134,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/bin/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n👌 Cool commands > `search`, `weather`, `gif`, `scratch`, `youtube`'+'\n📁 File-server commands > `'+'write`, `read`, `del`'+'\n❓ Just random > `'+"random`, `endecode`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 Not file-server commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`'+'\n📁 File-server commands > `'+'write`, `read`, `del`'+'\n❓ Just random > `'+"random`, `translate`, `search`, `weather`, `gif`, `scratch`, `youtube`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -179,8 +179,8 @@ bot.on('message', message => {
     message.reply('`Get a Bing search\nusage: c.search apples\nAliases: c.search, c.sr`')
     console.log(sub+" told '"+message.author.username+"' how to get searches")
   }
-  if (message.content === prefix+'help.endecode' || message.content === prefix+'?.en') {
-    message.reply('`Encode text to ASCII and decode back\nusage: '+prefix+'endecode ascii meme\n     : '+prefix+'endecode text 109-101-109-101\nAliases: '+prefix+'translate, '+prefix+'tr`')
+  if (message.content === prefix+'help.translate' || message.content === prefix+'?.tr') {
+    message.reply('`Translate text to ASCII and back\nusage: '+prefix+'translate ascii meme\n     : '+prefix+'translate text 109-101-109-101\nAliases: '+prefix+'translate, '+prefix+'tr`')
     console.log(sub+" helped '"+message.author.username+"' translate things")
   }
   if (message.content === prefix+'help.weather' || message.content === prefix+'?.w') {
@@ -204,15 +204,14 @@ bot.on('message', message => {
     console.log(sub+" helped '"+message.author.username+"' shorten URLs")
   }
   if (message.content === prefix+'help.poll') {
-    message.reply("`Start a poll\nusage: "+prefix+"poll | like this feature?\n     :"+prefix+"poll | is it better than you thought? | ✔ | ❌`")
-    console.log(sub+" helped '"+message.author.username+"' shorten URLs")
+    message.reply("`Start a poll\nusage: "+prefix+"poll | like this feature?\n     : "+prefix+"poll | is it better than you thought? | ✔ | ❌`")
+    console.log(sub+" helped '"+message.author.username+"' make polls")
   }
-
   // Commands for fun
   if (message.content.startsWith(prefix)) {
     const args = message.content.trim().split(/ +/g);
     const cmd = args[0].slice(prefix.length).toLowerCase();
-	  
+
     const args2 = message.content.trim().split(' | ');
     const cmd2 = args[0].slice(prefix.length).toLowerCase();
 
@@ -227,26 +226,74 @@ bot.on('message', message => {
         console.log(sub+' generated a random number');
       }
    }
-if (cmd2 === 'poll') {
-      const poll = args2[1]
+  }
+  if (message.content.startsWith('c.poll')) {
+    const args = message.content.trim().split(' | ');
 
-      if (!args2[2] && !args2[3]) { 
-        const up = '⬆'
-        const down = '⬇'
-        message.channel.send(poll).then((msg) => {
-          msg.react(up)
-          msg.react(down)
-        })
-      } else {
-        const up = args2[2]
-        const down = args2[3]
-        message.channel.send(poll).then((msg) => {
-          msg.react(up)
-          msg.react(down)
-        })
-      }
-   }
-}
+    if (args[4] > 1) {
+        message.channel.send(args[1] + ' (get to '+args[4]+' votes to win!)').then((question) => {
+        
+        const emoji1 = args[2]
+        const emoji2 = args[3]
+
+        question.react(emoji1);
+        question.react(emoji2);
+    
+        const filter = (reaction, user) => {
+            return [emoji1, emoji2].includes(reaction.emoji.name) && !user.bot;
+        };
+    
+        const collector = question.createReactionCollector(filter, {
+            max: args[4],
+        });
+    
+        collector.on('end', (collected, reason) => {
+            let userReaction = collected.array()[0];
+            let emoji = userReaction._emoji.name;
+    
+            if (emoji === emoji1) {
+                question.edit('Option 1 won!');
+            } else if (emoji === emoji2) {
+                question.edit('Option 2 won!');
+            } else {
+                question.edit(`I dont understand ${emoji}...`);   
+            }
+        });
+        });
+    }
+    if (args[4] == 1) {
+        message.channel.send(args[1] + ' (get to '+args[4]+' vote to win)').then((question) => {
+        
+        const emoji1 = args[2]
+        const emoji2 = args[3]
+
+        question.react(emoji1);
+        question.react(emoji2);
+    
+        const filter = (reaction, user) => {
+            return [emoji1, emoji2].includes(reaction.emoji.name) && !user.bot;
+        };
+    
+        const collector = question.createReactionCollector(filter, {
+            max: args[4],
+        });
+    
+        collector.on('end', (collected, reason) => {
+            let userReaction = collected.array()[0];
+            let emoji = userReaction._emoji.name;
+    
+            if (emoji === emoji1) {
+                question.edit(args[1] + ' (option 1 won)');
+            } else if (emoji === emoji2) {
+                question.edit(args[1] + ' (option 2 won)');
+            } else {
+                question.edit(`I dont understand ${emoji}...`);   
+            }
+        });
+        });
+    }
+    
+  }
 });
 
 // Delete files; requires admin role
