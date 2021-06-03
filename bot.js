@@ -229,8 +229,12 @@ bot.on('message', message => {
   }
   if (message.content.startsWith('c.poll')) {
     const args = message.content.trim().split(' | ');
+    var reg = /[a-zA-Z]/g;
 
-    if (args[4] > 1) {
+    if (!args[4] || args[4].includes('-') || reg.test(args[4])) {
+      message.reply('`Please specify a proper vote end count first ._.`')
+      console.log(sub+' did not find a proper end count')
+    } else {
         message.channel.send(args[1] + ' (get to '+args[4]+' votes to win)').then((question) => {
         
         const emoji1 = args[2]
@@ -259,40 +263,8 @@ bot.on('message', message => {
                 question.edit(`I dont understand ${emoji}...`);   
             }
         });
-        });
+        });   
     }
-    if (args[4] == 1) {
-        message.channel.send(args[1] + ' (get to '+args[4]+' vote to win)').then((question) => {
-        
-        const emoji1 = args[2]
-        const emoji2 = args[3]
-
-        question.react(emoji1);
-        question.react(emoji2);
-    
-        const filter = (reaction, user) => {
-            return [emoji1, emoji2].includes(reaction.emoji.name) && !user.bot;
-        };
-    
-        const collector = question.createReactionCollector(filter, {
-            max: args[4],
-        });
-    
-        collector.on('end', (collected, reason) => {
-            let userReaction = collected.array()[0];
-            let emoji = userReaction._emoji.name;
-    
-            if (emoji === emoji1) {
-                question.edit(args[1] + ' (option 1 won)');
-            } else if (emoji === emoji2) {
-                question.edit(args[1] + ' (option 2 won)');
-            } else {
-                question.edit(`I dont understand ${emoji}...`);   
-            }
-        });
-        });
-    }
-    
   }
 });
 
