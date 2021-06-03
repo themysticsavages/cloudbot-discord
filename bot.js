@@ -231,7 +231,7 @@ bot.on('message', message => {
     const args = message.content.trim().split(' | ');
 
     if (args[4] > 1) {
-        message.channel.send(args[1] + ' (get to '+args[4]+' votes to win!)').then((question) => {
+        message.channel.send(args[1] + ' (get to '+args[4]+' votes to win)').then((question) => {
         
         const emoji1 = args[2]
         const emoji2 = args[3]
@@ -252,9 +252,9 @@ bot.on('message', message => {
             let emoji = userReaction._emoji.name;
     
             if (emoji === emoji1) {
-                question.edit('Option 1 won!');
+                question.edit(args[1] + ' (option 1 won)');
             } else if (emoji === emoji2) {
-                question.edit('Option 2 won!');
+                question.edit(args[1] + ' (option 2 won)');
             } else {
                 question.edit(`I dont understand ${emoji}...`);   
             }
