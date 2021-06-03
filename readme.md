@@ -61,7 +61,8 @@ User commands:
     uptime - Get the bot uptime
     youtube - Get the first five videos from a keyword
     shorten - Shorten down a URL with Rebrandly
-    poll - Set up a relatively customizable poll with reactions 
+    poll - Set up a relatively customizable poll with reactions
+    fortnite - Get recent news and the battle map from 'Fortnite'
 ```
 
 ## Addons
