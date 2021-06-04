@@ -7,8 +7,7 @@ text = sys.argv[1]
 url = 'https://search.yahoo.com/search?p='+text+'&vm=r'
 request_result = requests.get( url )
   
-soup = bs4.BeautifulSoup(request_result.text,
-                         "html.parser")
+soup = bs4.BeautifulSoup(request_result.text, "html.parser")
 
 obj = []
 heading_object=soup.find_all('p', class_ = 'fz-ms lh-1_43x') 
