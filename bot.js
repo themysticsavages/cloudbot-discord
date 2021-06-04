@@ -352,15 +352,20 @@ bot.on('message', message => {
     if (args[2]) {
       const fw = args[1]
       const ct = args[2]
-        fs.writeFileSync(fw, ct, err => {
-          if (err) {
-            message.reply("Oh no! Not an unknown error!")
-            console.log(sub+" error: Unrecognized error")
-            return;
-          }
-        });
-        message.channel.send("`Wrote to "+`'${fw}'`+" successfully. Yay`")
-        console.log(sub+" wrote to '"+fw+"'")
+      if (fw === 'bot.js' || 'config.json' || 'package.json' || 'requirements.txt' || 'update.cmd' || 'avatar.png') {
+	message.channel.send("`You cannot overwrite any core files ._.`")
+	console.log(sub+" stopped '"+message.author.username+"' from overwriting core files")
+      } else {
+		fs.writeFileSync(fw, ct, err => {
+		  if (err) {
+		    message.reply("Oh no! Not an unknown error!")
+		    console.log(sub+" error: Unrecognized error")
+		    return;
+		  }
+		});
+		message.channel.send("`Wrote to "+`'${fw}'`+" successfully. Yay`")
+		console.log(sub+" wrote to '"+fw+"'")
+       }
     }
   }
   if (cmd === 'read' || cmd === 'rd') {
