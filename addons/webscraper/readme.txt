@@ -3,9 +3,9 @@
 \\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 Name: webscraper
-Staus: Slightly unstable
+Staus: Stable
 
-This is a searching addon which searches Bing
+This is a searching addon which searches Yahoo
 for a given keyword.
 
 Current issues:
