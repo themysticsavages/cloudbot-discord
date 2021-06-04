@@ -50,7 +50,7 @@ Adminstrator commands:
 User commands:
     random - Generate a random number from a specific range
     weather - Get the weather in an area
-    search - Get the first result of a Bing search
+    search - Get the first result of a Yahoo search
     gif - Get a GIF based on a keyword from GIPHY (not Tenor)
     scratch - Get info for a Scratch user
     help - Get all the commands availible
