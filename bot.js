@@ -508,7 +508,7 @@ if (cmd === 'weather' || cmd === 'w') {
       message.channel.send('`Getting the weather in '+place+'...`').then((sentmessage) => {
       weather.get(place, function(response){
           sentmessage.edit('`'+response+'`')
-          console.log('CloudBot gave the weather in '+place)
+          console.log(sub+' gave the weather in '+place)
       })
     })
     } else {
@@ -535,7 +535,7 @@ if (cmd === 'weather' || cmd === 'w') {
           py.stdout.on('data', function (data) {
             if (data.toString().includes('Failed')) {
               sentmessage.edit('`❌ Search for '+query+' failed. Look for something else, please.`')
-              console.log("CloudBot failed to find '"+query+"'")
+              console.log(sub+" failed to find '"+query+"'")
               err++
             }
               if (err == 1) {
@@ -571,7 +571,7 @@ if (cmd === 'scratch' || cmd === 'scr') {
         process.stdout.on('data', (data) => {
           if (data.toString().includes('Failed')) {
             sentmessage.edit('`❌ Search for '+query+' failed. Try looking for a different Scratcher.`')
-            console.log("CloudBot failed to find '"+query+"'")
+            console.log(sub+" failed to find '"+query+"'")
             err++
           }
           if (err == 1) {
@@ -625,7 +625,7 @@ if (cmd === 'youtube' || cmd === 'yt') {
       process.stdout.on('data', (data) => {
         if (data.toString().includes('Failed')) {
           sentmessage.edit('`❌ Search for '+query+' failed. Why not go back in time with some cat videos?`')
-          console.log("CloudBot failed to find '"+query+"'")
+          console.log(sub+" failed to find '"+query+"'")
           err++
         } else {
         var v1 = 'https://www.youtube.com/watch?v=' + data.toString().split(',')[0]
@@ -645,7 +645,7 @@ if (cmd === 'youtube' || cmd === 'yt') {
         .setTimestamp()
   
         message.channel.send(Embed);
-        console.log("CloudBot gave the first five searches for '"+query+"'")
+        console.log(sub+" gave the first five searches for '"+query+"'")
         }
       })
     })
@@ -675,7 +675,7 @@ if (cmd === 'shorten' || cmd === 'sh') {
         py.stdout.on('data', function (data) {
           if (data.toString().includes('Failed')) {
             sentmessage.edit('`❌ Shortening of '+url+' failed. Maybe take a look at your URL?`')
-            console.log("CloudBot failed to shorten '"+url+"'")
+            console.log(sub+" failed to shorten '"+url+"'")
             err++
           }
             if (err == 1) {
@@ -693,7 +693,7 @@ if (cmd === 'shorten' || cmd === 'sh') {
 }
 }
 if (cmd === 'fortnite' || 'frte') {
-  if (args[0]===prefix+'fortnite' && !args[1]) {
+  if (args[0]===prefix+'fortnite' && !args[1] || args[0]===prefix+'frte' && !args[1]) {
       message.reply('`Please specify a correct query next time ._.`')
       console.log(sub+' did not find a proper query')
   } else {
@@ -708,6 +708,7 @@ if (cmd === 'fortnite' || 'frte') {
                 const desc = data[1]
                 
                 const embed = new Discord.MessageEmbed()
+                        .setColor('#0099ff')
                         .setTitle(title)
                         .setDescription(desc)
                         .setTimestamp()
@@ -724,6 +725,88 @@ if (cmd === 'fortnite' || 'frte') {
         console.log(sub+' noticed that the fortnite addon was blocked')
       }
   }
+}
+if (cmd === 'topmeme' || 'memes') {
+  if (prefix+'topmeme'.indexOf(args[0]) || prefix+'memes'.indexOf(args[0])) {
+  const index = args[1]
+  if (cfg['addons']['memes'] == 'true') {
+    const py438y59 = spawn('py', ['./addons/memes/topmeme.py']);
+    py438y59.stdout.on('data', function (data) {
+      data = data.toString().split(',')
+
+      if (index == 1) {
+          const m1 = data[0] + '\n'
+          const m2 = data[1] + '\n'
+          const m3 = data[2] + '\n'
+          const m4 = data[3] + '\n'
+          const m5 = data[4] + '\n'
+          const m6 = data[5] + '\n'
+          const m7 = data[6] + '\n'
+          const m8 = data[7] + '\n'
+          const m9 = data[8] + '\n'
+          const m10 = data[9].replace('"', '').replace('"', '')
+
+          const embed = new Discord.MessageEmbed()
+          .setColor('#0099ff')
+          .setTitle('Top Imgflip Memes')
+          .setDescription('*Page 1*\n' + m1 + m2 + m3 + m4 + m5 + m6 + m7 + m8 + m9 + m10 + '\n*Use the given IDs to generate a meme!*')
+          message.channel.send(embed)
+          console.log(sub+' sent page 1 of the top memes list')
+      }
+
+      if (index == 2) {
+          const m11 = data[10] + '\n'
+          const m12 = data[11] + '\n'
+          const m13 = data[12] + '\n'
+          const m14 = data[13] + '\n'
+          const m15 = data[14] + '\n'
+          const m16 = data[15] + '\n'
+          const m17 = data[16] + '\n'
+          const m18 = data[17] + '\n'
+          const m19 = data[18] + '\n'
+          const m20 = data[19].replace('\r\n', '')
+
+          const embed2 = new Discord.MessageEmbed()
+          .setColor('#0099ff')
+          .setTitle('Top Imgflip Memes')
+          .setDescription('*Page 2*\n' + m11 + m12 + m13 + m14 + m15 + m16 + m17 + m18 + m19 + m20 + '\n*Use the given IDs to generate a meme!*')
+          message.channel.send(embed2)
+          console.log(sub+' sent page 2 of the top memes list')
+      }
+    })
+  } else {
+    message.reply('`The memes addon is blocked.`')
+    console.log(sub+' noticed that the memes addon was blocked')
+  }
+}
+}
+if (cmd === 'mmake' || 'memegen') {
+  if (message.content.includes(prefix+'mmake') || message.content.includes(prefix+'memegen')) {
+  const id = args[1]
+  const t = args[2]
+  const b = args[3]
+
+  if (cfg['addons']['memes'] == 'true') {
+    message.channel.send('`Generating meme with ID '+id+'...`').then((sentmessage) => {
+    const py438y59r = spawn('py', ['./addons/memes/meme.py', id, t, b]);
+    py438y59r.stdout.on('data', function (data) {
+      if (data.toString().includes('Failed')) {
+        sentmessage.edit('`❌ Creation of meme with ID '+id+' failed. Check if you included a proper ID or top and bottom text.`')
+        console.log(sub+" failed to make a meme with ID '"+id+"'")
+        err++
+      }
+      if (err == 1) {
+      } else {
+        sentmessage.delete()
+        message.channel.send(data.toString().replace('\r\n', ''))
+      }
+    })
+  })
+  } else {
+    message.reply('`The memes addon is blocked.`')
+    console.log(sub+' noticed that the memes addon was blocked')
+  }
+}
 }
 });
 
