@@ -134,7 +134,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `memegen`, `topmeme`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -209,6 +209,14 @@ bot.on('message', message => {
   }
   if (message.content === prefix+'help.fortnite' || message.content === prefix+'?.frte') {
     message.reply("`Get recent news in Fortnite and the current map\nusage: "+prefix+"fortnite news/stw\n      :"+prefix+"fortnite news/br\n      :"+prefix+"fortnite news/c\n      :"+prefix+"fortnite map\nAliases: "+prefix+"fortnite, "+prefix+"frte`")
+    console.log(sub+" helped '"+message.author.username+"' with the Fortnite command")
+  }
+  if (message.content === prefix+'help.topmeme' || message.content === prefix+'?.memes') {
+    message.reply("`Get the top meme IDs on Imgflip\nusage: "+prefix+"topmeme [1-2]\nAliases: "+prefix+"topmeme, "+prefix+"memes`")
+    console.log(sub+" helped '"+message.author.username+"' with the Fortnite command")
+  }
+  if (message.content === prefix+'help.memegen' || message.content === prefix+'?.mmake') {
+    message.reply("`Generate a 2010 meme template!\nusage: "+prefix+"memegen 123456 top bottom\nAliases: "+prefix+"memegen, "+prefix+"mmake`")
     console.log(sub+" helped '"+message.author.username+"' with the Fortnite command")
   }
   // Commands for fun
