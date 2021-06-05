@@ -239,7 +239,7 @@ bot.on('message', message => {
       }
    }
   }
-  if (message.content.startsWith('c.poll')) {
+  if (message.content.startsWith(prefix+'poll')) {
     const args = message.content.trim().split(' | ');
 
     if (args[4] > 1) {
