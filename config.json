@@ -1,12 +1,12 @@
 {   
-    "DISCORD_TOKEN" : "ODM1ODQxMzgyODgyNzM4MjE2.YIVT8g.ETvobuIPbbLB_KutaAgSGXVD-4k",
+    "DISCORD_TOKEN" : "bot_token",
     "api" : {
-        "OWP_KEY" : "f8d099bcf15f79bd951b68bfd7f721aa",
-        "GIPHY_KEY" : "gulKpXO69ZkUlW1SsEjuUpPplUZ1msmM",
-        "REBRAND_KEY" : "b50a2c0a64ae470b9c2e88d56950fa47",
+        "OWP_KEY" : "owp_key",
+        "GIPHY_KEY" : "giphy_key",
+        "REBRAND_KEY" : "rebrandly_key",
         "imgflip" : {
-            "USERNAME" : "justthemystic",
-            "PASSWORD" : "adiiscool74@"
+            "USERNAME" : "username",
+            "PASSWORD" : "password"
         }
     },
     "addons" : {
