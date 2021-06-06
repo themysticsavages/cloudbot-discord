@@ -76,8 +76,7 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 
 ## Features/hotfixes to be added
 
-- __Meme commands (c.topmeme for top 20 memes and c.meme for making memes)__    
-- Downloading files (command may be c.get)
+*lol nothing*
 
 ## Current bugs
 
