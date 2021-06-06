@@ -63,6 +63,7 @@ User commands:
     shorten - Shorten down a URL with Rebrandly
     poll - Set up a relatively customizable poll with reactions
     fortnite - Get recent news and the battle map from 'Fortnite'
+    get - Download a file to the bot servers (if it's a text document, you can read it)
 ```
 
 ## Addons
