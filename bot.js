@@ -134,7 +134,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `memegen`, `topmeme`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -213,11 +213,15 @@ bot.on('message', message => {
   }
   if (message.content === prefix+'help.topmeme' || message.content === prefix+'?.memes') {
     message.reply("`Get the top meme IDs on Imgflip\nusage: "+prefix+"topmeme [1-2]\nAliases: "+prefix+"topmeme, "+prefix+"memes`")
-    console.log(sub+" helped '"+message.author.username+"' with the Fortnite command")
+    console.log(sub+" helped '"+message.author.username+"' with the topmeme command")
   }
   if (message.content === prefix+'help.memegen' || message.content === prefix+'?.mmake') {
     message.reply("`Generate a 2010 meme template!\nusage: "+prefix+"memegen 123456 top bottom\nAliases: "+prefix+"memegen, "+prefix+"mmake`")
-    console.log(sub+" helped '"+message.author.username+"' with the Fortnite command")
+    console.log(sub+" helped '"+message.author.username+"' with the art of making memes")
+  }
+  if (message.content === prefix+'help.download' || message.content === prefix+'?.get') {
+    message.reply("`Download a file from the Internet to the bot server!\nusage: "+prefix+"download http(s)://example.com/file.png picture.png\nAliases: "+prefix+"download, "+prefix+"get`")
+    console.log(sub+" helped '"+message.author.username+"' with downloading files")
   }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
@@ -239,11 +243,11 @@ bot.on('message', message => {
       }
    }
   }
-  if (message.content.startsWith(prefix+'poll')) {
+  if (message.content.startsWith('c.poll')) {
     const args = message.content.trim().split(' | ');
 
     if (args[4] > 1) {
-        message.channel.send(args[1] + ' (get to '+args[4]+' votes to win!)').then((question) => {
+        message.channel.send('`'+args[1] + ' (get to '+args[4]+' votes to win)`').then((question) => {
         
         const emoji1 = args[2]
         const emoji2 = args[3]
@@ -264,11 +268,11 @@ bot.on('message', message => {
             let emoji = userReaction._emoji.name;
     
             if (emoji === emoji1) {
-                question.edit('Option 1 won!');
+                question.edit(args[1] + ' (option 1 won)');
             } else if (emoji === emoji2) {
-                question.edit('Option 2 won!');
+                question.edit(args[1] + ' (option 2 won)');
             } else {
-                question.edit(`I dont understand ${emoji}...`);   
+                question.edit(`The winning emoji was not a contestant...`);   
             }
         });
         });
@@ -299,12 +303,11 @@ bot.on('message', message => {
             } else if (emoji === emoji2) {
                 question.edit(args[1] + ' (option 2 won)');
             } else {
-                question.edit(`I dont understand ${emoji}...`);   
+                question.edit('`The winning emoji was not a contestant...`');   
             }
         });
         });
-    }
-    
+    } 
   }
 });
 
@@ -331,9 +334,9 @@ bot.on('message', message => {
           if (message.member.hasPermission("ADMINISTRATOR")) {
           fs.unlinkSync(fd, { recursive: true })
           message.channel.send("`File named '"+fd+"' was deleted. Wow.`");
-          console.log(sub+" deleted folder named '"+fd+"'");
+          console.log(sub+" deleted file named '"+fd+"'");
         } else {
-          message.reply('You no have admin! The administrator role is required to delete files.');
+          message.reply('`You no have admin! The administrator role is required to delete files.`');
           console.log(sub+" error: Insufficient privileges to delete the file '"+fd+"'");
         }
       } catch (err) {
@@ -360,20 +363,28 @@ bot.on('message', message => {
     if (args[2]) {
       const fw = args[1]
       const ct = args[2]
-      if (fw === 'bot.js' || 'config.json' || 'package.json' || 'requirements.txt' || 'update.cmd' || 'avatar.png') {
-	message.channel.send("`You cannot overwrite any core files ._.`")
+      if (fw === 'bot.js' || fw === 'config.json' || fw === 'package.json' || fw === 'requirements.txt' || fw === 'initialize.cmd' || fw === 'avatar.png') {
+	message.reply("`You cannot overwrite any core files ._.`")
 	console.log(sub+" stopped '"+message.author.username+"' from overwriting core files")
       } else {
-		fs.writeFileSync(fw, ct, err => {
-		  if (err) {
-		    message.reply("Oh no! Not an unknown error!")
-		    console.log(sub+" error: Unrecognized error")
-		    return;
-		  }
-		});
-		message.channel.send("`Wrote to "+`'${fw}'`+" successfully. Yay`")
-		console.log(sub+" wrote to '"+fw+"'")
-       }
+      var data = fs.readFileSync(fw, 'utf8')
+      data = data.split(' ')[0]
+
+      if (data.includes(message.author.username) && message.author.username === data) {
+        fs.writeFileSync(fw, message.author.username+' '+ct, err => {
+          if (err) {
+            message.reply("Oh no! Not an unknown error!")
+            console.log(sub+" error: Unrecognized error")
+            return;
+          }
+		    });
+        message.channel.send("`Wrote to "+`'${fw}'`+" successfully. Yay.`")
+        console.log(sub+" wrote to '"+fw+"'")
+      } else {
+        message.reply('`You were not given access to write to this file ._.`')
+        console.log(sub+" did not allow '"+message.author.username+"' to write to a restricted file")
+      }
+      }
     }
   }
   if (cmd === 'read' || cmd === 'rd') {
@@ -385,13 +396,63 @@ bot.on('message', message => {
           const data = fs.readFileSync(rd, 'utf8')
           message.channel.send("`Contents of '"+rd+"':\n"+data+"`")
         } catch (err) {
-          message.reply("Where is that file? .-.")
-          console.log("sub+ error: File doesn't exist")
+          message.reply("`Where is that file? .-.`")
+          console.log(sub+" error: File doesn't exist")
         }
       }
     } else {
       message.reply('`Where did you put the file argument? ._.`')
       console.log(sub+' failed to find an argument')
+    }
+  }
+  if (cmd === 'secret' || cmd === 's') {
+    const embed3 = new Discord.MessageEmbed()
+      .setTitle('`✨ Welcome! Here, you can run commands in secret. No one will see you... except for the server admin, of course. But enjoy ✨ `')
+      .setColor('#0099ff')
+    message.reply('`Check your DMs!`').then(message.author.send(embed3)).then(console.log(sub+" helped '"+message.author.username+" with private commands"))
+  }
+  if (cmd === 'download' || cmd === 'get') {
+    if (cfg['addons']['get'] == 'true') {
+      if (!args[1]) {
+        message.reply('`Specify a URL next time ._.`')
+        console.log(sub+" couldn't find any arguments")
+      } else {
+
+        if (args[1].includes('https://') || args[1].includes('http://')) {
+          if (args[1].includes('https://')) {
+
+            const https = require('https');
+            const obj = args[2]
+            const file = fs.createWriteStream(obj);
+
+            const request = https.get(args[1], function(response) {
+              response.pipe(file);
+              message.channel.send('⏳ Downloading file...').then((sentmessages) => {
+                file.on('finish', function() { file.close().then(sentmessages.edit('`✔ Downloaded file sucessfully!`').then(console.log(sub+" downloaded file from '"+args[1]+"' sucessfully")))})
+              })
+            });
+            
+          }
+          if (args[1].includes('http://')) {
+            const http = require('http');
+            const obj = args[2]
+            const file = fs.createWriteStream(obj);
+
+            const request = http.get(args[1], function(response) {
+              response.pipe(file);
+              message.channel.send('⏳ Downloading file...').then((sentmessages) => {
+                file.on('finish', function() { file.close().then(sentmessages.edit('`✔ Downloaded file sucessfully!`').then(console.log(sub+" downloaded file from '"+args[1]+"' sucessfully")))})
+              })
+            });
+          }
+        } else {
+          message.reply('`Add http:// or https:// to your URL ._.`')
+          console.log(sub+" couldn't find any protocol on the URL")
+        }
+      }
+    } else {
+      console.log(sub+' noticed that the get addon was blocked')
+      message.reply('`The get addon is blocked.`')
     }
   }
 });
@@ -461,7 +522,7 @@ bot.on('message', message => {
 
 				const scrape = args[1]
         
-        message.channel.send('`Searching for '+scrape+'...`').then((sentmessage) => {
+        message.channel.send('`⏳ Searching for '+scrape+'...`').then((sentmessage) => {
 				var response = spawn('py', ['./addons/webscraper/webscraper.py', scrape]);
         response.stdout.on('data', function(data) {
           sentmessage.edit('`'+data.toString()+'`');
@@ -513,7 +574,7 @@ if (cmd === 'weather' || cmd === 'w') {
     const weather = require('./addons/weather/weather.js')
 
     if (cfg['addons']['weather'] == 'true') {
-      message.channel.send('`Getting the weather in '+place+'...`').then((sentmessage) => {
+      message.channel.send('`⏳ Getting the weather in '+place+'...`').then((sentmessage) => {
       weather.get(place, function(response){
           sentmessage.edit('`'+response+'`')
           console.log(sub+' gave the weather in '+place)
@@ -538,7 +599,7 @@ if (cmd === 'weather' || cmd === 'w') {
 			if (cfg['addons']['gifpy'] == 'true') {
         const query = args[1]
 
-        message.channel.send('`Searching for '+query+' on GIPHY...`').then((sentmessage) => {
+        message.channel.send('`⏳ Searching for '+query+' on GIPHY...`').then((sentmessage) => {
           const py = spawn('py', ['./addons/gifpy/gifpy.py',query]);
           py.stdout.on('data', function (data) {
             if (data.toString().includes('Failed')) {
@@ -574,7 +635,7 @@ if (cmd === 'scratch' || cmd === 'scr') {
     if (cfg['addons']['scratch'] == 'true') {
       const query = args[1]
 
-      message.channel.send('`Searching on Scratch for '+query+'...`').then((sentmessage) => {
+      message.channel.send('`⏳ Searching on Scratch for '+query+'...`').then((sentmessage) => {
         const process = spawn('py', ['./addons/scratch/scratch.py',query]);
         process.stdout.on('data', (data) => {
           if (data.toString().includes('Failed')) {
@@ -628,7 +689,7 @@ if (cmd === 'youtube' || cmd === 'yt') {
     if (cfg['addons']['youtube'] == 'true') {
       const query = args[1]
       
-      message.channel.send('`Searching on YouTube for '+query+'...`').then((sentmessage) => {
+      message.channel.send('`⏳ Searching on YouTube for '+query+'...`').then((sentmessage) => {
       const process = spawn('py', ['./addons/youtube/youtube.py',query]);
       process.stdout.on('data', (data) => {
         if (data.toString().includes('Failed')) {
@@ -678,7 +739,7 @@ if (cmd === 'shorten' || cmd === 'sh') {
     if (cfg['addons']['snipp.er'] == 'true') {
       const url = args[1]
 
-      message.channel.send('`Shortening '+url+'...`').then((sentmessage) => {
+      message.channel.send('`⏳ Shortening '+url+'...`').then((sentmessage) => {
         const py = spawn('py', ['./addons/snipp.er/snipper.py',url]);
         py.stdout.on('data', function (data) {
           if (data.toString().includes('Failed')) {
@@ -795,7 +856,7 @@ if (cmd === 'mmake' || 'memegen') {
   const b = args[3]
 
   if (cfg['addons']['memes'] == 'true') {
-    message.channel.send('`Generating meme with ID '+id+'...`').then((sentmessage) => {
+    message.channel.send('`⏳ Generating meme with ID '+id+'...`').then((sentmessage) => {
     const py438y59r = spawn('py', ['./addons/memes/meme.py', id, t, b]);
     py438y59r.stdout.on('data', function (data) {
       if (data.toString().includes('Failed')) {
