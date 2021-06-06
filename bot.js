@@ -427,8 +427,12 @@ bot.on('message', message => {
 
             const request = https.get(args[1], function(response) {
               response.pipe(file);
-              message.channel.send('⏳ Downloading file...').then((sentmessages) => {
-                file.on('finish', function() { file.close().then(sentmessages.edit('`✔ Downloaded file sucessfully!`').then(console.log(sub+" downloaded file from '"+args[1]+"' sucessfully")))})
+              message.channel.send('`⏳ Downloading file...`').then((sentmessages) => {
+                file.on('finish', function() { 
+                  file.close()
+                  sentmessages.edit('`✔ Downloaded file sucessfully!`')
+                  console.log(sub+" downloaded file from '"+args[1]+"' sucessfully")
+                })
               })
             });
             
@@ -440,8 +444,12 @@ bot.on('message', message => {
 
             const request = http.get(args[1], function(response) {
               response.pipe(file);
-              message.channel.send('⏳ Downloading file...').then((sentmessages) => {
-                file.on('finish', function() { file.close().then(sentmessages.edit('`✔ Downloaded file sucessfully!`').then(console.log(sub+" downloaded file from '"+args[1]+"' sucessfully")))})
+              message.channel.send('`⏳ Downloading file...`').then((sentmessages) => {
+                file.on('finish', function() { 
+                  file.close()
+                  sentmessages.edit('`✔ Downloaded file sucessfully!`')
+                  console.log(sub+" downloaded file from '"+args[1]+"' sucessfully")
+                })
               })
             });
           }
