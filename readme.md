@@ -28,7 +28,7 @@
 #
 # Information
 
-cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. __This bot is officially in a release channel__. It supports file management, banning members, and many other pointless commands.
+cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. __This bot is officially in a release channel__. It supports file management, banning members, and many other pointless commands. If you want to give it a name, call it Cybrex or something.
 
 ## Self hosting
 
