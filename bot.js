@@ -107,6 +107,14 @@ bot.on('message', async message => {
     message.channel.send('`'+sub+' uptime: '+Math.round(process.uptime())+' seconds`')
     console.log(sub+' gave the bot uptime')
   }
+  if (message.content === prefix+'dashboard' || message.content === prefix+'db') {
+    const embed = new Discord.MessageEmbed()
+      .setColor('#0099ff')
+      .setTitle('Dashboard (in progress)')
+      .setURL('https://ajskateboarder.github.io/cloudbot')
+    }
+    message.channel.send(embed)
+    console.log(sub+' sent the dashboard')
   // Lists the content of a directory (small, but important)
   if (message.content === prefix+'ls') {
     const fld = './' // verrry simple code, you don't even need args!
