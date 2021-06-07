@@ -367,22 +367,37 @@ bot.on('message', message => {
 	message.reply("`You cannot overwrite any core files ._.`")
 	console.log(sub+" stopped '"+message.author.username+"' from overwriting core files")
       } else {
-      var data = fs.readFileSync(fw, 'utf8')
-      data = data.split(' ')[0]
-
-      if (data.includes(message.author.username) && message.author.username === data) {
-        fs.writeFileSync(fw, message.author.username+' '+ct, err => {
-          if (err) {
-            message.reply("Oh no! Not an unknown error!")
-            console.log(sub+" error: Unrecognized error")
-            return;
+      
+      try {
+        if (fs.existsSync(args[1])) {
+          var data = fs.readFileSync(fw, 'utf8')
+          data = data.split(' ')[0]
+          if (data.includes(message.author.username) && message.author.username === data) {
+            fs.writeFileSync(fw, message.author.username+' '+ct, err => {
+              if (err) {
+                message.reply("Oh no! Not an unknown error!")
+                console.log(sub+" error: Unrecognized error")
+                return;
+              }
+            });
+            message.channel.send("`Wrote to "+`'${fw}'`+" successfully. Yay.`")
+            console.log(sub+" wrote to '"+fw+"'")
           }
-		    });
+        } else {
+          fs.writeFileSync(fw, message.author.username+' '+ct, err => {
+            if (err) {
+              message.reply("Oh no! Not an unknown error!")
+              console.log(sub+" error: Unrecognized error")
+              return;
+            }
+          });
+          message.channel.send("`Wrote to "+`'${fw}'`+" successfully. Yay.`")
+          console.log(sub+" wrote to '"+fw+"'")
+        }
+      } catch (err) {
+
         message.channel.send("`Wrote to "+`'${fw}'`+" successfully. Yay.`")
         console.log(sub+" wrote to '"+fw+"'")
-      } else {
-        message.reply('`You were not given access to write to this file ._.`')
-        console.log(sub+" did not allow '"+message.author.username+"' to write to a restricted file")
       }
       }
     }
