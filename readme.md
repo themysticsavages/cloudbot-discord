@@ -64,6 +64,7 @@ User commands:
     poll - Set up a relatively customizable poll with reactions
     fortnite - Get recent news and the battle map from 'Fortnite'
     get - Download a file to the bot servers (if it's a text document, you can read it)
+    dashboard - Get the URL to the bot dashboard
 ```
 
 ## Addons
