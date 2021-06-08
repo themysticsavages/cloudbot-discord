@@ -5,19 +5,19 @@
 
 <p align="center">
   <a href="https://codeload.github.com/themysticsavages/cloudbot-discord/zip/refs/heads/main">
-  <img src="http://shields.io/badge/source--code-ZIP-blue?style=plastic">
+  <img src="http://shields.io/badge/source--code-ZIP-blue?style=flat">
     
   <a href="https://codeload.github.com/themysticsavages/cloudbot-discord/tar.gz/refs/heads/main">
-  <img src="http://shields.io/badge/source--code-TARGZ-green?style=plastic">
+  <img src="http://shields.io/badge/source--code-TARGZ-green?style=flat">
   
   <a href="https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612">
-  <img src="https://img.shields.io/badge/%20-Put%20me%20in%20your%20server-blue?style=plastic">
+  <img src="https://img.shields.io/badge/%20-Put%20me%20in%20your%20server-blue?style=flat">
   
   <a href="about:blank">
-  <img src="https://img.shields.io/badge/channel-release-orange?style=plastic">
+  <img src="https://img.shields.io/badge/channel-release-orange?style=flat">
   
   <a href="https://github.com/themysticsavages/cloudbot-discord/blob/main/LICENSE">
-  <img src="https://img.shields.io/badge/license-mit-yellow?style=plastic">
+  <img src="https://img.shields.io/badge/license-mit-yellow?style=flat">
     
   <a href="">
 </p>
@@ -86,8 +86,8 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 #### Downloads    
 
 <a href="https://nodejs.org" target="_blank">
-<img src="https://shields.io/badge/%20---?style=plastic-square&logo=javascript&color=black">
+<img src="https://shields.io/badge/%20---?style=flat-square&logo=javascript&color=black">
   
 <a href="https://python.org/downloads" target="_blank">
-<img src="https://shields.io/badge/%20---?style=plastic-square&logo=python&color=black" value="Download Python">
+<img src="https://shields.io/badge/%20---?style=flat-square&logo=python&color=black" value="Download Python">
 
