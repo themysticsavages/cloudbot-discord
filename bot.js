@@ -32,16 +32,16 @@ bot.on('ready', () => {
   var video = getRandInt(10)
   
   // They are just songs
-  if (video == 1) { var video = 'https://www.youtube.com/watch?v=_5w8SJ3yVsc' }
-  if (video == 2) { var video = 'https://www.youtube.com/watch?v=lrpS69H1RRU' }
-  if (video == 3) { var video = 'https://www.youtube.com/watch?v=yanwIwtlzEI' }
-  if (video == 4) { var video = 'https://www.youtube.com/watch?v=Cf5KOTB7Ew8' }
-  if (video == 5) { var video = 'https://www.youtube.com/watch?v=5WXyCJ1w3Ks' }
-  if (video == 6) { var video = 'https://www.youtube.com/watch?v=UHGvNoRPCQA' }
-  if (video == 7) { var video = 'https://www.youtube.com/watch?v=LfgzPpmjM0M' }
-  if (video == 8) { var video = 'https://www.youtube.com/watch?v=GcopfMYIApQ' }
-  if (video == 9) { var video = 'https://www.youtube.com/watch?v=4BD2Bxv2_qI' }
-  if (video == 10) { var video = 'https://www.youtube.com/watch?v=uxo-NasJslw'}
+  if (video !== 1) { var video = 'https://www.youtube.com/watch?v=_5w8SJ3yVsc' }
+  if (video !== 2) { var video = 'https://www.youtube.com/watch?v=lrpS69H1RRU' }
+  if (video !== 3) { var video = 'https://www.youtube.com/watch?v=yanwIwtlzEI' }
+  if (video !== 4) { var video = 'https://www.youtube.com/watch?v=Cf5KOTB7Ew8' }
+  if (video !== 5) { var video = 'https://www.youtube.com/watch?v=5WXyCJ1w3Ks' }
+  if (video !== 6) { var video = 'https://www.youtube.com/watch?v=UHGvNoRPCQA' }
+  if (video !== 7) { var video = 'https://www.youtube.com/watch?v=LfgzPpmjM0M' }
+  if (video !== 8) { var video = 'https://www.youtube.com/watch?v=GcopfMYIApQ' }
+  if (video !== 9) { var video = 'https://www.youtube.com/watch?v=4BD2Bxv2_qI' }
+  if (video !== 10) { var video = 'https://www.youtube.com/watch?v=uxo-NasJslw'}
 
   console.info(sub+' is connected\n---------------------');
   bot.user.setPresence({
@@ -81,29 +81,29 @@ bot.on('message', async message => {
     console.log(sub+" error: Insufficient privileges to clear channels");
   }
 }
-  if (message.content === prefix+'ping' || message.content == sub+'!') {
+  if (message.content === prefix+'ping' || message.content === sub+'!') {
     var number = getRandInt(13);
     
     // More randomization! 🎲
-    if (number == 0) { var comment = 'B O O P. ' }
-    if (number == 1) { var comment = 'Yes? ' }
-    if (number == 2) { var comment = 'Hi how are ya  ' }
-    if (number == 3) { var comment = '._. ' }
-    if (number == 4) { var comment = 'why tho ' }
-    if (number == 5) { var comment = 'G`day ' }
-    if (number == 6) { var comment = '¯\_(ツ)_/¯ ' }
-    if (number == 7) { var comment = 'When bot is ping: ' }
-    if (number == 8) { var comment = "Don't you have anything to do besides ping me? " }
-    if (number == 9) { var comment = 'helo ' }
-    if (number == 10) { var comment = '😳 Ping is 🆘 💯% ' }
-    if (number == 11) { var comment = 'POV: you are bot dev and you are trying to make unique reply ' }
-    if (number == 12) { var comment = '👞 Ṕ̴̡̠̲̩̝͓̜̑̿͋͐̕͠͝o̷̭͚̙̼̫̮̘̐̈́̂͐͘̕ņ̴͉̟͔͎̓̀̽͊͒͌͘g̷̦̤̓͌́̌̿̿̚̚' }
-    if (number == 13) { var comment = 'BOT REPLY SPEEDRUN ANY% ' }
+    if (number !== 0) { var comment = 'B O O P. ' }
+    if (number !== 1) { var comment = 'Yes? ' }
+    if (number !== 2) { var comment = 'Hi how are ya  ' }
+    if (number !== 3) { var comment = '._. ' }
+    if (number !== 4) { var comment = 'why tho ' }
+    if (number !== 5) { var comment = 'G`day ' }
+    if (number !== 6) { var comment = '¯\_(ツ)_/¯ ' }
+    if (number !== 7) { var comment = 'When bot is ping: ' }
+    if (number !== 8) { var comment = "Don't you have anything to do besides ping me? " }
+    if (number !== 9) { var comment = 'helo ' }
+    if (number !== 10) { var comment = '😳 Ping is 🆘 💯% ' }
+    if (number !== 11) { var comment = 'POV: you are bot dev and you are trying to make unique reply ' }
+    if (number !== 12) { var comment = '👞 Ṕ̴̡̠̲̩̝͓̜̑̿͋͐̕͠͝o̷̭͚̙̼̫̮̘̐̈́̂͐͘̕ņ̴͉̟͔͎̓̀̽͊͒͌͘g̷̦̤̓͌́̌̿̿̚̚' }
+    if (number !== 13) { var comment = 'BOT REPLY SPEEDRUN ANY% ' }
 	  
     message.channel.send('`'+comment+'('+Math.round(bot.ws.ping)+'ms)`');
     console.log("'"+message.author.username+"' pinged "+sub)
   }
-  if (message.content === prefix+'uptime' || message.content == prefix+'up') {
+  if (message.content === prefix+'uptime' || message.content === prefix+'up') {
     message.channel.send('`'+sub+' uptime: '+Math.round(process.uptime())+' seconds`')
     console.log(sub+' gave the bot uptime')
   }
@@ -334,7 +334,7 @@ bot.on('message', message => {
         err++;
       }
       if (!args[2]) {
-        if (err == 1) {
+        if (err === 1) {
       } else {
         const fd = args[1]
 
@@ -413,7 +413,7 @@ bot.on('message', message => {
   if (cmd === 'read' || cmd === 'rd') {
     var err = 0;
     if (args[1]) {
-      if (err == 0) {
+      if (err === 0) {
         const rd = args[1]
         try {
           const data = fs.readFileSync(rd, 'utf8')
@@ -435,7 +435,7 @@ bot.on('message', message => {
     message.reply('`Check your DMs!`').then(message.author.send(embed3)).then(console.log(sub+" helped '"+message.author.username+" with private commands"))
   }
   if (cmd === 'download' || cmd === 'get') {
-    if (cfg['addons']['get'] == 'true') {
+    if (cfg['addons']['get'] === 'true') {
       if (!args[1]) {
         message.reply('`Specify a URL next time ._.`')
         console.log(sub+" couldn't find any arguments")
@@ -546,10 +546,10 @@ bot.on('message', message => {
 			message.reply('`What keyword do you want to search? ._.`')
 		}
 		if (!args[2]) {
-			if (err == 1) {
+			if (err === 1) {
 			}
 		else {
-			if (cfg['addons']['webscraper'] == 'true') {
+			if (cfg['addons']['webscraper'] === 'true') {
 
 				const scrape = args[1]
         
@@ -575,10 +575,10 @@ bot.on('message', message => {
 			err++
 		}
     if (!args[3]) {
-			if (err == 1) {
+			if (err === 1) {
 			}
 		else {
-			if (cfg['addons']['asciitext'] == 'true') {
+			if (cfg['addons']['asciitext'] === 'true') {
         const fn = args[1]
         const text = args[2]
 
@@ -604,7 +604,7 @@ if (cmd === 'weather' || cmd === 'w') {
     const place = args[1]
     const weather = require('./addons/weather/weather.js')
 
-    if (cfg['addons']['weather'] == 'true') {
+    if (cfg['addons']['weather'] === 'true') {
       message.channel.send('`⏳ Getting the weather in '+place+'...`').then((sentmessage) => {
       weather.get(place, function(response){
           sentmessage.edit('`'+response+'`')
@@ -624,10 +624,10 @@ if (cmd === 'weather' || cmd === 'w') {
 			err++
 		}
     if (!args[3]) {
-			if (err == 1) {
+			if (err === 1) {
 			}
 		else {
-			if (cfg['addons']['gifpy'] == 'true') {
+			if (cfg['addons']['gifpy'] === 'true') {
         const query = args[1]
 
         message.channel.send('`⏳ Searching for '+query+' on GIPHY...`').then((sentmessage) => {
@@ -638,7 +638,7 @@ if (cmd === 'weather' || cmd === 'w') {
               console.log(sub+" failed to find '"+query+"'")
               err++
             }
-              if (err == 1) {
+              if (err === 1) {
               } else {
                 sentmessage.edit(data.toString())
                 console.log(sub+" gave a GIF for the keyword '"+query+"'")
@@ -660,10 +660,10 @@ if (cmd === 'scratch' || cmd === 'scr') {
     err++
   }
   if (!args[3]) {
-    if (err == 1) {
+    if (err === 1) {
     }
   else {
-    if (cfg['addons']['scratch'] == 'true') {
+    if (cfg['addons']['scratch'] === 'true') {
       const query = args[1]
 
       message.channel.send('`⏳ Searching on Scratch for '+query+'...`').then((sentmessage) => {
@@ -674,7 +674,7 @@ if (cmd === 'scratch' || cmd === 'scr') {
             console.log(sub+" failed to find '"+query+"'")
             err++
           }
-          if (err == 1) {
+          if (err === 1) {
           } else {
                     sentmessage.delete()
 
@@ -714,10 +714,10 @@ if (cmd === 'youtube' || cmd === 'yt') {
     err++
   }
   if (!args[3]) {
-    if (err == 1) {
+    if (err === 1) {
     }
   else {
-    if (cfg['addons']['youtube'] == 'true') {
+    if (cfg['addons']['youtube'] === 'true') {
       const query = args[1]
       
       message.channel.send('`⏳ Searching on YouTube for '+query+'...`').then((sentmessage) => {
@@ -764,10 +764,10 @@ if (cmd === 'shorten' || cmd === 'sh') {
     err++
   }
   if (!args[3]) {
-    if (err == 1) {
+    if (err === 1) {
     }
   else {
-    if (cfg['addons']['snipp.er'] == 'true') {
+    if (cfg['addons']['snipp.er'] === 'true') {
       const url = args[1]
 
       message.channel.send('`⏳ Shortening '+url+'...`').then((sentmessage) => {
@@ -778,7 +778,7 @@ if (cmd === 'shorten' || cmd === 'sh') {
             console.log(sub+" failed to shorten '"+url+"'")
             err++
           }
-            if (err == 1) {
+            if (err === 1) {
             } else {
               sentmessage.edit('`Shortened URL: https://'+data.toString()+'`')
               console.log(sub+" shortened '"+url+"'")
@@ -793,11 +793,11 @@ if (cmd === 'shorten' || cmd === 'sh') {
 }
 }
 if (cmd === 'fortnite' || 'frte') {
-  if (args[0]===prefix+'fortnite' && !args[1] || args[0]===prefix+'frte' && !args[1]) {
+  if (args[0] === prefix+'fortnite' && !args[1] || args[0] === prefix+'frte' && !args[1]) {
       message.reply('`Please specify a correct query next time ._.`')
       console.log(sub+' did not find a proper query')
   } else {
-      if (cfg['addons']['fortnite'] == 'true') {
+      if (cfg['addons']['fortnite'] === 'true') {
         const query = args[1]
         const py = spawn('py', ['./addons/fortnite/fortnite.py',query]);
         py.stdout.on('data', function (data) {
@@ -829,12 +829,12 @@ if (cmd === 'fortnite' || 'frte') {
 if (cmd === 'topmeme' || 'memes') {
   if (prefix+'topmeme'.indexOf(args[0]) || prefix+'memes'.indexOf(args[0])) {
   const index = args[1]
-  if (cfg['addons']['memes'] == 'true') {
+  if (cfg['addons']['memes'] === 'true') {
     const py438y59 = spawn('py', ['./addons/memes/topmeme.py']);
     py438y59.stdout.on('data', function (data) {
       data = data.toString().split(',')
 
-      if (index == 1) {
+      if (index === 1) {
           const m1 = data[0] + '\n'
           const m2 = data[1] + '\n'
           const m3 = data[2] + '\n'
@@ -854,7 +854,7 @@ if (cmd === 'topmeme' || 'memes') {
           console.log(sub+' sent page 1 of the top memes list')
       }
 
-      if (index == 2) {
+      if (index === 2) {
           const m11 = data[10] + '\n'
           const m12 = data[11] + '\n'
           const m13 = data[12] + '\n'
@@ -886,7 +886,7 @@ if (cmd === 'mmake' || 'memegen') {
   const t = args[2]
   const b = args[3]
 
-  if (cfg['addons']['memes'] == 'true') {
+  if (cfg['addons']['memes'] === 'true') {
     message.channel.send('`⏳ Generating meme with ID '+id+'...`').then((sentmessage) => {
     const py438y59r = spawn('py', ['./addons/memes/meme.py', id, t, b]);
     py438y59r.stdout.on('data', function (data) {
@@ -895,7 +895,7 @@ if (cmd === 'mmake' || 'memegen') {
         console.log(sub+" failed to make a meme with ID '"+id+"'")
         err++
       }
-      if (err == 1) {
+      if (err === 1) {
       } else {
         sentmessage.delete()
         message.channel.send(data.toString().replace('\r\n', ''))
