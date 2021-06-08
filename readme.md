@@ -73,11 +73,11 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 
 ## Recently added features/hotfixes
 
-- __Added fortnite addon ._.__
+- __Added download command \owo/__
 
 ## Features/hotfixes to be added
 
-*lol nothing*
+- __Economy command (c.economy/shop)__
 
 ## Current bugs
 
