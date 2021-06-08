@@ -11,13 +11,10 @@
   <img src="http://shields.io/badge/source--code-TARGZ-green?style=flat">
   
   <a href="https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612">
-  <img src="https://img.shields.io/badge/%20-Put%20me%20in%20your%20server-blue?style=flat">
+  <img src="https://img.shields.io/badge/%20-Invite%20me!-blue?style=flat">
   
   <a href="about:blank">
   <img src="https://img.shields.io/badge/channel-release-orange?style=flat">
-  
-  <a href="https://app.codacy.com/gh/themysticsavages/cloudbot-discord/dashboard">
-  <img src="https://img.shields.io/codacy/grade/cbb4043ea7fb4b3da0e68a864e9184b8?label=quality">
     
   <a href="">
 </p>
@@ -85,3 +82,4 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 
 ## Statistics
 ![picture](https://github.com/themysticsavages/cloudbot-discord/actions/workflows/codeql-analysis.yml/badge.svg)
+[![picture1](https://img.shields.io/codacy/grade/cbb4043ea7fb4b3da0e68a864e9184b8?label=quality)](https://app.codacy.com/gh/themysticsavages/cloudbot-discord/dashboard)
