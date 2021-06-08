@@ -1,11 +1,11 @@
-﻿/* CloudBot - A file server for Discord 
+/* CloudBot - A file server for Discord 
 
    Best used in a private server among responsible members
    It was hard adding semi-colons to everything, just to have "better syntax"
    You're lucky I made this bot open-source!
    not a lot of people do that
    
-   Read the MIT license; for it will help you with bot usage
+   Read the included MIT license; for it will help you with bot usage
 
 (c) 2021 themysticsavages */
 
