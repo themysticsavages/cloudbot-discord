@@ -82,3 +82,6 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 ## Current bugs
 
 *No bugs. List bugs in issues*
+
+## Statistics
+![picture](https://github.com/themysticsavages/cloudbot-discord/actions/workflows/codeql-analysis.yml/badge.svg)
