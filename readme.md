@@ -82,12 +82,3 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 ## Current bugs
 
 *No bugs. List bugs in issues*
-
-#### Downloads    
-
-<a href="https://nodejs.org" target="_blank">
-<img src="https://shields.io/badge/%20---?style=flat-square&logo=javascript&color=black">
-  
-<a href="https://python.org/downloads" target="_blank">
-<img src="https://shields.io/badge/%20---?style=flat-square&logo=python&color=black" value="Download Python">
-
