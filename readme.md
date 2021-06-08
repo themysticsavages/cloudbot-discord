@@ -16,8 +16,8 @@
   <a href="about:blank">
   <img src="https://img.shields.io/badge/channel-release-orange?style=flat">
   
-  <a href="https://github.com/themysticsavages/cloudbot-discord/blob/main/LICENSE">
-  <img src="https://img.shields.io/badge/license-mit-yellow?style=flat">
+  <a href="https://app.codacy.com/gh/themysticsavages/cloudbot-discord/dashboard">
+  <img src="https://img.shields.io/codacy/grade/cbb4043ea7fb4b3da0e68a864e9184b8?label=quality">
     
   <a href="">
 </p>
