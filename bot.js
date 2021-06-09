@@ -384,9 +384,9 @@ bot.on('message', message => {
     if (args[2]) {
       const fw = args[1]
       const ct = args[2]
-      if (fw === 'bot.js' || fw === 'config.json' || fw === 'package.json' || fw === 'requirements.txt' || fw === 'initialize.cmd' || fw === 'avatar.png') {
-	message.reply("`You cannot overwrite any core files ._.`")
-	console.log(sub+" stopped '"+message.author.username+"' from overwriting core files")
+      if (fw === 'bot.js' || fw === 'config.json' || fw === 'package.json' || fw === 'requirements.txt' || fw === 'initialize.cmd' || fw === 'avatar.png' || '\\'.indexOf(fw) || '/'.indexOf(fw)) {
+        message.reply("`You cannot overwrite any core files or write to a different directory ._.`")
+        console.log(sub+" stopped '"+message.author.username+"' from overwriting core files or writing elsewhere")
       } else {
       
       try {
@@ -394,15 +394,15 @@ bot.on('message', message => {
           var data = fs.readFileSync(fw, 'utf8')
           data = data.split(' ')[0]
           if (data.includes(message.author.username) && message.author.username === data) {
-            fs.writeFileSync(fw, message.author.username+' '+ct, err => {
-              if (err) {
-                message.reply("Oh no! Not an unknown error!")
-                console.log(sub+" error: Unrecognized error")
-                return;
-              }
-            });
-            message.channel.send("`Wrote to "+`'${fw}'`+" successfully. Yay.`")
-            console.log(sub+" wrote to '"+fw+"'")
+              fs.writeFileSync(fw, message.author.username+' '+ct, err => {
+                if (err) {
+                  message.reply("Oh no! Not an unknown error!")
+                  console.log(sub+" error: Unrecognized error")
+                  return;
+                }
+              });
+              message.channel.send("`Wrote to "+`'${fw}'`+" successfully. Yay.`")
+              console.log(sub+" wrote to '"+fw+"'")
           }
         } else {
           fs.writeFileSync(fw, message.author.username+' '+ct, err => {
