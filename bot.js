@@ -21,6 +21,7 @@ const sub = 'CloudBot'; // You can change this to change what the bots logs in c
 const { spawn } = require('child_process');
 const process = require('process')
 
+const talkedRecently = new Set();
 console.clear()
 
 function getRandInt(max) {
@@ -107,14 +108,6 @@ bot.on('message', async message => {
     message.channel.send('`'+sub+' uptime: '+Math.round(process.uptime())+' seconds`')
     console.log(sub+' gave the bot uptime')
   }
-  if (message.content === prefix+'dashboard' || message.content === prefix+'db') {
-    const embed = new Discord.MessageEmbed()
-      .setColor('#0099ff')
-      .setTitle('Dashboard (in progress)')
-      .setURL('https://ajskateboarder.github.io/cloudbot')
-    }
-    message.channel.send(embed)
-    console.log(sub+' sent the dashboard')
   // Lists the content of a directory (small, but important)
   if (message.content === prefix+'ls') {
     const fld = './' // verrry simple code, you don't even need args!
@@ -536,6 +529,9 @@ bot.on('message', message => {
 	
 	const args = message.content.trim().split(/ +/g);
 	const cmd = args[0].slice(prefix.length).toLowerCase();
+
+  const args2 = message.content.trim().split(' | ');
+  const cmd2 = args2[0].slice(prefix.length).toLowerCase()
 	
 	if (cmd === 'search' || cmd === 'sr') {
     
@@ -908,7 +904,57 @@ if (cmd === 'mmake' || 'memegen') {
   }
 }
 }
-});
+if (message.content.includes(prefix+'shop')) {
+  if (cfg['addons']['economy'] === 'true') {
+    if (message.content.startsWith(prefix+'shop/add')) {
+        const func1 = args2[1]
+        const func2 = args2[2]
 
-// Insert your token here
+        const python2 = spawn('py', ['./addons/economy/new.py', message.author.username+'#'+message.author.discriminator, func1, func2])
+        python2.stdout.on('data', (data) => {
+            message.channel.send('`' + data.toString() + '`')
+        })
+    }
+    if (message.content.startsWith(prefix+'shop/remove')) {
+
+        const python3 = spawn('py', ['./addons/economy/remove.py', message.author.username+'#'+message.author.discriminator])
+        python3.stdout.on('data', (data) => {
+            message.channel.send('`' + data.toString() + '`')
+        })
+    }
+    if (message.content === prefix+'shop/money') {
+        if (talkedRecently.has(message.author.id) && message.content === prefix+'shop/money') {
+            message.channel.send("`Please wait 1 hour and 40 minutes before running this again!`");
+            console.log(`${sub} told ${message.author.username} to wait 100 minutes before running the money command again.`)
+        } else {
+            const python4 = spawn('py', ['./addons/economy/money.py', message.author.username+'#'+message.author.discriminator])
+            python4.stdout.on('data', (data) => {
+                message.channel.send('`' + data.toString() + '`')
+                console.log(`${sub} gave ${message.author.username} ${data.toString().split(' ')[3]} bucks!`)
+
+                talkedRecently.add(message.author.id);
+                setTimeout(() => { talkedRecently.delete(message.author.id); }, 6000000);
+            })
+        }
+    }
+    if (message.content.startsWith(prefix+'shop/buy')) {
+        const item = args2[1]
+        const python34 = spawn('py', ['./addons/economy/store.py', message.author.username+'#'+message.author.discriminator, item])
+        python34.stdout.on('data', (data) => {
+          message.channel.send('`' + data.toString() + '`')
+        })
+    }
+    if (message.content.startsWith(prefix+'shop/info')) {
+        const item = args2[1]
+        const python34 = spawn('py', ['./addons/economy/find.py', item])
+        python34.stdout.on('data', (data) => {
+          message.channel.send('`' + data.toString().replace(/"/gi, '') + '`')
+        })
+      }
+    } else {
+      message.reply('`The economy addon is blocked.`')
+      console.log(sub+' noticed that the economy addon was blocked')
+    }
+  }
+});
 bot.login(cfg.DISCORD_TOKEN)
