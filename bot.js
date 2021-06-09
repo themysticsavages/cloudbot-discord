@@ -353,7 +353,7 @@ bot.on('message', message => {
 
         try {
           if (message.member.hasPermission("ADMINISTRATOR")) {
-          fs.unlinkSync(fd, { recursive: true })
+          fs.unlinkSync('./env/'+fd, { recursive: true })
           message.channel.send("`File named '"+fd+"' was deleted. Wow.`");
           console.log(sub+" deleted file named '"+fd+"'");
         } else {
@@ -384,17 +384,17 @@ bot.on('message', message => {
     if (args[2]) {
       const fw = args[1]
       const ct = args[2]
-      if (fw === 'bot.js' || fw === 'config.json' || fw === 'package.json' || fw === 'requirements.txt' || fw === 'initialize.cmd' || fw === 'avatar.png' || '\\'.indexOf(fw) || '/'.indexOf(fw)) {
+      if (fw === 'bot.js' || fw === 'config.json' || fw === 'package.json' || fw === 'requirements.txt' || fw === 'initialize.cmd' || fw === 'avatar.png' || fw.includes('\\')) {
         message.reply("`You cannot overwrite any core files or write to a different directory ._.`")
         console.log(sub+" stopped '"+message.author.username+"' from overwriting core files or writing elsewhere")
       } else {
       
       try {
-        if (fs.existsSync(args[1])) {
-          var data = fs.readFileSync(fw, 'utf8')
+        if (fs.existsSync('./env/'+args[1])) {
+          var data = fs.readFileSync('./env/'+fw, 'utf8')
           data = data.split(' ')[0]
           if (data.includes(message.author.username) && message.author.username === data) {
-              fs.writeFileSync(fw, message.author.username+' '+ct, err => {
+              fs.writeFileSync('./env/'+fw, message.author.username+' '+ct, err => {
                 if (err) {
                   message.reply("Oh no! Not an unknown error!")
                   console.log(sub+" error: Unrecognized error")
@@ -405,7 +405,7 @@ bot.on('message', message => {
               console.log(sub+" wrote to '"+fw+"'")
           }
         } else {
-          fs.writeFileSync(fw, message.author.username+' '+ct, err => {
+          fs.writeFileSync('./env/'+fw, message.author.username+' '+ct, err => {
             if (err) {
               message.reply("Oh no! Not an unknown error!")
               console.log(sub+" error: Unrecognized error")
@@ -429,8 +429,9 @@ bot.on('message', message => {
       if (err === 0) {
         const rd = args[1]
         try {
-          const data = fs.readFileSync(rd, 'utf8')
+          const data = fs.readFileSync('./env/'+rd, 'utf8')
           message.channel.send("`Contents of '"+rd+"':\n"+data+"`")
+          console.log(sub+` gave the contents of ${rd}`)
         } catch (err) {
           message.reply("`Where is that file? .-.`")
           console.log(sub+" error: File doesn't exist")
