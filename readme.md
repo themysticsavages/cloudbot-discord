@@ -33,36 +33,8 @@ For self-hosting, you will need nodejs and python. You can download both of thes
 
 *[Read setup.md](https://github.com/themysticsavages/cloudbot-discord/blob/main/setup.md) for further information on self-hosting.*
 
-## Usage
-
-A list of what commands can be done with roles. 
-```
-Adminstrator commands:
-    cclear - Clear the console
-    clear - Clear 99 messages from a channel
-    del - Delete a file
-    ban - Ban a user regardless of roles
-```
-```
-User commands:
-    random - Generate a random number from a specific range
-    weather - Get the weather in an area
-    search - Get the first result of a Yahoo search
-    gif - Get a GIF based on a keyword from GIPHY (not Tenor)
-    scratch - Get info for a Scratch user
-    help - Get all the commands availible
-    help. - Get more info on a command (e.g. c.help.random)
-    write - Write to a file
-    read - Get the content of a file
-    ls - Get the contents of a directory
-    uptime - Get the bot uptime
-    youtube - Get the first five videos from a keyword
-    shorten - Shorten down a URL with Rebrandly
-    poll - Set up a relatively customizable poll with reactions
-    fortnite - Get recent news and the battle map from 'Fortnite'
-    get - Download a file to the bot servers (if it's a text document, you can read it)
-    dashboard - Get the URL to the bot dashboard
-```
+## Commands
+Check out the commands [here](https://ajskateboarder.github.io/cloudbot).
 
 ## Addons
 
