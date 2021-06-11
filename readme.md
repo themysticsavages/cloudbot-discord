@@ -42,11 +42,11 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 
 ## Recently added features/hotfixes
 
-- __$ Added economy command $___
+- ![pic](https://shields.io/badge/Added%20Button%20-Command-blue)
 
 ## Features/hotfixes to be added
 
-- __Shields.io Badge addon to generate a button for use (c.badge/bge)__
+- __Godaddy website availibility command__
 
 ## Current bugs
 
