@@ -53,5 +53,9 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 *No bugs. List bugs in issues*
 
 ## Statistics
-![picture](https://github.com/themysticsavages/cloudbot-discord/actions/workflows/codeql-analysis.yml/badge.svg)
-[![picture1](https://img.shields.io/codacy/grade/cbb4043ea7fb4b3da0e68a864e9184b8?label=quality)](https://app.codacy.com/gh/themysticsavages/cloudbot-discord/dashboard)
+    
+| Name          | Description   |
+| ------------- | ------------- |
+| Quality       | [![picture1](https://img.shields.io/codacy/grade/cbb4043ea7fb4b3da0e68a864e9184b8?label=quality )](https://app.codacy.com/gh/themysticsavages/cloudbot-discord/dashboard)  |
+| CodeQL stats  | ![picture](https://github.com/themysticsavages/cloudbot-discord/actions/workflows/codeql-analysis.yml/badge.svg)  |
+| Commit history| ![picture2](https://img.shields.io/github/commit-activity/m/themysticsavages/cloudbot-discord)|
