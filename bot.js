@@ -110,7 +110,7 @@ bot.on('message', async message => {
   }
   // Lists the content of a directory (small, but important)
   if (message.content === prefix+'ls') {
-    const fld = './env' // verrry simple code, you don't even need args!
+    const fld = './' // verrry simple code, you don't even need args!
     fs.readdir(fld, (err, files) => {
         files.forEach(file => {
           message.channel.send(file);
@@ -217,7 +217,7 @@ bot.on('message', message => {
     console.log(sub+" helped '"+message.author.username+"' with the topmeme command")
   }
   if (message.content === prefix+'help.memegen' || message.content === prefix+'?.mmake') {
-    message.reply("`Generate a 2010 meme template!\nusage: "+prefix+"memegen | 123456 | top | bottom\nAliases: "+prefix+"memegen, "+prefix+"mmake`")
+    message.reply("`Generate a 2010 meme template!\nusage: "+prefix+"memegen 123456 top bottom\nAliases: "+prefix+"memegen, "+prefix+"mmake`")
     console.log(sub+" helped '"+message.author.username+"' with the art of making memes")
   }
   if (message.content === prefix+'help.download' || message.content === prefix+'?.get') {
@@ -243,6 +243,10 @@ bot.on('message', message => {
   if (message.content === prefix+'help.shop/info') {
     message.reply("`Get information on any user in the store!\nusage: "+prefix+"shop/info | user#0000`")
     console.log(sub+" helped '"+message.author.username+"' with the shop/info command")
+  }
+  if (message.content === prefix+'help.shield' || message.content === prefix+'?.shld') {
+    message.reply("`Generate a button with Sheilds.IO!\nusage: "+prefix+"shield | a button | period | blue\nAliases: "+prefix+"shield, "+prefix+"shld`")
+    console.log(sub+" helped '"+message.author.username+"' with the shield command")
   }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
@@ -286,7 +290,8 @@ bot.on('message', message => {
     
         collector.on('end', (collected, reason) => {
             let userReaction = collected.array()[0];
-            let emoji = userReaction._emoji.name;
+            let emoji = userReaction._emoji
+            .name;
     
             if (emoji === emoji1) {
                 question.edit(args[1] + ' (option 1 won)');
@@ -353,7 +358,7 @@ bot.on('message', message => {
 
         try {
           if (message.member.hasPermission("ADMINISTRATOR")) {
-          fs.unlinkSync('./env/'+fd, { recursive: true })
+          fs.unlinkSync(fd, { recursive: true })
           message.channel.send("`File named '"+fd+"' was deleted. Wow.`");
           console.log(sub+" deleted file named '"+fd+"'");
         } else {
@@ -384,17 +389,17 @@ bot.on('message', message => {
     if (args[2]) {
       const fw = args[1]
       const ct = args[2]
-      if (fw === 'bot.js' || fw === 'config.json' || fw === 'package.json' || fw === 'requirements.txt' || fw === 'initialize.cmd' || fw === 'avatar.png' || fw.includes('\\')) {
+      if (fw === 'bot.js' || fw === 'config.json' || fw === 'package.json' || fw === 'requirements.txt' || fw === 'initialize.cmd' || fw === 'avatar.png' || '\\'.indexOf(fw) || '/'.indexOf(fw)) {
         message.reply("`You cannot overwrite any core files or write to a different directory ._.`")
         console.log(sub+" stopped '"+message.author.username+"' from overwriting core files or writing elsewhere")
       } else {
       
       try {
-        if (fs.existsSync('./env/'+args[1])) {
-          var data = fs.readFileSync('./env/'+fw, 'utf8')
+        if (fs.existsSync(args[1])) {
+          var data = fs.readFileSync(fw, 'utf8')
           data = data.split(' ')[0]
           if (data.includes(message.author.username) && message.author.username === data) {
-              fs.writeFileSync('./env/'+fw, message.author.username+' '+ct, err => {
+              fs.writeFileSync(fw, message.author.username+' '+ct, err => {
                 if (err) {
                   message.reply("Oh no! Not an unknown error!")
                   console.log(sub+" error: Unrecognized error")
@@ -405,7 +410,7 @@ bot.on('message', message => {
               console.log(sub+" wrote to '"+fw+"'")
           }
         } else {
-          fs.writeFileSync('./env/'+fw, message.author.username+' '+ct, err => {
+          fs.writeFileSync(fw, message.author.username+' '+ct, err => {
             if (err) {
               message.reply("Oh no! Not an unknown error!")
               console.log(sub+" error: Unrecognized error")
@@ -429,9 +434,8 @@ bot.on('message', message => {
       if (err === 0) {
         const rd = args[1]
         try {
-          const data = fs.readFileSync('./env/'+rd, 'utf8')
+          const data = fs.readFileSync(rd, 'utf8')
           message.channel.send("`Contents of '"+rd+"':\n"+data+"`")
-          console.log(sub+` gave the contents of ${rd}`)
         } catch (err) {
           message.reply("`Where is that file? .-.`")
           console.log(sub+" error: File doesn't exist")
@@ -552,7 +556,7 @@ bot.on('message', message => {
 	const cmd = args[0].slice(prefix.length).toLowerCase();
 
   const args2 = message.content.trim().split(' | ');
-  const cmd2 = args2[0].slice(prefix.length).toLowerCase();
+  const cmd2 = args2[0].slice(prefix.length).toLowerCase()
 	
 	if (cmd === 'search' || cmd === 'sr') {
     
@@ -844,12 +848,14 @@ if (cmd === 'fortnite' || 'frte') {
   }
 }
 if (cmd === 'topmeme' || 'memes') {
+  if (prefix+'topmeme'.indexOf(args[0]) || prefix+'memes'.indexOf(args[0])) {
   const index = args[1]
   if (cfg['addons']['memes'] === 'true') {
     const py438y59 = spawn('py', ['./addons/memes/topmeme.py']);
     py438y59.stdout.on('data', function (data) {
       data = data.toString().split(',')
-        if (index === '1') {
+
+      if (index === 1) {
           const m1 = data[0] + '\n'
           const m2 = data[1] + '\n'
           const m3 = data[2] + '\n'
@@ -864,47 +870,44 @@ if (cmd === 'topmeme' || 'memes') {
           const embed = new Discord.MessageEmbed()
           .setColor('#0099ff')
           .setTitle('Top Imgflip Memes')
-          .setDescription('*Page 1*\n' + m1 + m2 + m3 + m4 + m5 + m6 + m7 + m8 + m9 + m10 + '\n\n*Use the given IDs to generate a meme!*')
+          .setDescription('*Page 1*\n' + m1 + m2 + m3 + m4 + m5 + m6 + m7 + m8 + m9 + m10 + '\n*Use the given IDs to generate a meme!*')
           message.channel.send(embed)
           console.log(sub+' sent page 1 of the top memes list')
       }
-      if (index === '2') {
-        const m1 = data[10] + '\n'
-        const m2 = data[11] + '\n'
-        const m3 = data[12] + '\n'
-        const m4 = data[13] + '\n'
-        const m5 = data[14] + '\n'
-        const m6 = data[15] + '\n'
-        const m7 = data[16] + '\n'
-        const m8 = data[17] + '\n'
-        const m9 = data[18] + '\n'
-        const m10 = data[19].replace('"', '').replace('"', '')
 
-        const embed = new Discord.MessageEmbed()
-        .setColor('#0099ff')
-        .setTitle('Top Imgflip Memes')
-        .setDescription('*Page 2*\n' + m1 + m2 + m3 + m4 + m5 + m6 + m7 + m8 + m9 + m10 + '\n*Use the given IDs to generate a meme!*')
-        message.channel.send(embed)
-        console.log(sub+' sent page 2 of the top memes list')
-    }
+      if (index === 2) {
+          const m11 = data[10] + '\n'
+          const m12 = data[11] + '\n'
+          const m13 = data[12] + '\n'
+          const m14 = data[13] + '\n'
+          const m15 = data[14] + '\n'
+          const m16 = data[15] + '\n'
+          const m17 = data[16] + '\n'
+          const m18 = data[17] + '\n'
+          const m19 = data[18] + '\n'
+          const m20 = data[19].replace('\r\n', '')
+
+          const embed2 = new Discord.MessageEmbed()
+          .setColor('#0099ff')
+          .setTitle('Top Imgflip Memes')
+          .setDescription('*Page 2*\n' + m11 + m12 + m13 + m14 + m15 + m16 + m17 + m18 + m19 + m20 + '\n*Use the given IDs to generate a meme!*')
+          message.channel.send(embed2)
+          console.log(sub+' sent page 2 of the top memes list')
+      }
     })
   } else {
     message.reply('`The memes addon is blocked.`')
     console.log(sub+' noticed that the memes addon was blocked')
   }
 }
-if (cmd2 === 'mmake' || 'memegen') {
+}
+if (cmd === 'mmake' || 'memegen') {
   if (message.content.includes(prefix+'mmake') || message.content.includes(prefix+'memegen')) {
-  const id = args2[1]
-  const t = args2[2]
-  const b = args2[3]
-  
+  const id = args[1]
+  const t = args[2]
+  const b = args[3]
 
   if (cfg['addons']['memes'] === 'true') {
-    if (!args2[1] || !args2[2] || !args2[3]) {
-      message.reply('`You did not put any arguments! ._.`')
-      console.log(sub+' noticed that no args were added')
-    } else {
     message.channel.send('`⏳ Generating meme with ID '+id+'...`').then((sentmessage) => {
     const py438y59r = spawn('py', ['./addons/memes/meme.py', id, t, b]);
     py438y59r.stdout.on('data', function (data) {
@@ -920,7 +923,6 @@ if (cmd2 === 'mmake' || 'memegen') {
       }
     })
   })
-  }
   } else {
     message.reply('`The memes addon is blocked.`')
     console.log(sub+' noticed that the memes addon was blocked')
@@ -936,6 +938,7 @@ if (message.content.includes(prefix+'shop')) {
         const python2 = spawn('py', ['./addons/economy/new.py', message.author.username+'#'+message.author.discriminator, func1, func2])
         python2.stdout.on('data', (data) => {
             message.channel.send('`' + data.toString() + '`')
+            console.log(sub+' made a new account')
         })
     }
     if (message.content.startsWith(prefix+'shop/remove')) {
@@ -943,6 +946,7 @@ if (message.content.includes(prefix+'shop')) {
         const python3 = spawn('py', ['./addons/economy/remove.py', message.author.username+'#'+message.author.discriminator])
         python3.stdout.on('data', (data) => {
             message.channel.send('`' + data.toString() + '`')
+            console.log(sub+" removed '"+message.author.username+"' from the database")
         })
     }
     if (message.content === prefix+'shop/money') {
@@ -953,7 +957,7 @@ if (message.content.includes(prefix+'shop')) {
             const python4 = spawn('py', ['./addons/economy/money.py', message.author.username+'#'+message.author.discriminator])
             python4.stdout.on('data', (data) => {
                 message.channel.send('`' + data.toString() + '`')
-                console.log(`${sub} gave ${message.author.username} ${data.toString().split(' ')[3]} green papers!`)
+                console.log(`${sub} gave ${message.author.username} ${data.toString().split(' ')[3]} bucks!`)
 
                 talkedRecently.add(message.author.id);
                 setTimeout(() => { talkedRecently.delete(message.author.id); }, 6000000);
@@ -964,10 +968,8 @@ if (message.content.includes(prefix+'shop')) {
         const item = args2[1]
         const python34 = spawn('py', ['./addons/economy/store.py', message.author.username+'#'+message.author.discriminator, item])
         python34.stdout.on('data', (data) => {
-          if (data.toString().includes('Gold')) message.channel.send('`🏆 ' + data.toString() + '`')
-          if (data.toString().includes('Game')) message.channel.send('`🎮 ' + data.toString() + '`')
-          if (data.toString().includes('Rock')) message.channel.send('`🎵 ' + data.toString() + '`')
-          if (data.toString().includes('exists')) message.channel.send('`' + data.toString() + '`')
+          message.channel.send('`' + data.toString() + '`')
+          console.log(sub+" sold the item '"+item+"'")
         })
     }
     if (message.content.startsWith(prefix+'shop/info')) {
@@ -975,6 +977,7 @@ if (message.content.includes(prefix+'shop')) {
         const python34 = spawn('py', ['./addons/economy/find.py', item])
         python34.stdout.on('data', (data) => {
           message.channel.send('`' + data.toString().replace(/"/gi, '') + '`')
+          console.log(sub+" did/did not give info on '"+item+"'")
         })
       }
     } else {
@@ -982,5 +985,29 @@ if (message.content.includes(prefix+'shop')) {
       console.log(sub+' noticed that the economy addon was blocked')
     }
   }
+  if (message.content.startsWith(prefix+'shield')) {
+    if (cfg['addons']['shield'] === 'true') { 
+    if (!args[1] || !args[2] || !args[3]) {
+        message.channel.send("`You forgot some arguments ._.`")
+        console.log(sub+' could not find some arguments')
+    } else {
+        const text0 = args2[1]
+        const text1 = args2[2]
+        const red = args2[3]
+        
+        message.channel.send('`Generating Shields.IO badge...`').then((messagE) => {
+          const python = spawn('py', ['./addons/shields/shields.py', text0, text1, red])
+          python.on('close', () => { 
+              messagE.delete()
+              const attach = new Discord.MessageAttachment('./addons/shields/file.png')
+              message.channel.send(attach)
+          })
+        })
+    }
+  } else {
+    message.reply('`The shield addon is blocked.`')
+    console.log(sub+' noticed that the shield addon was blocked')
+  }
+}
 });
 bot.login(cfg.DISCORD_TOKEN)
