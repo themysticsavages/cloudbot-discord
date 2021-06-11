@@ -42,11 +42,11 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 
 ## Recently added features/hotfixes
 
-- __Added download command \owo/__
+- __$ Added economy command $___
 
 ## Features/hotfixes to be added
 
-- __Economy command (c.economy/shop)__
+- __Shields.io Badge addon to generate a button for use (c.badge/bge)__
 
 ## Current bugs
 
