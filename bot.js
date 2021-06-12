@@ -135,7 +135,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`, `message`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
