@@ -135,7 +135,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `shield`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -245,7 +245,7 @@ bot.on('message', message => {
     console.log(sub+" helped '"+message.author.username+"' with the shop/info command")
   }
   if (message.content === prefix+'help.shield' || message.content === prefix+'?.shld') {
-    message.reply("`Generate a button with Sheilds.IO!\nusage: "+prefix+"shield | a button | period | blue\nAliases: "+prefix+"shield, "+prefix+"shld`")
+    message.reply("`Generate a button with Shields.IO!\nusage: "+prefix+"shield | a button | period | blue\nAliases: "+prefix+"shield, "+prefix+"shld`")
     console.log(sub+" helped '"+message.author.username+"' with the shield command")
   }
   // Commands for fun
@@ -1001,6 +1001,7 @@ if (message.content.includes(prefix+'shop')) {
               messagE.delete()
               const attach = new Discord.MessageAttachment('./addons/shields/file.png')
               message.channel.send(attach)
+              console.log(sub+" made a badge with the text, '"+text0+"' and '"+text1+"'")
           })
         })
     }
