@@ -992,7 +992,7 @@ if (message.content.includes(prefix+'shop')) {
   if (message.content.startsWith(prefix+'shield') || message.content.startsWith(prefix+'shld')) {
     if (cfg['addons']['shield'] === 'true') { 
     if (!args[1] || !args[2] || !args[3]) {
-        message.channel.send("`You forgot some arguments ._.`")
+        message.reply("`You forgot some arguments ._.`")
         console.log(sub+' could not find some arguments')
     } else {
         const text0 = args2[1]
@@ -1017,14 +1017,14 @@ if (message.content.includes(prefix+'shop')) {
   if (message.content.startsWith(prefix+'message') || message.content.startsWith(prefix+'msg')) {
     if (cfg['addons']['message'] === 'true') {
       if (!args[1] || !args[2]) {
-        message.channel.send("`You forgot some arguments ._.`")
+        message.reply("`You forgot some arguments ._.`")
         console.log(sub+' could not find some arguments')
       } else {
         const text0 = args2[1]
         const text1 = args2[2]
 
         message.channel.send('`Generating message...`').then((MESSAGE) => {
-          const python = spawn('py', ['./addon/message/notification.py', text0, text1])
+          const python = spawn('py', ['./addons/message/notification.py', text0, text1])
           python.on('close', () => {
             MESSAGE.delete()
             const attach = new Discord.MessageAttachment('./addons/message/toast.png')
