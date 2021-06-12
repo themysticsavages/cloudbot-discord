@@ -43,10 +43,11 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 ## Recently added features/hotfixes
 
 - ![pic](https://shields.io/badge/Added%20Button%20-Command-blue)
+__- Message addon__
 
 ## Features/hotfixes to be added
 
-- __Godaddy website availibility command__
+*nothing new*
 
 ## Current bugs
 
