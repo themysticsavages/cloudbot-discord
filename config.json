@@ -21,6 +21,7 @@
         "memes" : "true",
         "get" : "true",
         "economy" : "true",
-        "shield" : "true"
+        "shield" : "true",
+        "message" : "true"
     }
 }
