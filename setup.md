@@ -49,6 +49,9 @@ It will ask which server you want the bot to connect to, and if you accept to al
 ### Imgflip
   Getting access to Imgflip is simple. Just sign up for an account (not with Google though)! Then slide your username and password into the config.
 
+### GoDaddy
+  Create an account [here](https://developer.godaddy.com) (it can be a google account), add a new OTE app, and copy it's key and secret.
+
 ## Running the bot
   If you installed all the required packages, run `initialize.cmd` and choose the 3rd option. If you haven't installed any packages yet, run the 2nd option.
 
