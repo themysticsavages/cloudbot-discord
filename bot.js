@@ -135,7 +135,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`, `message`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -992,7 +992,7 @@ if (message.content.includes(prefix+'shop')) {
   if (message.content.startsWith(prefix+'shield') || message.content.startsWith(prefix+'shld')) {
     if (cfg['addons']['shield'] === 'true') { 
     if (!args[1] || !args[2] || !args[3]) {
-        message.reply("`You forgot some arguments ._.`")
+        message.channel.send("`You forgot some arguments ._.`")
         console.log(sub+' could not find some arguments')
     } else {
         const text0 = args2[1]
@@ -1017,14 +1017,14 @@ if (message.content.includes(prefix+'shop')) {
   if (message.content.startsWith(prefix+'message') || message.content.startsWith(prefix+'msg')) {
     if (cfg['addons']['message'] === 'true') {
       if (!args[1] || !args[2]) {
-        message.reply("`You forgot some arguments ._.`")
+        message.channel.send("`You forgot some arguments ._.`")
         console.log(sub+' could not find some arguments')
       } else {
         const text0 = args2[1]
         const text1 = args2[2]
 
         message.channel.send('`Generating message...`').then((MESSAGE) => {
-          const python = spawn('py', ['./addons/message/notification.py', text0, text1])
+          const python = spawn('py', ['./addon/message/notification.py', text0, text1])
           python.on('close', () => {
             MESSAGE.delete()
             const attach = new Discord.MessageAttachment('./addons/message/toast.png')
@@ -1033,7 +1033,21 @@ if (message.content.includes(prefix+'shop')) {
           })
         })
       }
+    } else {
+      message.reply('`The shield addon is blocked.`')
+      console.log(sub+' noticed that the shield addon was blocked')
     }
   }
+  if (message.content.startsWith(prefix+'godaddy')) {
+    if (cfg['addons']['godaddy'] === 'true')
+    const item = args[1]
+    const python4 = spawn('py', ['./addons/godaddy/godaddy.py', item])
+    message.channel.send('`Looking for '+item+' in GoDaddy...`').then((messageE) => {
+    python4.stdout.on('data', (data) => {
+        if (data.toString().includes('not')) messageE.edit('`❌ '+data.toString()+'`')
+        if (data.toString().includes('indeed')) messageE.edit('`✔ '+data.toString()+'`')
+    })
+    })
+}
 });
 bot.login(cfg.DISCORD_TOKEN)
