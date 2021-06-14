@@ -135,7 +135,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `godaddy`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `godaddy`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -255,6 +255,10 @@ bot.on('message', message => {
   if (message.content === prefix+'help.godaddy' || message.content === prefix+'?.gdad') {
     message.reply("`Get the availability status of a domain on GoDaddy\nusage: "+prefix+"godaddy google.co.us\nAliases: "+prefix+"godaddy, "+prefix+"gdad`")
     console.log(sub+" helped '"+message.author.username+"' with the godaddy command")
+  }
+  if (message.content === prefix+'help.rickroll' || message.content === prefix+'?.rroll') {
+    message.reply("`Checks if a link is a rickroll (video)\nusage: "+prefix+"rickroll someredirect.com/diwu98ww\nAliases: "+prefix+"rickroll, "+prefix+"rroll`")
+    console.log(sub+" helped '"+message.author.username+"' with the rickroll command")
   }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
@@ -996,14 +1000,14 @@ if (message.content.includes(prefix+'shop')) {
   if (message.content.startsWith(prefix+'shield') || message.content.startsWith(prefix+'shld')) {
     if (cfg['addons']['shield'] === 'true') { 
     if (!args[1] || !args[2] || !args[3]) {
-        message.channel.send("`You forgot some arguments ._.`")
+        message.reply("`You forgot some arguments ._.`")
         console.log(sub+' could not find some arguments')
     } else {
         const text0 = args2[1]
         const text1 = args2[2]
         const red = args2[3]
         
-        message.channel.send('`Generating Shields.IO badge...`').then((messagE) => {
+        message.channel.send('`⏳ Generating Shields.IO badge...`').then((messagE) => {
           const python = spawn('py', ['./addons/shields/shields.py', text0, text1, red])
           python.on('close', () => { 
               messagE.delete()
@@ -1021,13 +1025,13 @@ if (message.content.includes(prefix+'shop')) {
   if (message.content.startsWith(prefix+'message') || message.content.startsWith(prefix+'msg')) {
     if (cfg['addons']['message'] === 'true') {
       if (!args[1] || !args[2]) {
-        message.channel.send("`You forgot some arguments ._.`")
+        message.reply("`You forgot some arguments ._.`")
         console.log(sub+' could not find some arguments')
       } else {
         const text0 = args2[1]
         const text1 = args2[2]
 
-        message.channel.send('`Generating message...`').then((MESSAGE) => {
+        message.channel.send('`⏳ Generating message...`').then((MESSAGE) => {
           const python = spawn('py', ['./addons/message/notification.py', text0, text1])
           python.on('close', () => {
             MESSAGE.delete()
@@ -1042,16 +1046,43 @@ if (message.content.includes(prefix+'shop')) {
       console.log(sub+' noticed that the shield addon was blocked')
     }
   }
-  if (message.content.startsWith(prefix+'godaddy')) {
-    if (cfg['addons']['godaddy'] === 'true')
-    const item = args[1]
-    const python4 = spawn('py', ['./addons/godaddy/godaddy.py', item])
-    message.channel.send('`Looking for '+item+' in GoDaddy...`').then((messageE) => {
-    python4.stdout.on('data', (data) => {
-        if (data.toString().includes('not')) { messageE.edit('`❌ '+data.toString()+'`').then(console.log(sub+' found that the domain already exists')) }
-        if (data.toString().includes('indeed')) { messageE.edit('`✔ '+data.toString()+'`').then(console.log(sub+" found that the domain didn't exist")) }
+  if (message.content.startsWith(prefix+'godaddy') || message.content.startsWith(prefix+'gdad')) {
+    if (cfg['addons']['godaddy'] === 'true') {
+      if (!args[1]) {
+        message.channel.send("`You forgot some arguments ._.`")
+        console.log(sub+' could not find some arguments')
+      } else {
+        const item = args[1]
+        const python4 = spawn('py', ['./addons/godaddy/godaddy.py', item])
+        message.channel.send('`⏳ Looking for '+item+' in GoDaddy...`').then((messageE) => {
+        python4.stdout.on('data', (data) => {
+            if (data.toString().includes('not')) { messageE.edit('`❌ '+data.toString()+'`').then(console.log(sub+' found that the domain already exists')) }
+            if (data.toString().includes('indeed')) { messageE.edit('`✔ '+data.toString()+'`').then(console.log(sub+" found that the domain didn't exist")) }
+        })
+      })
+    }
+}
+}
+if (message.content.startsWith(prefix+'rickroll') || message.content.startsWith(prefix+'rroll')) {
+  if (cfg['addons']['isrickroll'] === 'true') {
+    message.delete()
+    if (!args[1]) {
+      message.channel.send("`You forgot some arguments ._.`")
+      console.log(sub+' could not find some arguments')
+    } else {
+      const item = args[1]
+      const python4 = spawn('py', ['./addons/isrickroll/isrickroll.py', item])
+      message.channel.send('`⏳ Checking URL: '+item+' for rickrolling...`').then((messageE) => {
+      python4.stdout.on('data', (data) => {
+          if (data.toString().includes('Failed')) { 
+            messageE.edit('`❌ '+data.toString()+'`').then(console.log(sub+' could not find a proper URL')) 
+          } else { 
+            if (data.toString().includes('rickroll')) { messageE.edit('`⚠ '+data.toString()+'`').then(console.log(sub+' detected that the link was a rickroll')) } 
+            if (data.toString().includes('safe')) { messageE.edit('`✔ '+data.toString()+'`').then(console.log(sub+' detected that the link was not a rickroll')) }}
+      })
     })
-  })
+  }
+}
 }
 });
 bot.login(cfg.DISCORD_TOKEN)
