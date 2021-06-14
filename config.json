@@ -26,6 +26,8 @@
         "get" : "true",
         "economy" : "true",
         "shield" : "true",
-        "message" : "true"
+        "message" : "true",
+        "godaddy" : "true",
+        "isrickroll" : "true"
     }
 }
