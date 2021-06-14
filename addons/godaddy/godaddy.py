@@ -5,11 +5,11 @@ import os
 
 os.chdir('\\'.join(__file__.split('\\')[0:-1]))
 
-with open('./config.json', 'r') as fh:
+with open('../../config.json', 'r') as fh:
     keys = json.loads(fh.read())
     class auth:
-        api_key = keys['api_key']
-        secret_key = keys['secret_key']
+        api_key = keys['api']['godaddy']['KEY']
+        secret_key = keys['api']['godaddy']['secret_key']
 
 headers = {"Authorization": "sso-key {}:{}".format(auth.api_key, auth.secret_key)}
 url = "https://api.ote-godaddy.com/v1/domains/available"
