@@ -1028,7 +1028,7 @@ if (message.content.includes(prefix+'shop')) {
         const text1 = args2[2]
 
         message.channel.send('`Generating message...`').then((MESSAGE) => {
-          const python = spawn('py', ['./addon/message/notification.py', text0, text1])
+          const python = spawn('py', ['./addons/message/notification.py', text0, text1])
           python.on('close', () => {
             MESSAGE.delete()
             const attach = new Discord.MessageAttachment('./addons/message/toast.png')
