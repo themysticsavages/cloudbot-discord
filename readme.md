@@ -29,12 +29,11 @@ cloudbot-discord is a file server for Discord. It is best used in a __private Di
 
 ## Self hosting
 
-For self-hosting, you will need nodejs and python. You can download both of these things at the bottom of the README. Next, just run `initialize.cmd` and choose the second option. No need to thank me.
-
-*[Read setup.md](https://github.com/themysticsavages/cloudbot-discord/blob/main/setup.md) for further information on self-hosting.*
+*[Read setup.md](https://github.com/themysticsavages/cloudbot-discord/blob/main/setup.md) for complete information on self-hosting.*
 
 ## Commands
-Check out the commands [here](https://ajskateboarder.github.io/cloudbot).
+
+*Check out the commands [here](https://ajskateboarder.github.io/cloudbot).*
 
 ## Addons
 
@@ -42,12 +41,11 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 
 ## Recently added features/hotfixes
 
-- ![pic](https://shields.io/badge/Added%20Button%20-Command-blue)
-__- Message addon__
+- GoDaddy addon
 
 ## Features/hotfixes to be added
 
-*nothing new*
+- (probably not gonna happen) Spotify search command
 
 ## Current bugs
 
