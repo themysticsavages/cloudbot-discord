@@ -135,7 +135,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `godaddy`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -251,6 +251,10 @@ bot.on('message', message => {
   if (message.content === prefix+'help.message' || message.content === prefix+'?.msg') {
     message.reply("`Generate a Windows 10-like message box\nusage: "+prefix+"message | A message | That simple\nAliases: "+prefix+"message, "+prefix+"msg`")
     console.log(sub+" helped '"+message.author.username+"' with the shield command")
+  }
+  if (message.content === prefix+'help.godaddy' || message.content === prefix+'?.gdad') {
+    message.reply("`Get the availability status of a domain on GoDaddy\nusage: "+prefix+"godaddy google.co.us\nAliases: "+prefix+"godaddy, "+prefix+"gdad`")
+    console.log(sub+" helped '"+message.author.username+"' with the godaddy command")
   }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
@@ -1044,10 +1048,10 @@ if (message.content.includes(prefix+'shop')) {
     const python4 = spawn('py', ['./addons/godaddy/godaddy.py', item])
     message.channel.send('`Looking for '+item+' in GoDaddy...`').then((messageE) => {
     python4.stdout.on('data', (data) => {
-        if (data.toString().includes('not')) messageE.edit('`❌ '+data.toString()+'`')
-        if (data.toString().includes('indeed')) messageE.edit('`✔ '+data.toString()+'`')
+        if (data.toString().includes('not')) { messageE.edit('`❌ '+data.toString()+'`').then(console.log(sub+' found that the domain already exists')) }
+        if (data.toString().includes('indeed')) { messageE.edit('`✔ '+data.toString()+'`').then(console.log(sub+" found that the domain didn't exist")) }
     })
-    })
+  })
 }
 });
 bot.login(cfg.DISCORD_TOKEN)
