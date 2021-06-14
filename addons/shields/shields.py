@@ -1,4 +1,4 @@
-from reportlab.graphics import renderPDF, renderPM
+from reportlab.graphics import renderPM
 from svglib.svglib import svg2rlg
 import requests
 import sys
