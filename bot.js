@@ -180,8 +180,8 @@ bot.on('message', message => {
     message.reply('`Get a Bing search\nusage: c.search apples\nAliases: c.search, c.sr`')
     console.log(sub+" told '"+message.author.username+"' how to get searches")
   }
-  if (message.content === prefix+'help.translate' || message.content === prefix+'?.tr') {
-    message.reply('`Translate text to ASCII and back\nusage: '+prefix+'translate ascii meme\n     : '+prefix+'translate text 109-101-109-101\nAliases: '+prefix+'translate, '+prefix+'tr`')
+  if (message.content === prefix+'help.endecode' || message.content === prefix+'?.edc') {
+    message.reply('`Translate text to ASCII and back\nusage: '+prefix+'translate ascii meme\n     : '+prefix+'translate text 109-101-109-101\nAliases: '+prefix+'endecode, '+prefix+'edc`')
     console.log(sub+" helped '"+message.author.username+"' translate things")
   }
   if (message.content === prefix+'help.weather' || message.content === prefix+'?.w') {
@@ -370,7 +370,7 @@ bot.on('message', message => {
 
         try {
           if (message.member.hasPermission("ADMINISTRATOR")) {
-          fs.unlinkSync(fd, { recursive: true })
+          fs.unlinkSync('./env/'+fd, { recursive: true })
           message.channel.send("`File named '"+fd+"' was deleted. Wow.`");
           console.log(sub+" deleted file named '"+fd+"'");
         } else {
@@ -408,10 +408,10 @@ bot.on('message', message => {
       
       try {
         if (fs.existsSync(args[1])) {
-          var data = fs.readFileSync(fw, 'utf8')
+          var data = fs.readFileSync('./env/'+fw, 'utf8')
           data = data.split(' ')[0]
           if (data.includes(message.author.username) && message.author.username === data) {
-              fs.writeFileSync(fw, message.author.username+' '+ct, err => {
+              fs.writeFileSync('./env/'+fw, message.author.username+' '+ct, err => {
                 if (err) {
                   message.reply("Oh no! Not an unknown error!")
                   console.log(sub+" error: Unrecognized error")
@@ -422,7 +422,7 @@ bot.on('message', message => {
               console.log(sub+" wrote to '"+fw+"'")
           }
         } else {
-          fs.writeFileSync(fw, message.author.username+' '+ct, err => {
+          fs.writeFileSync('./env/'+fw, message.author.username+' '+ct, err => {
             if (err) {
               message.reply("Oh no! Not an unknown error!")
               console.log(sub+" error: Unrecognized error")
@@ -446,7 +446,7 @@ bot.on('message', message => {
       if (err === 0) {
         const rd = args[1]
         try {
-          const data = fs.readFileSync(rd, 'utf8')
+          const data = fs.readFileSync('./env/'+rd, 'utf8')
           message.channel.send("`Contents of '"+rd+"':\n"+data+"`")
         } catch (err) {
           message.reply("`Where is that file? .-.`")
