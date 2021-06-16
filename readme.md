@@ -41,11 +41,11 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 
 ## Recently added features/hotfixes
 
-- GoDaddy addon
+__- Music commands and isrickroll addon!__
 
 ## Features/hotfixes to be added
 
-- (probably not gonna happen) Spotify search command
+- Extension to the music commands
 
 ## Current bugs
 
