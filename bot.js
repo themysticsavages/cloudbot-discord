@@ -131,15 +131,15 @@ bot.on('message', message => {
   }
   if (message.content === prefix+'purpose') {
     // This is one of the first functions for this Discord bot 😁
-    message.reply('`I am a unique multipurpose Discord bot built on Javascript and Python. I can function as a file server, a music player, or as a normal Discord bot.`');
+    message.reply('`I am basically a cloud server for Discord. I am pure Node.JS. Although I may not have that many functions, the cloud server functions make up for this!`');
     console.log(sub+" told '"+message.author.username+"' about why he exists");
   }
   if (message.content === prefix+'help' || message.content === prefix+'?') {
     const Embed = new Discord.MessageEmbed()
-      .setColor('#0099ff')
-      .setTitle('Commands')
+	    .setColor('#0099ff')
+	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `purpose`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `godaddy`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `godaddy`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -446,7 +446,7 @@ bot.on('message', message => {
           if (args[1].includes('https://')) {
 
             const https = require('https');
-            const obj = args[2]
+            const obj = './env/'+args[2]
             const file = fs.createWriteStream(obj);
 
             const request = https.get(args[1], function(response) {
