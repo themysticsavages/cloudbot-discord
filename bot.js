@@ -114,7 +114,7 @@ bot.on('message', async message => {
   }
   // Lists the content of a directory (small, but important)
   if (message.content === prefix+'ls') {
-    const fld = './' // verrry simple code, you don't even need args!
+    const fld = './env/' // verrry simple code, you don't even need args!
     fs.readdir(fld, (err, files) => {
         files.forEach(file => {
           message.channel.send(file);
@@ -463,7 +463,7 @@ bot.on('message', message => {
           }
           if (args[1].includes('http://')) {
             const http = require('http');
-            const obj = args[2]
+            const obj = './env/'+args[2]
             const file = fs.createWriteStream(obj);
 
             const request = http.get(args[1], function(response) {
@@ -628,7 +628,7 @@ bot.on('message', message => {
 				const scrape = args[1]
         
         message.channel.send('`⏳ Searching for '+scrape+'...`').then((sentmessage) => {
-				var response = spawn('py', ['./addons/webscraper/webscraper.py', scrape]);
+				var response = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/webscraper/webscraper.py', scrape]);
         response.stdout.on('data', function(data) {
           sentmessage.edit('`'+data.toString()+'`');
           console.log(sub+' gave the results for '+scrape)
@@ -656,7 +656,7 @@ bot.on('message', message => {
         const fn = args[1]
         const text = args[2]
 
-        const py = spawn('py', ['./addons/asciitext/asciitext.py',fn,text]);
+        const py = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/asciitext/asciitext.py',fn,text]);
         py.stdout.on('data', function (data) {
           message.reply('`Encoding or decoding of '+text+'`\n`'+data.toString()+'`')
           console.log(sub+" gave endecoding for '"+text+"'")
@@ -705,7 +705,7 @@ if (cmd === 'weather' || cmd === 'w') {
         const query = args[1]
 
         message.channel.send('`⏳ Searching for '+query+' on GIPHY...`').then((sentmessage) => {
-          const py = spawn('py', ['./addons/gifpy/gifpy.py',query]);
+          const py = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/gifpy/gifpy.py',query]);
           py.stdout.on('data', function (data) {
             if (data.toString().includes('Failed')) {
               sentmessage.edit('`❌ Search for '+query+' failed. Look for something else, please.`')
@@ -741,7 +741,7 @@ if (cmd === 'scratch' || cmd === 'scr') {
       const query = args[1]
 
       message.channel.send('`⏳ Searching on Scratch for '+query+'...`').then((sentmessage) => {
-        const process = spawn('py', ['./addons/scratch/scratch.py',query]);
+        const process = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/scratch/scratch.py',query]);
         process.stdout.on('data', (data) => {
           if (data.toString().includes('Failed')) {
             sentmessage.edit('`❌ Search for '+query+' failed. Try looking for a different Scratcher.`')
@@ -795,7 +795,7 @@ if (cmd === 'youtube' || cmd === 'yt') {
       const query = args[1]
       
       message.channel.send('`⏳ Searching on YouTube for '+query+'...`').then((sentmessage) => {
-      const process = spawn('py', ['./addons/youtube/youtube.py',query]);
+      const process = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/youtube/youtube.py',query]);
       process.stdout.on('data', (data) => {
         if (data.toString().includes('Failed')) {
           sentmessage.edit('`❌ Search for '+query+' failed. Why not go back in time with some cat videos?`')
@@ -845,7 +845,7 @@ if (cmd === 'shorten' || cmd === 'sh') {
       const url = args[1]
 
       message.channel.send('`⏳ Shortening '+url+'...`').then((sentmessage) => {
-        const py = spawn('py', ['./addons/snipp.er/snipper.py',url]);
+        const py = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/snipp.er/snipper.py',url]);
         py.stdout.on('data', function (data) {
           if (data.toString().includes('Failed')) {
             sentmessage.edit('`❌ Shortening of '+url+' failed. Maybe take a look at your URL?`')
@@ -873,7 +873,7 @@ if (cmd === 'fortnite' || 'frte') {
   } else {
       if (cfg['addons']['fortnite'] === 'true') {
         const query = args[1]
-        const py = spawn('py', ['./addons/fortnite/fortnite.py',query]);
+        const py = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/fortnite/fortnite.py',query]);
         py.stdout.on('data', function (data) {
             data = data.toString().split(',')
 
@@ -904,7 +904,7 @@ if (cmd === 'topmeme' || 'memes') {
   if (prefix+'topmeme'.indexOf(args[0]) || prefix+'memes'.indexOf(args[0])) {
   const index = args[1]
   if (cfg['addons']['memes'] === 'true') {
-    const py438y59 = spawn('py', ['./addons/memes/topmeme.py']);
+    const py438y59 = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/memes/topmeme.py']);
     py438y59.stdout.on('data', function (data) {
       data = data.toString().split(',')
 
@@ -962,7 +962,7 @@ if (cmd === 'mmake' || 'memegen') {
 
   if (cfg['addons']['memes'] === 'true') {
     message.channel.send('`⏳ Generating meme with ID '+id+'...`').then((sentmessage) => {
-    const py438y59r = spawn('py', ['./addons/memes/meme.py', id, t, b]);
+    const py438y59r = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/memes/meme.py', id, t, b]);
     py438y59r.stdout.on('data', function (data) {
       if (data.toString().includes('Failed')) {
         sentmessage.edit('`❌ Creation of meme with ID '+id+' failed. Check if you included a proper ID or top and bottom text.`')
@@ -988,7 +988,7 @@ if (message.content.includes(prefix+'shop')) {
         const func1 = args2[1]
         const func2 = args2[2]
 
-        const python2 = spawn('py', ['./addons/economy/new.py', message.author.username+'#'+message.author.discriminator, func1, func2])
+        const python2 = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/economy/new.py', message.author.username+'#'+message.author.discriminator, func1, func2])
         python2.stdout.on('data', (data) => {
             message.channel.send('`' + data.toString() + '`')
             console.log(sub+' made a new account')
@@ -996,7 +996,7 @@ if (message.content.includes(prefix+'shop')) {
     }
     if (message.content.startsWith(prefix+'shop/remove')) {
 
-        const python3 = spawn('py', ['./addons/economy/remove.py', message.author.username+'#'+message.author.discriminator])
+        const python3 = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/economy/remove.py', message.author.username+'#'+message.author.discriminator])
         python3.stdout.on('data', (data) => {
             message.channel.send('`' + data.toString() + '`')
             console.log(sub+" removed '"+message.author.username+"' from the database")
@@ -1007,7 +1007,7 @@ if (message.content.includes(prefix+'shop')) {
             message.channel.send("`Please wait 1 hour and 40 minutes before running this again!`");
             console.log(`${sub} told ${message.author.username} to wait 100 minutes before running the money command again.`)
         } else {
-            const python4 = spawn('py', ['./addons/economy/money.py', message.author.username+'#'+message.author.discriminator])
+            const python4 = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/economy/money.py', message.author.username+'#'+message.author.discriminator])
             python4.stdout.on('data', (data) => {
                 message.channel.send('`' + data.toString() + '`')
                 console.log(`${sub} gave ${message.author.username} ${data.toString().split(' ')[3]} bucks!`)
@@ -1019,7 +1019,7 @@ if (message.content.includes(prefix+'shop')) {
     }
     if (message.content.startsWith(prefix+'shop/buy')) {
         const item = args2[1]
-        const python34 = spawn('py', ['./addons/economy/store.py', message.author.username+'#'+message.author.discriminator, item])
+        const python34 = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/economy/store.py', message.author.username+'#'+message.author.discriminator, item])
         python34.stdout.on('data', (data) => {
           message.channel.send('`' + data.toString() + '`')
           console.log(sub+" sold the item '"+item+"'")
@@ -1027,7 +1027,7 @@ if (message.content.includes(prefix+'shop')) {
     }
     if (message.content.startsWith(prefix+'shop/info')) {
         const item = args2[1]
-        const python34 = spawn('py', ['./addons/economy/find.py', item])
+        const python34 = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/economy/find.py', item])
         python34.stdout.on('data', (data) => {
           message.channel.send('`' + data.toString().replace(/"/gi, '') + '`')
           console.log(sub+" did/did not give info on '"+item+"'")
@@ -1049,7 +1049,7 @@ if (message.content.includes(prefix+'shop')) {
         const red = args2[3]
         
         message.channel.send('`⏳ Generating Shields.IO badge...`').then((messagE) => {
-          const python = spawn('py', ['./addons/shields/shields.py', text0, text1, red])
+          const python = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/shields/shields.py', text0, text1, red])
           python.on('close', () => { 
               messagE.delete()
               const attach = new Discord.MessageAttachment('./addons/shields/file.png')
@@ -1073,7 +1073,7 @@ if (message.content.includes(prefix+'shop')) {
         const text1 = args2[2]
 
         message.channel.send('`⏳ Generating message...`').then((MESSAGE) => {
-          const python = spawn('py', ['./addons/message/notification.py', text0, text1])
+          const python = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/message/notification.py', text0, text1])
           python.on('close', () => {
             MESSAGE.delete()
             const attach = new Discord.MessageAttachment('./addons/message/toast.png')
@@ -1094,7 +1094,7 @@ if (message.content.includes(prefix+'shop')) {
         console.log(sub+' could not find some arguments')
       } else {
         const item = args[1]
-        const python4 = spawn('py', ['./addons/godaddy/godaddy.py', item])
+        const python4 = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/godaddy/godaddy.py', item])
         message.channel.send('`⏳ Looking for '+item+' in GoDaddy...`').then((messageE) => {
         python4.stdout.on('data', (data) => {
             if (data.toString().includes('not')) { messageE.edit('`❌ '+data.toString()+'`').then(console.log(sub+' found that the domain already exists')) }
@@ -1112,7 +1112,7 @@ if (message.content.startsWith(prefix+'rickroll') || message.content.startsWith(
       console.log(sub+' could not find some arguments')
     } else {
       const item = args[1]
-      const python4 = spawn('py', ['./addons/isrickroll/isrickroll.py', item])
+      const python4 = spawn(cfg['PYTHON_EXECUTABLE'], ['./addons/isrickroll/isrickroll.py', item])
       message.channel.send('`⏳ Checking URL: '+item+' for rickrolling...`').then((messageE) => {
       python4.stdout.on('data', (data) => {
           if (data.toString().includes('Failed')) { 
