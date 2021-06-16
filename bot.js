@@ -12,16 +12,20 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 
-const cfg = require('./config.json')
+const cfg = require('./config.json');
+const { spawn } = require('child_process');
+
+const process = require('process');
+const DisTube = require('distube')
+
 const bot = new Discord.Client();
+const tubebot = new DisTube(bot, {searchSongs: false, emitNewSongOnly: true})
 
 const prefix = 'c.'; // You can edit the prefix
 const sub = 'CloudBot'; // You can change this to change what the bots logs in console
 
-const { spawn } = require('child_process');
-const process = require('process')
-
 const talkedRecently = new Set();
+
 console.clear()
 
 function getRandInt(max) {
@@ -135,7 +139,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `godaddy`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `godaddy`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -180,8 +184,8 @@ bot.on('message', message => {
     message.reply('`Get a Bing search\nusage: c.search apples\nAliases: c.search, c.sr`')
     console.log(sub+" told '"+message.author.username+"' how to get searches")
   }
-  if (message.content === prefix+'help.endecode' || message.content === prefix+'?.edc') {
-    message.reply('`Translate text to ASCII and back\nusage: '+prefix+'translate ascii meme\n     : '+prefix+'translate text 109-101-109-101\nAliases: '+prefix+'endecode, '+prefix+'edc`')
+  if (message.content === prefix+'help.translate' || message.content === prefix+'?.tr') {
+    message.reply('`Translate text to ASCII and back\nusage: '+prefix+'translate ascii meme\n     : '+prefix+'translate text 109-101-109-101\nAliases: '+prefix+'translate, '+prefix+'tr`')
     console.log(sub+" helped '"+message.author.username+"' translate things")
   }
   if (message.content === prefix+'help.weather' || message.content === prefix+'?.w') {
@@ -259,6 +263,10 @@ bot.on('message', message => {
   if (message.content === prefix+'help.rickroll' || message.content === prefix+'?.rroll') {
     message.reply("`Checks if a link is a rickroll (video)\nusage: "+prefix+"rickroll someredirect.com/diwu98ww\nAliases: "+prefix+"rickroll, "+prefix+"rroll`")
     console.log(sub+" helped '"+message.author.username+"' with the rickroll command")
+  }
+  if (message.content === prefix+'help.play' || message.content === prefix+'?.pl') {
+    message.reply("`Play something from YouTube (pointless)\nusage: "+prefix+"play | youtube video\nAliases: "+prefix+"play, "+prefix+"pl`")
+    console.log(sub+" helped '"+message.author.username+"' with playing music")
   }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
@@ -349,43 +357,6 @@ bot.on('message', message => {
   }
 });
 
-// Delete files; requires admin role
-bot.on('message', message => {
-  if (!message.content.startsWith(prefix)) return;
-
-  const args = message.content.trim().split(/ +/g);
-  const cmd = args[0].slice(prefix.length).toLowerCase();
-
-  if (cmd === 'del') {
-    var err = 0;
-      if (!args[1]) {
-        message.reply("`What is the file name? ._.`")
-        console.log(sub+" couldn't find the file argument")
-        err++;
-      }
-      if (!args[2]) {
-        if (err === 1) {
-      } else {
-        const fd = args[1]
-
-        try {
-          if (message.member.hasPermission("ADMINISTRATOR")) {
-          fs.unlinkSync('./env/'+fd, { recursive: true })
-          message.channel.send("`File named '"+fd+"' was deleted. Wow.`");
-          console.log(sub+" deleted file named '"+fd+"'");
-        } else {
-          message.reply('`You no have admin! The administrator role is required to delete files.`');
-          console.log(sub+" error: Insufficient privileges to delete the file '"+fd+"'");
-        }
-      } catch (err) {
-          message.reply('`Is that a file? ._.`');
-          console.log(sub+' error: File does not exist');
-     }
-    }
-   }
-  }
-});
-
 // Writing text to files and returning text; pretty clean code if I do say so myself; you can also make files with this too
 bot.on('message', message => {
   const args = message.content.trim().split(/ +/g);
@@ -408,10 +379,10 @@ bot.on('message', message => {
       
       try {
         if (fs.existsSync(args[1])) {
-          var data = fs.readFileSync('./env/'+fw, 'utf8')
+          var data = fs.readFileSync(fw, 'utf8')
           data = data.split(' ')[0]
           if (data.includes(message.author.username) && message.author.username === data) {
-              fs.writeFileSync('./env/'+fw, message.author.username+' '+ct, err => {
+              fs.writeFileSync(fw, message.author.username+' '+ct, err => {
                 if (err) {
                   message.reply("Oh no! Not an unknown error!")
                   console.log(sub+" error: Unrecognized error")
@@ -422,7 +393,7 @@ bot.on('message', message => {
               console.log(sub+" wrote to '"+fw+"'")
           }
         } else {
-          fs.writeFileSync('./env/'+fw, message.author.username+' '+ct, err => {
+          fs.writeFileSync(fw, message.author.username+' '+ct, err => {
             if (err) {
               message.reply("Oh no! Not an unknown error!")
               console.log(sub+" error: Unrecognized error")
@@ -446,7 +417,7 @@ bot.on('message', message => {
       if (err === 0) {
         const rd = args[1]
         try {
-          const data = fs.readFileSync('./env/'+rd, 'utf8')
+          const data = fs.readFileSync(rd, 'utf8')
           message.channel.send("`Contents of '"+rd+"':\n"+data+"`")
         } catch (err) {
           message.reply("`Where is that file? .-.`")
@@ -516,39 +487,109 @@ bot.on('message', message => {
       message.reply('`The get addon is blocked.`')
     }
   }
+  if (cmd === 'del') {
+    var err = 0;
+      if (!args[1]) {
+        message.reply("`What is the file name? ._.`")
+        console.log(sub+" couldn't find the file argument")
+        err++;
+      }
+      if (!args[2]) {
+        if (err === 1) {
+      } else {
+        const fd = args[1]
+
+        try {
+          if (message.member.hasPermission("ADMINISTRATOR")) {
+          fs.unlinkSync(fd, { recursive: true })
+          message.channel.send("`File named '"+fd+"' was deleted. Wow.`");
+          console.log(sub+" deleted file named '"+fd+"'");
+        } else {
+          message.reply('`You no have admin! The administrator role is required to delete files.`');
+          console.log(sub+" error: Insufficient privileges to delete the file '"+fd+"'");
+        }
+      } catch (err) {
+          message.reply('`Is that a file? ._.`');
+          console.log(sub+' error: File does not exist');
+     }
+    }
+   }
+  }
 });
+
+bot.on('message', message => {
+  if (message.content.includes(prefix+'play')) {
+    if (cfg['addons']['music'] === 'true') {
+      const args = message.content.split(' ')
+        if (!args[1]) { 
+            message.reply('`Please choose something to play ._.`')
+            console.log(sub+' could not find something to play') 
+        } else { 
+            if (!message.member.voice.channel) {
+                message.channel.send('`You are not in a voice channel ._.`')
+                console.log(sub+' could not find the user in a VC') 
+            } else {
+                tubebot.play(message, args.join(' | '))
+            }
+        }
+    } else {
+      message.reply('`The music addon is blocked`')
+      console.log(sub+' found that the music addon is blocked.')
+    }
+  }
+  if (message.content.includes(prefix+'end')) {
+    if (cfg['addons']['music'] === 'true') {
+      const id = message.guild.members.cache.get(bot.user.id)
+      if (!message.member.voice.channel) {
+          message.reply('`You are not in a voice channel ._.`')
+      } else {
+          if (id.voice.channel !== message.member.voice.channel) {
+              message.channel.send('`You are not in the same voice channel ._.`')
+              console.log(sub+' could not find the user in a VC') 
+          } else {
+              tubebot.stop(message)
+              message.channel.send('`✔ Ended successfully`')
+              console.log(sub+' ended the currently playing music') 
+          }
+      }
+    } else {
+      message.reply('`The music addon is blocked`')
+      console.log(sub+' found that the music addon is blocked.')
+    }
+  }
+})
+
+tubebot.on("playSong", (message, queue, song) => {
+  message.channel.send('`✔ Playing '+song.name+' - '+song.formattedDuration+'`')
+  console.log(sub+' started music')
+})
 
 // Ban people who abuse the system (borrowed code from discordjs readme: https://bit.ly/3e0xbAT)
 bot.on('message', message => {
-  // Don't worry, I modified the code!
   if (!message.guild) return;
   if (message.member.hasPermission("ADMINISTRATOR")) {
     if (message.content.startsWith('c.ban')) {
       const user = message.mentions.users.first();
-      if (user) { // Resolves user when mentioned in Discord message
+      if (user) {
         const member = message.guild.members.resolve(user);
         if (user.id === message.author.id) {
-          // Some protection
           message.reply('**No**');
           console.log(sub+' stopped '+message.author.username+' from banning him/herself');
         };
         if (member) {
           member
             .ban({
-              // insert reason here
               reason: "I wouldn't ban you without a reason! It's probably because the mod(s) noticed that you were abusing the file system in some kind of way.",
             })
-            .then(() => { // haha spammer go bye bye
+            .then(() => {
               message.channel.send(`Banned ${user.tag}. *F to pay respects*`);
               console.log(sub+` banned ${user.tag}`);
             })
             .catch(err => {
-              // In case you have a dumb admin on your server...
               message.reply('`Not today, thank you`');
               console.log(sub+" protected himself from getting banned by "+message.author.username);
             });
         } else {
-          // .-.
           message.reply("`That user isn't in this guild ._.`");
           console.log(sub+" error: User does not exist");
         }
@@ -1049,7 +1090,7 @@ if (message.content.includes(prefix+'shop')) {
   if (message.content.startsWith(prefix+'godaddy') || message.content.startsWith(prefix+'gdad')) {
     if (cfg['addons']['godaddy'] === 'true') {
       if (!args[1]) {
-        message.channel.send("`You forgot some arguments ._.`")
+        message.reply("`You forgot some arguments ._.`")
         console.log(sub+' could not find some arguments')
       } else {
         const item = args[1]
@@ -1067,7 +1108,7 @@ if (message.content.startsWith(prefix+'rickroll') || message.content.startsWith(
   if (cfg['addons']['isrickroll'] === 'true') {
     message.delete()
     if (!args[1]) {
-      message.channel.send("`You forgot some arguments ._.`")
+      message.reply("`You forgot some arguments ._.`")
       console.log(sub+' could not find some arguments')
     } else {
       const item = args[1]
