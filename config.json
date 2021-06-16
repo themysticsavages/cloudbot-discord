@@ -1,6 +1,6 @@
 {   
     "DISCORD_TOKEN" : "bot_token",
-    "PYTHON_EXECUTABLE" : "py"
+    "PYTHON_EXECUTABLE" : "py",
     "api" : {
         "OWP_KEY" : "owp_key",
         "GIPHY_KEY" : "giphy_key",
