@@ -28,6 +28,7 @@
         "shield" : "true",
         "message" : "true",
         "godaddy" : "true",
-        "isrickroll" : "true"
+        "isrickroll" : "true",
+        "music" : "true"
     }
 }
