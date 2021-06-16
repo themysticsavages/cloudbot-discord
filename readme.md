@@ -25,11 +25,11 @@
 #
 # Information
 
-cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. __This bot is officially in a release channel__. It supports file management, banning members, and many other pointless commands. If you want to give it a name, call it Cybrex or something.
+cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. __This bot is officially in a release channel, so features are continuously added__. It supports file management, banning members, and many other pointless commands.
 
 ## Self hosting
 
-*[Read setup.md](https://github.com/themysticsavages/cloudbot-discord/blob/main/setup.md) for complete information on self-hosting.*
+*[Read setup.md](https://github.com/themysticsavages/cloudbot-discord/blob/main/setup_windows.md) for complete information on self-hosting (on Windows).*
 
 ## Commands
 
@@ -45,7 +45,7 @@ __- Music commands and isrickroll addon!__
 
 ## Features/hotfixes to be added
 
-- Extension to the music commands
+*Nothing, suggest something.*
 
 ## Current bugs
 
