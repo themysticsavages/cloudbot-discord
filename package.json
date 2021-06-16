@@ -4,8 +4,11 @@
   "main": "bot.js",
   "license": "MIT",
   "dependencies": {
-    "request-promise": "^4.2.6",
+    "@discordjs/opus": "^0.5.3",
     "discord.js": "^12.5.3",
-    "request": "^2.88.2"
+    "distube": "^2.8.15",
+    "ffmpeg-static": "^4.3.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6"
   }
 }
