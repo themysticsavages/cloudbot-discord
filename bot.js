@@ -372,7 +372,7 @@ bot.on('message', message => {
     if (args[2]) {
       const fw = args[1]
       const ct = args[2]
-      if (fw === 'bot.js' || fw === 'config.json' || fw === 'package.json' || fw === 'requirements.txt' || fw === 'initialize.cmd' || fw === 'avatar.png' || '\\'.indexOf(fw) || '/'.indexOf(fw)) {
+      if (fw === 'bot.js' || fw === 'config.json' || fw === 'package.json' || fw === 'requirements.txt' || fw === 'initialize.cmd' || fw === 'avatar.png' || fw.includes('\\') || fw.includes('/') {
         message.reply("`You cannot overwrite any core files or write to a different directory ._.`")
         console.log(sub+" stopped '"+message.author.username+"' from overwriting core files or writing elsewhere")
       } else {
@@ -1087,23 +1087,7 @@ if (message.content.includes(prefix+'shop')) {
       console.log(sub+' noticed that the shield addon was blocked')
     }
   }
-  if (message.content.startsWith(prefix+'godaddy') || message.content.startsWith(prefix+'gdad')) {
-    if (cfg['addons']['godaddy'] === 'true') {
-      if (!args[1]) {
-        message.reply("`You forgot some arguments ._.`")
-        console.log(sub+' could not find some arguments')
-      } else {
-        const item = args[1]
-        const python4 = spawn('py', ['./addons/godaddy/godaddy.py', item])
-        message.channel.send('`⏳ Looking for '+item+' in GoDaddy...`').then((messageE) => {
-        python4.stdout.on('data', (data) => {
-            if (data.toString().includes('not')) { messageE.edit('`❌ '+data.toString()+'`').then(console.log(sub+' found that the domain already exists')) }
-            if (data.toString().includes('indeed')) { messageE.edit('`✔ '+data.toString()+'`').then(console.log(sub+" found that the domain didn't exist")) }
-        })
-      })
-    }
-}
-}
+
 if (message.content.startsWith(prefix+'rickroll') || message.content.startsWith(prefix+'rroll')) {
   if (cfg['addons']['isrickroll'] === 'true') {
     message.delete()
