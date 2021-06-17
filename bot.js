@@ -52,7 +52,7 @@ bot.on('ready', () => {
   bot.user.setPresence({
     status: 'online',
     activity: {
-        name: 'Callback Hell 2 | '+prefix+'?', // lmao i hate callbacks
+        name: 'Chess 2 | '+prefix+'?', // lmao i hate callbacks
         type: 'STREAMING',
         url: video
       }
@@ -139,7 +139,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `godaddy`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -256,10 +256,6 @@ bot.on('message', message => {
     message.reply("`Generate a Windows 10-like message box\nusage: "+prefix+"message | A message | That simple\nAliases: "+prefix+"message, "+prefix+"msg`")
     console.log(sub+" helped '"+message.author.username+"' with the shield command")
   }
-  if (message.content === prefix+'help.godaddy' || message.content === prefix+'?.gdad') {
-    message.reply("`Get the availability status of a domain on GoDaddy\nusage: "+prefix+"godaddy google.co.us\nAliases: "+prefix+"godaddy, "+prefix+"gdad`")
-    console.log(sub+" helped '"+message.author.username+"' with the godaddy command")
-  }
   if (message.content === prefix+'help.rickroll' || message.content === prefix+'?.rroll') {
     message.reply("`Checks if a link is a rickroll (video)\nusage: "+prefix+"rickroll someredirect.com/diwu98ww\nAliases: "+prefix+"rickroll, "+prefix+"rroll`")
     console.log(sub+" helped '"+message.author.username+"' with the rickroll command")
@@ -372,14 +368,14 @@ bot.on('message', message => {
     if (args[2]) {
       const fw = args[1]
       const ct = args[2]
-      if (fw === 'bot.js' || fw === 'config.json' || fw === 'package.json' || fw === 'requirements.txt' || fw === 'initialize.cmd' || fw === 'avatar.png' || fw.includes('\\') || fw.includes('/') {
+      if (fw === 'bot.js' || fw === 'config.json' || fw === 'package.json' || fw === 'requirements.txt' || fw === 'initialize.cmd' || fw === 'avatar.png' || fw.includes('\\') || fw.includes('/')) {
         message.reply("`You cannot overwrite any core files or write to a different directory ._.`")
         console.log(sub+" stopped '"+message.author.username+"' from overwriting core files or writing elsewhere")
       } else {
       
       try {
         if (fs.existsSync(args[1])) {
-          var data = fs.readFileSync(fw, 'utf8')
+          var data = fs.readFileSync('./env/'+fw, 'utf8')
           data = data.split(' ')[0]
           if (data.includes(message.author.username) && message.author.username === data) {
               fs.writeFileSync(fw, message.author.username+' '+ct, err => {
@@ -393,7 +389,7 @@ bot.on('message', message => {
               console.log(sub+" wrote to '"+fw+"'")
           }
         } else {
-          fs.writeFileSync(fw, message.author.username+' '+ct, err => {
+          fs.writeFileSync('./env/'+fw, message.author.username+' '+ct, err => {
             if (err) {
               message.reply("Oh no! Not an unknown error!")
               console.log(sub+" error: Unrecognized error")
@@ -1108,6 +1104,9 @@ if (message.content.startsWith(prefix+'rickroll') || message.content.startsWith(
       })
     })
   }
+} else {
+  message.reply('`The isrickroll addon is blocked.`')
+  console.log(sub+' noticed that the isrickroll addon was blocked')
 }
 }
 });
