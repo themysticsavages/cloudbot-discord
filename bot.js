@@ -542,10 +542,11 @@ bot.on('message', message => {
       const id = message.guild.members.cache.get(bot.user.id)
       if (!message.member.voice.channel) {
           message.reply('`You are not in a voice channel ._.`')
+	  console.log(sub+' could not find the user in a VC')
       } else {
           if (id.voice.channel !== message.member.voice.channel) {
-              message.channel.send('`You are not in the same voice channel ._.`')
-              console.log(sub+' could not find the user in a VC') 
+              message.reply('`You are not in the same voice channel ._.`')
+              console.log(sub+' could not find the user in the same VC') 
           } else {
               tubebot.stop(message)
               message.channel.send('`✔ Ended successfully`')
@@ -561,7 +562,7 @@ bot.on('message', message => {
 
 tubebot.on("playSong", (message, queue, song) => {
   message.channel.send('`✔ Playing '+song.name+' - '+song.formattedDuration+'`')
-  console.log(sub+' started music')
+  console.log(sub+' started playing '+song.name+' - '+song.formattedDuration)
 })
 
 // Ban people who abuse the system (borrowed code from discordjs readme: https://bit.ly/3e0xbAT)
