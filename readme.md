@@ -41,7 +41,7 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 
 ## Recently added features/hotfixes
 
-__- Music commands and isrickroll addon!__
+- Removed GoDaddy addon because it wasn't working
 
 ## Features/hotfixes to be added
 
@@ -49,7 +49,7 @@ __- Music commands and isrickroll addon!__
 
 ## Current bugs
 
-*No bugs. List bugs in issues*
+- Rickroll command isn't working?
 
 ## Statistics
     
