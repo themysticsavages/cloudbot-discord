@@ -48,7 +48,7 @@ bot.on('ready', () => {
   if (video !== 9) { var video = 'https://www.youtube.com/watch?v=4BD2Bxv2_qI' }
   if (video !== 10) { var video = 'https://www.youtube.com/watch?v=uxo-NasJslw'}
 
-  console.info(sub+' is connected\n---------------------');
+  console.info(sub+` is connected\n---------------------\nActive in ${bot.guilds.cache.size} servers`);
   bot.user.setPresence({
     status: 'online',
     activity: {
@@ -139,7 +139,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`"+"\n🔧 Moderator commands > `ban`, `unban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -263,6 +263,10 @@ bot.on('message', message => {
   if (message.content === prefix+'help.play' || message.content === prefix+'?.pl') {
     message.reply("`Play something from YouTube (pointless)\nusage: "+prefix+"play | youtube video\nAliases: "+prefix+"play, "+prefix+"pl`")
     console.log(sub+" helped '"+message.author.username+"' with playing music")
+  }
+  if (message.content === prefix+'help.unban') {
+    message.reply("`Unban a member\nusage: "+prefix+"unban <id>`")
+    console.log(sub+" helped '"+message.author.username+"' with unbanning members")
   }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
@@ -559,7 +563,7 @@ tubebot.on("playSong", (message, queue, song) => {
 bot.on('message', message => {
   if (!message.guild) return;
   if (message.member.hasPermission("ADMINISTRATOR")) {
-    if (message.content.startsWith('c.ban')) {
+    if (message.content.startsWith(prefix+'ban')) {
       const user = message.mentions.users.first();
       if (user) {
         const member = message.guild.members.resolve(user);
@@ -573,7 +577,7 @@ bot.on('message', message => {
               reason: "I wouldn't ban you without a reason! It's probably because the mod(s) noticed that you were abusing the file system in some kind of way.",
             })
             .then(() => {
-              message.channel.send(`Banned ${user.tag}. *F to pay respects*`);
+              message.channel.send('`Banned '+user.tag+'. F to pay respects.`');
               console.log(sub+` banned ${user.tag}`);
             })
             .catch(err => {
@@ -589,7 +593,25 @@ bot.on('message', message => {
         console.log(sub+" error: User not mentioned");
       }
     }
+    if (message.content.startsWith(prefix+'unban')) {
+      const args = message.content.trim().split(/ +/g)
+      if (!args[1]) {
+        message.reply("`You didn't mention the user to ban ._.`");
+        console.log(sub+" error: User not mentioned");
+      } else {
+        const id = args[1]
+        message.guild.fetchBans().then(bans => {
+          if (bans.size === 0) return
+          const user = bans.find(b => b.user.id === id)
+          if (!user) return
+          message.guild.members.unban(user.user)
+
+          message.channel.send('`Unbanned '+user.user+'. Welcome back!`')
+          console.log(sub+' unbanned '+user.user)
+        })
+      }
   }
+} 
 });
 
 // Dependent functions from here
