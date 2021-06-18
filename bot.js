@@ -64,7 +64,7 @@ bot.on('message', async message => {
   if (message.author.username.includes(sub)) { // If the message includes the substring 'CloudBot', it won't print any replies
     
   } else {
-    console.log(message.author.username+' > '+message.content)
+    console.log(message.author.username+'#'+message.author.discriminator+' > '+message.content)
   }
   if (message.content === prefix+'cclear' || message.content === prefix+'cls') {
     if (message.member.hasPermission("ADMINISTRATOR")) {
@@ -139,7 +139,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `secret`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`"+"\n🔧 Moderator commands > `ban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -424,12 +424,6 @@ bot.on('message', message => {
       message.reply('`Where did you put the file argument? ._.`')
       console.log(sub+' failed to find an argument')
     }
-  }
-  if (cmd === 'secret' || cmd === 's') {
-    const embed3 = new Discord.MessageEmbed()
-      .setTitle('`✨ Welcome! Here, you can run commands in secret. No one will see you... except for the server admin, of course. But enjoy ✨ `')
-      .setColor('#0099ff')
-    message.reply('`Check your DMs!`').then(message.author.send(embed3)).then(console.log(sub+" helped '"+message.author.username+" with private commands"))
   }
   if (cmd === 'download' || cmd === 'get') {
     if (cfg['addons']['get'] === 'true') {
