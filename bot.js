@@ -391,17 +391,18 @@ bot.on('message', message => {
               });
               message.channel.send("`Wrote to "+`'${fw}'`+" successfully. Yay.`")
               console.log(sub+" wrote to '"+fw+"'")
+          } else {
+            message.channel.send("`This file is write-protected. Please make a different one ._.`")
+            console.log(sub+" found that the file to write to was write-protected.")
           }
         } else {
-          fs.writeFileSync('./env/'+fw, message.author.username+' '+ct, err => {
+          fs.writeFileSync(fw, message.author.username+' '+ct, err => {
             if (err) {
               message.reply("Oh no! Not an unknown error!")
               console.log(sub+" error: Unrecognized error")
               return;
             }
           });
-          message.channel.send("`Wrote to "+`'${fw}'`+" successfully. Yay.`")
-          console.log(sub+" wrote to '"+fw+"'")
         }
       } catch (err) {
 
@@ -608,6 +609,12 @@ bot.on('message', message => {
 
           message.channel.send('`Unbanned '+user.user+'. Welcome back!`')
           console.log(sub+' unbanned '+user.user)
+
+          bot.users.fetch(id, false).then((user) => { 
+            message.channel.createInvite({unique: true}).then(invite => {
+              user.send("`Hey! You were unbanned from a server, so here's the invite: https://discord.gg/"+invite.code+'`')
+            })
+          })
         })
       }
   }
