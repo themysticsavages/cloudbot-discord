@@ -143,8 +143,17 @@ bot.on('message', message => {
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
-    message.reply(Embed);
-    console.log(sub+" gave help to '"+message.author.username+"'");
+    message.reply(Embed).then((embed) => {
+      console.log(sub+" gave help to '"+message.author.username+"'");
+      embed.react('❌')
+
+      embed.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '❌'),
+       { max: 1, time: 30000 }).then(collected => {
+          if (collected.first().emoji.name === '❌') {
+            embed.delete()
+          }
+      })
+    })
   }
   
   // Extended help library; a nice touch; had to join code to do MemoryLeak warnings
