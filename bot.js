@@ -391,7 +391,7 @@ bot.on('message', message => {
           var data = fs.readFileSync('./env/'+fw, 'utf8')
           data = data.split(' ')[0]
           if (data.includes(message.author.username) && message.author.username === data) {
-              fs.writeFileSync(fw, message.author.username+' '+ct, err => {
+              fs.writeFileSync('./env/'+fw, message.author.username+' '+ct, err => {
                 if (err) {
                   message.reply("Oh no! Not an unknown error!")
                   console.log(sub+" error: Unrecognized error")
@@ -405,13 +405,15 @@ bot.on('message', message => {
             console.log(sub+" found that the file to write to was write-protected.")
           }
         } else {
-          fs.writeFileSync(fw, message.author.username+' '+ct, err => {
+          fs.writeFileSync('./env/'+fw, message.author.username+' '+ct, err => {
             if (err) {
               message.reply("Oh no! Not an unknown error!")
               console.log(sub+" error: Unrecognized error")
               return;
             }
           });
+          message.channel.send("`Wrote to "+`'${fw}'`+" successfully. Yay.`")
+          console.log(sub+" wrote to '"+fw+"'")
         }
       } catch (err) {
 
