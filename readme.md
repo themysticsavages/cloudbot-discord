@@ -14,7 +14,7 @@
   <img src="https://img.shields.io/badge/%20-Invite%20me!-blue?style=flat">
   
   <a href="about:blank">
-  <img src="https://img.shields.io/badge/channel-release-orange?style=flat">
+  <img src="https://img.shields.io/badge/channel-stable-green?style=flat">
     
   <a href="">
 </p>
@@ -25,7 +25,7 @@
 #
 # Information
 
-cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. __This bot is officially in a release channel, so features are continuously added__. It supports file management, banning members, and many other pointless commands.
+cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. __This bot is officially in a stable channel, so features won't be added for a while__. It supports file management, banning members, and many other pointless commands.
 
 ## Self hosting
 
@@ -49,7 +49,7 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 
 ## Current bugs
 
-- Rickroll command isn't working?
+*Nothing, point out any problems in Issues*
 
 ## Statistics
     
