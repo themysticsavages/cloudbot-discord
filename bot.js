@@ -371,23 +371,25 @@ bot.on('message', message => {
   const args = message.content.trim().split(/ +/g);
   const cmd = args[0].slice(prefix.length).toLowerCase();
 
+  const args2 = message.content.trim().split(' | ');
+
   if (cmd === 'write' || cmd === 'wr') {
     var err = 0;
-    if (!args[1]) {
+    if (!args2[1]) {
       message.reply("`What file should I write? ._.`")
       console.log(sub+" couldn't find any arguments")
       err++
     }
-    if (args[2]) {
-      const fw = args[1]
-      const ct = args[2]
+    if (args2[2]) {
+      const fw = args2[1]
+      const ct = args2[2]
       if (fw === 'bot.js' || fw === 'config.json' || fw === 'package.json' || fw === 'requirements.txt' || fw === 'initialize.cmd' || fw === 'avatar.png' || fw.includes('\\') || fw.includes('/')) {
         message.reply("`You cannot overwrite any core files or write to a different directory ._.`")
         console.log(sub+" stopped '"+message.author.username+"' from overwriting core files or writing elsewhere")
       } else {
       
       try {
-        if (fs.existsSync(args[1])) {
+        if (fs.existsSync(args2[1])) {
           var data = fs.readFileSync('./env/'+fw, 'utf8')
           data = data.split(' ')[0]
           if (data.includes(message.author.username) && message.author.username === data) {
@@ -425,9 +427,9 @@ bot.on('message', message => {
   }
   if (cmd === 'read' || cmd === 'rd') {
     var err = 0;
-    if (args[1]) {
+    if (args2[1]) {
       if (err === 0) {
-        const rd = './env/'+args[1]
+        const rd = './env/'+args2[1]
         try {
           const data = fs.readFileSync(rd, 'utf8')
           message.channel.send("`Contents of '"+rd+"':\n"+data+"`")
@@ -799,10 +801,19 @@ if (cmd === 'scratch' || cmd === 'scr') {
                     .setTimestamp()
                     .setFooter('Join date: '+date+'\n')
               
-                  message.channel.send(Embed);
+                  message.channel.send(Embed).then((embed) => {
+                    console.log(sub+" gave info on the Scratch user '"+query+"'")
+                    embed.react('❌')
+              
+                    embed.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '❌'),
+                     { max: 1, time: 30000 }).then(collected => {
+                        if (collected.first().emoji.name === '❌') {
+                          embed.delete()
+                        }
+                    })
+                  })
           }
         })
-		console.log(sub+" gave info on the Scratch user '"+query+"'")
       });	
     } else {
       message.reply('`The scratch addon is blocked.`')
@@ -849,8 +860,17 @@ if (cmd === 'youtube' || cmd === 'yt') {
         .setDescription(v1 + '\n' + v2 + '\n' + v3 + '\n' + v4 + '\n' + v5)
         .setTimestamp()
   
-        message.channel.send(Embed);
-        console.log(sub+" gave the first five searches for '"+query+"'")
+        message.channel.send(Embed).then((embed) => {
+          console.log(sub+" gave the first five searches for '"+query+"'")
+          embed.react('❌')
+    
+          embed.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '❌'),
+           { max: 1, time: 30000 }).then(collected => {
+              if (collected.first().emoji.name === '❌') {
+                embed.delete()
+              }
+          })
+        })
         }
       })
     })
@@ -955,8 +975,17 @@ if (cmd === 'topmeme' || 'memes') {
           .setColor('#0099ff')
           .setTitle('Top Imgflip Memes')
           .setDescription('*Page 1*\n' + m1 + m2 + m3 + m4 + m5 + m6 + m7 + m8 + m9 + m10 + '\n*Use the given IDs to generate a meme!*')
-          message.channel.send(embed)
-          console.log(sub+' sent page 1 of the top memes list')
+          message.channel.send(embed).then((embed) => {
+            console.log(sub+' sent page 1 of the top memes list')
+            embed.react('❌')
+      
+            embed.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '❌'),
+             { max: 1, time: 30000 }).then(collected => {
+                if (collected.first().emoji.name === '❌') {
+                  embed.delete()
+                }
+            })
+          })
       }
 
       if (index === 2) {
@@ -975,8 +1004,17 @@ if (cmd === 'topmeme' || 'memes') {
           .setColor('#0099ff')
           .setTitle('Top Imgflip Memes')
           .setDescription('*Page 2*\n' + m11 + m12 + m13 + m14 + m15 + m16 + m17 + m18 + m19 + m20 + '\n*Use the given IDs to generate a meme!*')
-          message.channel.send(embed2)
-          console.log(sub+' sent page 2 of the top memes list')
+          message.channel.send(embed).then((embed) => {
+            console.log(sub+' sent page 2 of the top memes list')
+            embed.react('❌')
+      
+            embed.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '❌'),
+             { max: 1, time: 30000 }).then(collected => {
+                if (collected.first().emoji.name === '❌') {
+                  embed.delete()
+                }
+            })
+          })
       }
     })
   } else {
