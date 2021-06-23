@@ -1054,6 +1054,10 @@ if (cmd === 'mmake' || 'memegen') {
 if (message.content.includes(prefix+'shop')) {
   if (cfg['addons']['economy'] === 'true') {
     if (message.content.startsWith(prefix+'shop/add')) {
+        if (!args2[1] || !args2[2]) {
+          message.reply('`Please include an ingame name and/or your job ._.`')
+          console.log(sub+' could not find queries to use')
+        } else {
         const func1 = args2[1]
         const func2 = args2[2]
 
@@ -1062,6 +1066,7 @@ if (message.content.includes(prefix+'shop')) {
             message.channel.send('`' + data.toString() + '`')
             console.log(sub+' made a new account')
         })
+      }
     }
     if (message.content.startsWith(prefix+'shop/remove')) {
 
