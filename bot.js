@@ -52,7 +52,7 @@ bot.on('ready', () => {
   bot.user.setPresence({
     status: 'online',
     activity: {
-        name: 'Chess 2 | '+prefix+'?', // lmao i hate callbacks
+        name: 'Minecraft 1.18 | '+prefix+'?', // lmao i hate callbacks
         type: 'STREAMING',
         url: video
       }
@@ -90,20 +90,20 @@ bot.on('message', async message => {
     var number = getRandInt(13);
     
     // More randomization! 🎲
-    if (number !== 0) { var comment = 'B O O P. ' }
-    if (number !== 1) { var comment = 'Yes? ' }
-    if (number !== 2) { var comment = 'Hi how are ya  ' }
-    if (number !== 3) { var comment = '._. ' }
-    if (number !== 4) { var comment = 'why tho ' }
-    if (number !== 5) { var comment = 'G`day ' }
-    if (number !== 6) { var comment = '¯\_(ツ)_/¯ ' }
-    if (number !== 7) { var comment = 'When bot is ping: ' }
-    if (number !== 8) { var comment = "Don't you have anything to do besides ping me? " }
-    if (number !== 9) { var comment = 'helo ' }
-    if (number !== 10) { var comment = '😳 Ping is 🆘 💯% ' }
-    if (number !== 11) { var comment = 'POV: you are bot dev and you are trying to make unique reply ' }
-    if (number !== 12) { var comment = '👞 Ṕ̴̡̠̲̩̝͓̜̑̿͋͐̕͠͝o̷̭͚̙̼̫̮̘̐̈́̂͐͘̕ņ̴͉̟͔͎̓̀̽͊͒͌͘g̷̦̤̓͌́̌̿̿̚̚' }
-    if (number !== 13) { var comment = 'BOT REPLY SPEEDRUN ANY% ' }
+    if (number === 0) { var comment = 'B O O P. ' }
+    if (number === 1) { var comment = 'Yes? ' }
+    if (number === 2) { var comment = 'Hi how are ya  ' }
+    if (number === 3) { var comment = '._. ' }
+    if (number === 4) { var comment = 'why tho ' }
+    if (number === 5) { var comment = 'G`day ' }
+    if (number === 6) { var comment = '¯\_(ツ)_/¯ ' }
+    if (number === 7) { var comment = 'When bot is ping: ' }
+    if (number === 8) { var comment = "Don't you have anything to do besides ping me? " }
+    if (number === 9) { var comment = 'helo ' }
+    if (number === 10) { var comment = '😳 Ping is 🆘 💯% ' }
+    if (number === 11) { var comment = 'POV: you are bot dev and you are trying to make unique reply ' }
+    if (number === 12) { var comment = '👞 Ṕ̴̡̠̲̩̝͓̜̑̿͋͐̕͠͝o̷̭͚̙̼̫̮̘̐̈́̂͐͘̕ņ̴͉̟͔͎̓̀̽͊͒͌͘g̷̦̤̓͌́̌̿̿̚̚' }
+    if (number === 13) { var comment = 'BOT REPLY SPEEDRUN ANY% ' }
 	  
     message.channel.send('`'+comment+'('+Math.round(bot.ws.ping)+'ms)`');
     console.log("'"+message.author.username+"' pinged "+sub)
@@ -576,7 +576,7 @@ tubebot.on("playSong", (message, queue, song) => {
 // Ban people who abuse the system (borrowed code from discordjs readme: https://bit.ly/3e0xbAT)
 bot.on('message', message => {
   if (!message.guild) return;
-  if (message.member.hasPermission("ADMINISTRATOR")) {
+  if (message.member && message.member.hasPermission("ADMINISTRATOR")) {
     if (message.content.startsWith(prefix+'ban')) {
       const user = message.mentions.users.first();
       if (user) {
