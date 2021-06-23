@@ -4,14 +4,11 @@
 </h1>
 
 <p align="center">
-  <a href="https://codeload.github.com/themysticsavages/cloudbot-discord/zip/refs/heads/main">
-  <img src="http://shields.io/badge/source--code-ZIP-blue?style=flat">
-    
-  <a href="https://codeload.github.com/themysticsavages/cloudbot-discord/tar.gz/refs/heads/main">
-  <img src="http://shields.io/badge/source--code-TARGZ-green?style=flat">
+  <a href="https://top.gg/bot/835841382882738216/vote">
+  <img src="https://img.shields.io/badge/%20-Vote%20for%20me-purple?style=flat">
   
   <a href="https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612">
-  <img src="https://img.shields.io/badge/%20-Invite%20me!-blue?style=flat">
+  <img src="https://img.shields.io/badge/%20-Invite%20-blue?style=flat">
   
   <a href="about:blank">
   <img src="https://img.shields.io/badge/channel-stable-green?style=flat">
