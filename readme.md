@@ -38,7 +38,7 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 
 ## Recently added features/hotfixes
 
-- Removed GoDaddy addon because it wasn't working
+- __Skip and loop command for music!__
 
 ## Features/hotfixes to be added
 
