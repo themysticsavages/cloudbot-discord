@@ -139,7 +139,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`, `avatar`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`"+"\n🔧 Moderator commands > `ban`, `unban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`, `reset`, `skip`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`, `avatar`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `garfield`"+"\n🔧 Moderator commands > `ban`, `unban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`, `reset`, `skip`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -277,7 +277,7 @@ bot.on('message', message => {
     message.reply("`Unban a member\nusage: "+prefix+"unban <id>`")
     console.log(sub+" helped '"+message.author.username+"' with unbanning members")
   }
-  if (message.content === prefix+'help.avatar' || prefix+'?.av') {
+  if (message.content === prefix+'help.avatar' || message.content === prefix+'?.av') {
     message.reply("`Get a user avatar\nusage: "+prefix+"avatar <user mention>\nAliases: "+prefix+"avatar, "+prefix+"av`")
     console.log(sub+" helped '"+message.author.username+"' with the avatar command")
   }
@@ -1248,6 +1248,23 @@ if (message.content.startsWith(prefix+'rickroll') || message.content.startsWith(
   message.reply('`The isrickroll addon is blocked.`')
   console.log(sub+' noticed that the isrickroll addon was blocked')
 }
+}
+
+if (message.content.startsWith(prefix+'garfield') || message.content.startsWith(prefix+'gf')) {
+  if (cfg['addons']['garfield'] === 'true') {
+    message.channel.send('`⏳ Getting latest Garfield comic...`').then((sentmessage) => {
+      const python4 = spawn('py', ['./addons/garfield/garfield.py'])
+      python4.on('close', () => {
+        const attach = new Discord.MessageAttachment('./addons/garfield/comic.png')
+        sentmessage.delete()
+        message.channel.send(attach)
+        console.log(sub+' sent the latest Garfield comic')
+      })
+    })
+  } else {
+    message.reply('`The garfield addon is blocked.`')
+    console.log(sub+' noticed that the garfield addon was blocked')
+  }
 }
 });
 bot.login(cfg.DISCORD_TOKEN)
