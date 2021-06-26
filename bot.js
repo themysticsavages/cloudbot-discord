@@ -139,7 +139,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`"+"\n🔧 Moderator commands > `ban`, `unban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`, `reset`, `skip`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`, `avatar`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`"+"\n🔧 Moderator commands > `ban`, `unban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`, `reset`, `skip`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -277,6 +277,10 @@ bot.on('message', message => {
     message.reply("`Unban a member\nusage: "+prefix+"unban <id>`")
     console.log(sub+" helped '"+message.author.username+"' with unbanning members")
   }
+  if (message.content === prefix+'help.avatar' || prefix+'?.av') {
+    message.reply("`Get a user avatar\nusage: "+prefix+"avatar <user mention>\nAliases: "+prefix+"avatar, "+prefix+"av`")
+    console.log(sub+" helped '"+message.author.username+"' with the avatar command")
+  }
   // Commands for fun
   if (message.content.startsWith(prefix)) {
     const args = message.content.trim().split(/ +/g);
@@ -292,12 +296,12 @@ bot.on('message', message => {
         console.log(sub+" couldn't find the number to use")
       } else {
         var randomnumber = Math.floor(Math.random() * max)
-        message.reply("`"+randomnumber+"`");
+        message.channel.send("`"+randomnumber+"`");
         console.log(sub+' generated a random number');
       }
    }
   }
-  if (message.content.startsWith('c.poll')) {
+  if (message.content.startsWith(prefix+'poll')) {
     const args = message.content.trim().split(' | ');
 
     if (args[4] > 1) {
@@ -363,6 +367,23 @@ bot.on('message', message => {
         });
         });
     } 
+  }
+  if (message.content.startsWith(prefix+'avatar' || message.content.startsWith(prefix+'av'))) {
+    if (message.mentions.users.size) {
+      let member=message.mentions.users.first()
+    if(member){
+        const emb=new Discord.MessageEmbed().setImage(member.displayAvatarURL()).setTitle(member.username)
+        message.channel.send(emb)
+        console.log(sub+" sent the avatar of '"+member.username+"'")
+        
+    } else {
+        message.channel.send('`There is no user with that name ._.`')
+        console.log(sub+' did not find a user with that name in the server')
+    }} else {
+        const emb=new Discord.MessageEmbed().setImage(message.author.displayAvatarURL()).setTitle(message.author.username)
+        message.channel.send(emb)
+        console.log(sub+" sent the avatar of '"+message.author.username+"'")
+    }
   }
 });
 
