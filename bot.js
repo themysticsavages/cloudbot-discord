@@ -21,10 +21,11 @@ const DisTube = require('distube')
 const bot = new Discord.Client();
 const tubebot = new DisTube(bot, {searchSongs: false, emitNewSongOnly: true})
 
-const prefix = 'c.'; // You can edit the prefix
+const dfix = 'c.'; // You can edit the prefix
 const sub = 'CloudBot'; // You can change this to change what the bots logs in console
 
 const talkedRecently = new Set();
+const prefix = require('discord-prefix')
 
 console.clear()
 
@@ -52,7 +53,7 @@ bot.on('ready', () => {
   bot.user.setPresence({
     status: 'online',
     activity: {
-        name: 'Minecraft 1.18 | '+prefix+'?', // lmao i hate callbacks
+        name: 'Minecraft 1.18 | '+dfix+'?',
         type: 'STREAMING',
         url: video
       }
@@ -61,12 +62,19 @@ bot.on('ready', () => {
 
 // Little message recorder, console clearer, and channel wiper. Does other stuff too
 bot.on('message', async message => {
+  if (!message.guild) return
+  let guildPrefix = prefix.getPrefix(message.guild.id)
+  if (!guildPrefix) guildPrefix = dfix
+  let args = message.content.slice(guildPrefix.length).split(' ')
+  if (!message.content.startsWith(guildPrefix)) return
+  const cmd = args[0].toLowerCase()
+
   if (message.author.username.includes(sub)) { // If the message includes the substring 'CloudBot', it won't print any replies
     
   } else {
     console.log(message.author.username+'#'+message.author.discriminator+' > '+message.content)
   }
-  if (message.content === prefix+'cclear' || message.content === prefix+'cls') {
+  if (cmd ===  'cclear' || cmd ===  'cls') {
     if (message.member.hasPermission("ADMINISTRATOR")) {
       console.clear()
       console.info(sub+' is connected\n---------------------');
@@ -75,7 +83,7 @@ bot.on('message', async message => {
       console.log(sub+" error: Insufficient privileges to clear console");
     }
   }
-  if (message.content === prefix+'clear' || message.content === prefix+'c') {
+  if (cmd ===  'clear' || cmd ===  'c') {
     if (message.member.hasPermission("ADMINISTRATOR")) {
     const dmsg = 99 // You can change this but uh probably not
 
@@ -86,7 +94,7 @@ bot.on('message', async message => {
     console.log(sub+" error: Insufficient privileges to clear channels");
   }
 }
-  if (message.content === prefix+'ping' || message.content === sub+'!') {
+  if (cmd ===  'ping') {
     var number = getRandInt(13);
     
     // More randomization! 🎲
@@ -108,12 +116,12 @@ bot.on('message', async message => {
     message.channel.send('`'+comment+'('+Math.round(bot.ws.ping)+'ms)`');
     console.log("'"+message.author.username+"' pinged "+sub)
   }
-  if (message.content === prefix+'uptime' || message.content === prefix+'up') {
+  if (cmd === 'uptime' || cmd === 'up') {
     message.channel.send('`'+sub+' uptime: '+Math.round(process.uptime())+' seconds`')
     console.log(sub+' gave the bot uptime')
   }
   // Lists the content of a directory (small, but important)
-  if (message.content === prefix+'ls') {
+  if (cmd ===  'ls') {
     const fld = './env/' // verrry simple code, you don't even need args!
     fs.readdir(fld, (err, files) => {
         files.forEach(file => {
@@ -125,171 +133,165 @@ bot.on('message', async message => {
 
 // A couple of sentient replies for this nice bot
 bot.on('message', message => {
-  if (message.content === prefix+'hi') {
+  if (!message.guild) return
+  let guildPrefix = prefix.getPrefix(message.guild.id)
+  if (!guildPrefix) guildPrefix = dfix
+  let args = message.content.slice(guildPrefix.length).split(' ')
+  if (!message.content.startsWith(guildPrefix)) return
+  const cmd = args[0].toLowerCase()
+
+  if (cmd ===  'hi') {
     message.reply('`hi :)`');
     console.log(sub+" said hi to '"+message.author.username+"'");
   }
-  if (message.content === prefix+'purpose') {
+  if (cmd ===  'purpose') {
     // This is one of the first functions for this Discord bot 😁
     message.reply('`I am basically a cloud server for Discord. I am pure Node.JS. Although I may not have that many functions, the cloud server functions make up for this!`');
     console.log(sub+" told '"+message.author.username+"' about why he exists");
   }
-  if (message.content === prefix+'help' || message.content === prefix+'?') {
+  if (cmd ===  'help' || cmd ===  '?') {
     const Embed = new Discord.MessageEmbed()
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Prefix : `'+prefix+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`, `avatar`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `garfield`"+"\n🔧 Moderator commands > `ban`, `unban`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`, `reset`, `skip`"+"\n\n*Type c.help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Server prefix : `'+prefix.getPrefix(message.guild.id)+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`, `avatar`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `garfield`"+"\n🔧 Moderator commands > `ban`, `unban`, `prefix`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`, `reset`, `skip`"+"\n\n*Type "+prefix.getPrefix(message.guild.id)+"help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
-    message.reply(Embed).then((embed) => {
-      console.log(sub+" gave help to '"+message.author.username+"'");
-      embed.react('❌')
-
-      embed.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '❌'),
-       { max: 1, time: 30000 }).then(collected => {
-          if (collected.first().emoji.name === '❌') {
-            embed.delete()
-          }
-      })
-    })
+    message.reply(Embed)
+    console.log(sub+" gave help to '"+message.author.username+"'");
+  }
+  if (cmd ===  'prefix') {
+    if (message.member.hasPermission('ADMINISTRATOR')) {
+      if (!args[1]) {
+        message.reply("`You need to add a prefix to use ._.`");
+        console.log(sub+" did not find a prefix");
+      } else {
+        prefix.setPrefix(args[1], message.guild.id)
+        message.channel.send('`✔ Server prefix changed successfully! The prefix from now on will be '+args[1]+'.`')
+        console.log(sub+' changed the server prefix to '+args[1])
+      }
+    } else {
+      message.reply('`You no have admin! The administrator role is required to change the prefix.`');
+      console.log(sub+" error: Insufficient privileges to change the prefix");
+    }
   }
   
-  // Extended help library; a nice touch; had to join code to do MemoryLeak warnings
-  if (message.content === prefix+'help.mkdir' || message.content === prefix+'?.md') {
-    message.reply('`Creates a directory\nusage: '+prefix+'mkdir example\nAliases: '+prefix+'mkdir, '+prefix+'md`'); 
-    console.log(sub+" gave help on making directories to '"+message.author.username+"'");
-  }
-  if (message.content === prefix+'help.ddel' || message.content === prefix+'?.dd') {
-    message.reply('`Removes a directory (needs admin role)\nusage: '+prefix+'ddel example\nAliases: '+prefix+'ddel, '+prefix+'dd`')
-    console.log(sub+" gave help to '"+message.author.username+"' on removing directories");
-  }
-  if (message.content === prefix+'help.del') {
-    message.reply('`Deletes a file (needs admin role)\nusage: '+prefix+'del example.txt`')
+  const pre = prefix.getPrefix(message.guild.id)
+
+  if (cmd ===  'help.del') {
+    message.reply('`Deletes a file (needs admin role)\nusage: '+pre+'del example.txt`')
     console.log(sub+" gave help on deleting files to '"+message.author.username+"'")
   }
-  if (message.content === prefix+'help.cd') {
-    message.reply('`Changes directory\nusage: '+prefix+'cd example`')
-    console.log(sub+" gave more help to '"+message.author.username+"' on how to change directories")
-  }
-  if (message.content === prefix+'help.write' || message.content === prefix+'?.wr') {
-    message.reply('`Writes text to file (needs admin role)\nusage: '+prefix+'wr example.txt test_string (make sure it is ONE string! multiple string writes will be implemented later)\nAliases: '+prefix+'write, '+prefix+'wr`')
+  if (cmd ===  'help.write' || cmd ===  '?.wr') {
+    message.reply('`Writes text to file (needs admin role)\nusage: '+pre+'wr example.txt test_string (make sure it is ONE string! multiple string writes will be implemented later)\nAliases: '+pre+'write, '+pre+'wr`')
     console.log(sub+" told '"+message.author.username+"' how to write to files")
   }
-  if (message.content === prefix+'help.read' || message.content === prefix+'?.rd') {
-    message.reply('`Gets text from file\nusage: '+prefix+'rd example.txt\nAliases: '+prefix+'read, '+prefix+'rd`')
+  if (cmd ===  'help.read' || cmd ===  '?.rd') {
+    message.reply('`Gets text from file\nusage: '+pre+'rd example.txt\nAliases: '+pre+'read, '+pre+'rd`')
     console.log(sub+" helped '"+message.author.username+"' to read from files.")
   }
-  if (message.content === prefix+'help.ban' || message.content === prefix+'?.ban') {
-    message.reply('`Ban a member (needs "Ban members" role) with a default reason\nusage: '+prefix+'ban @examplemember`')
+  if (cmd ===  'help.ban' || cmd ===  '?.ban') {
+    message.reply('`Ban a member (needs "Ban members" role) with a default reason\nusage: '+pre+'ban @examplemember`')
     console.log(sub+" told '"+message.author.username+"' how to ban a member")
   }
-  if (message.content === prefix+'help.random' || message.content === prefix+'?.r') {
-    message.reply('`Make a random number\nusage: '+prefix+'random 420\nAliases: '+prefix+'random, '+prefix+'r`')
+  if (cmd ===  'help.random' || cmd ===  '?.r') {
+    message.reply('`Make a random number\nusage: '+pre+'random 420\nAliases: '+pre+'random, '+pre+'r`')
     console.log(sub+" told '"+message.author.username+"' how to generate random numbers")
   }
-  if (message.content === prefix+'help.search' || message.content === prefix+'?.sr') {
-    message.reply('`Get a Bing search\nusage: c.search apples\nAliases: c.search, c.sr`')
+  if (cmd ===  'help.search' || cmd ===  '?.sr') {
+    message.reply('`Get a Bing search\nusage: c.search apples\nAliases: '+pre+'search, '+pre+'sr`')
     console.log(sub+" told '"+message.author.username+"' how to get searches")
   }
-  if (message.content === prefix+'help.translate' || message.content === prefix+'?.tr') {
-    message.reply('`Translate text to ASCII and back\nusage: '+prefix+'translate ascii meme\n     : '+prefix+'translate text 109-101-109-101\nAliases: '+prefix+'translate, '+prefix+'tr`')
-    console.log(sub+" helped '"+message.author.username+"' translate things")
-  }
-  if (message.content === prefix+'help.weather' || message.content === prefix+'?.w') {
-    message.reply('`Get the weather in a certain area (One word only)\nusage: '+prefix+'weather Frankfurt\nAliases: '+prefix+'weather, '+prefix+'w`')
+  if (cmd ===  'help.weather' || cmd ===  '?.w') {
+    message.reply('`Get the weather in a certain area (One word only)\nusage: '+pre+'weather Frankfurt\nAliases: '+pre+'weather, '+pre+'w`')
     console.log(sub+" helped '"+message.author.username+"' with the weather command")
   }
-  if (message.content === prefix+'help.gif') {
-    message.reply('`Get a GIF from GIPHY with a single keyword\nusage: '+prefix+'gif minecraft`')
+  if (cmd ===  'help.gif') {
+    message.reply('`Get a GIF from GIPHY with a single keyword\nusage: '+pre+'gif minecraft`')
     console.log(sub+" helped '"+message.author.username+"' with the GIF command")
   }
-  if (message.content === prefix+'help.scratch' || message.content === prefix+'?.scr') {
-    message.reply('`Get info about a Scratch user\nusage: '+prefix+'scratch ajskateboarder\nAliases: '+prefix+'scratch, '+prefix+'scr`')
+  if (cmd ===  'help.scratch' || cmd ===  '?.scr') {
+    message.reply('`Get info about a Scratch user\nusage: '+pre+'scratch ajskateboarder\nAliases: '+pre+'scratch, '+pre+'scr`')
     console.log(sub+" helped '"+message.author.username+"' with the Scratch command")
   }
-  if (message.content === prefix+'help.youtube' || message.content === prefix+'?.yt') {
-    message.reply('`Get the first five YouTube videos\nusage: '+prefix+'youtube cat\nAliases: '+prefix+'youtube, '+prefix+'yt`')
+  if (cmd === 'help.youtube' || cmd === '?.yt') {
+    message.reply('`Get the first five YouTube videos\nusage: '+pre+'youtube cat\nAliases: '+pre+'youtube, '+pre+'yt`')
     console.log(sub+" helped '"+message.author.username+"' with the YouTube command")
   }
-  if (message.content === prefix+'help.shorten' || message.content === prefix+'?.sh') {
-    message.reply('`Shorten a URL with Rebrandly\nusage: '+prefix+'shorten https://google.com \nAliases: '+prefix+'shorten, '+prefix+'sh`')
+  if (cmd === 'help.shorten' || cmd === '?.sh') {
+    message.reply('`Shorten a URL with Rebrandly\nusage: '+pre+'shorten https://google.com \nAliases: '+pre+'shorten, '+pre+'sh`')
     console.log(sub+" helped '"+message.author.username+"' shorten URLs")
   }
-  if (message.content === prefix+'help.poll') {
-    message.reply("`Start a highly customizable poll with different emojis and a certain vote end count\nusage: "+prefix+"poll | is this command nice | ✔ | ❌ | 5`")
+  if (cmd === 'help.poll') {
+    message.reply("`Start a highly customizable poll with different emojis and a certain vote end count\nusage: "+pre+"poll | is this command nice | ✔ | ❌ | 5`")
     console.log(sub+" helped '"+message.author.username+"' make polls")
   }
-  if (message.content === prefix+'help.fortnite' || message.content === prefix+'?.frte') {
-    message.reply("`Get recent news in Fortnite and the current map\nusage: "+prefix+"fortnite news/stw\n      :"+prefix+"fortnite news/br\n      :"+prefix+"fortnite news/c\n      :"+prefix+"fortnite map\nAliases: "+prefix+"fortnite, "+prefix+"frte`")
+  if (cmd === 'help.fortnite' || cmd === '?.frte') {
+    message.reply("`Get recent news in Fortnite and the current map\nusage: "+pre+"fortnite news/stw\n      :"+pre+"fortnite news/br\n      :"+pre+"fortnite news/c\n      :"+pre+"fortnite map\nAliases: "+pre+"fortnite, "+pre+"frte`")
     console.log(sub+" helped '"+message.author.username+"' with the Fortnite command")
   }
-  if (message.content === prefix+'help.topmeme' || message.content === prefix+'?.memes') {
-    message.reply("`Get the top meme IDs on Imgflip\nusage: "+prefix+"topmeme [1-2]\nAliases: "+prefix+"topmeme, "+prefix+"memes`")
+  if (cmd === 'help.topmeme' || cmd === '?.memes') {
+    message.reply("`Get the top meme IDs on Imgflip\nusage: "+pre+"topmeme [1-2]\nAliases: "+pre+"topmeme, "+pre+"memes`")
     console.log(sub+" helped '"+message.author.username+"' with the topmeme command")
   }
-  if (message.content === prefix+'help.memegen' || message.content === prefix+'?.mmake') {
-    message.reply("`Generate a 2010 meme template!\nusage: "+prefix+"memegen 123456 top bottom\nAliases: "+prefix+"memegen, "+prefix+"mmake`")
+  if (cmd === 'help.memegen' || cmd === '?.mmake') {
+    message.reply("`Generate a 2010 meme template!\nusage: "+pre+"memegen 123456 top bottom\nAliases: "+pre+"memegen, "+pre+"mmake`")
     console.log(sub+" helped '"+message.author.username+"' with the art of making memes")
   }
-  if (message.content === prefix+'help.download' || message.content === prefix+'?.get') {
-    message.reply("`Download a file from the Internet to the bot server!\nusage: "+prefix+"download http(s)://example.com/file.png picture.png\nAliases: "+prefix+"download, "+prefix+"get`")
+  if (cmd === 'help.download' || cmd === '?.get') {
+    message.reply("`Download a file from the Internet to the bot server!\nusage: "+pre+"download http(s)://example.com/file.png picture.png\nAliases: "+pre+"download, "+pre+"get`")
     console.log(sub+" helped '"+message.author.username+"' with downloading files")
   }
-  if (message.content === prefix+'help.shop/add') {
-    message.reply("`Register yourself as a user to earn bucks!\nusage: "+prefix+"shop/add | [name] | [job]`")
+  if (cmd === 'help.shop/add') {
+    message.reply("`Register yourself as a user to earn bucks!\nusage: "+pre+"shop/add | [name] | [job]`")
     console.log(sub+" helped '"+message.author.username+"' with the shop/add command")
   }
-  if (message.content === prefix+'help.shop/remove') {
-    message.reply("`Unregister yourself from the store database\nusage: "+prefix+"shop/remove`")
+  if (cmd === 'help.shop/remove') {
+    message.reply("`Unregister yourself from the store database\nusage: "+pre+"shop/remove`")
     console.log(sub+" helped '"+message.author.username+"' with the shop/add command")
   }
-  if (message.content === prefix+'help.shop/money') {
-    message.reply("`Receive 8-12 bucks every 100 minutes\nusage: "+prefix+"shop/money`")
+  if (cmd === 'help.shop/money') {
+    message.reply("`Receive 8-12 bucks every 100 minutes\nusage: "+pre+"shop/money`")
     console.log(sub+" helped '"+message.author.username+"' with earning bucks")
   }
-  if (message.content === prefix+'help.shop/money') {
-    message.reply("`Receive 8-12 bucks every 100 minutes\nusage: "+prefix+"shop/money`")
+  if (cmd === 'help.shop/money') {
+    message.reply("`Receive 8-12 bucks every 100 minutes\nusage: "+pre+"shop/money`")
     console.log(sub+" helped '"+message.author.username+"' with earning bucks")
   }
-  if (message.content === prefix+'help.shop/info') {
-    message.reply("`Get information on any user in the store!\nusage: "+prefix+"shop/info | user#0000`")
+  if (cmd === 'help.shop/info') {
+    message.reply("`Get information on any user in the store!\nusage: "+pre+"shop/info | user#0000`")
     console.log(sub+" helped '"+message.author.username+"' with the shop/info command")
   }
-  if (message.content === prefix+'help.shield' || message.content === prefix+'?.shld') {
-    message.reply("`Generate a button with Shields.IO!\nusage: "+prefix+"shield | a button | period | blue\nAliases: "+prefix+"shield, "+prefix+"shld`")
+  if (cmd === 'help.shield' || cmd === '?.shld') {
+    message.reply("`Generate a button with Shields.IO!\nusage: "+pre+"shield | a button | period | blue\nAliases: "+pre+"shield, "+pre+"shld`")
     console.log(sub+" helped '"+message.author.username+"' with the shield command")
   }
-  if (message.content === prefix+'help.message' || message.content === prefix+'?.msg') {
-    message.reply("`Generate a Windows 10-like message box\nusage: "+prefix+"message | A message | That simple\nAliases: "+prefix+"message, "+prefix+"msg`")
-    console.log(sub+" helped '"+message.author.username+"' with the shield command")
+  if (cmd === 'help.message' || cmd === '?.msg') {
+    message.reply("`Generate a Windows 10-like message box\nusage: "+pre+"message | A message | That simple\nAliases: "+pre+"message, "+pre+"msg`")
+    console.log(sub+" helped '"+message.author.username+"' with the message command")
   }
-  if (message.content === prefix+'help.rickroll' || message.content === prefix+'?.rroll') {
-    message.reply("`Checks if a link is a rickroll (video)\nusage: "+prefix+"rickroll someredirect.com/diwu98ww\nAliases: "+prefix+"rickroll, "+prefix+"rroll`")
+  if (cmd === 'help.rickroll' || cmd === '?.rroll') {
+    message.reply("`Checks if a link is a rickroll (video)\nusage: "+pre+"rickroll someredirect.com/diwu98ww\nAliases: "+pre+"rickroll, "+pre+"rroll`")
     console.log(sub+" helped '"+message.author.username+"' with the rickroll command")
   }
-  if (message.content === prefix+'help.play' || message.content === prefix+'?.pl') {
-    message.reply("`Play something from YouTube (pointless)\nusage: "+prefix+"play | youtube video\nAliases: "+prefix+"play, "+prefix+"pl`")
+  if (cmd === 'help.play' || cmd === '?.pl') {
+    message.reply("`Play something from YouTube (pointless)\nusage: "+pre+"play | youtube video\nAliases: "+pre+"play, "+pre+"pl`")
     console.log(sub+" helped '"+message.author.username+"' with playing music")
   }
-  if (message.content === prefix+'help.unban') {
-    message.reply("`Unban a member\nusage: "+prefix+"unban <id>`")
+  if (cmd === 'help.unban') {
+    message.reply("`Unban a member\nusage: "+pre+"unban <id>`")
     console.log(sub+" helped '"+message.author.username+"' with unbanning members")
   }
-  if (message.content === prefix+'help.avatar' || message.content === prefix+'?.av') {
-    message.reply("`Get a user avatar\nusage: "+prefix+"avatar <user mention>\nAliases: "+prefix+"avatar, "+prefix+"av`")
+  if (cmd === 'help.avatar' || cmd === '?.av') {
+    message.reply("`Get a user avatar\nusage: "+pre+"avatar <user mention>\nAliases: "+pre+"avatar, "+pre+"av`")
     console.log(sub+" helped '"+message.author.username+"' with the avatar command")
   }
+
   // Commands for fun
-  if (message.content.startsWith(prefix)) {
-    const args = message.content.trim().split(/ +/g);
-    const cmd = args[0].slice(prefix.length).toLowerCase();
+  if (message.content.startsWith(prefix.getPrefix(message.guild.id))) {
 
-    const args2 = message.content.trim().split(' | ');
-    const cmd2 = args[0].slice(prefix.length).toLowerCase();
-
-    if (cmd === 'random' || cmd === 'r') {
+    if (cmd ===  'random' || cmd ===  'r') {
       const max = args[1]
       if (!args[1] || args[1].includes('-')) {
         message.reply("`What is the number? ._.`")
@@ -301,8 +303,8 @@ bot.on('message', message => {
       }
    }
   }
-  if (message.content.startsWith(prefix+'poll')) {
-    const args = message.content.trim().split(' | ');
+  if (cmd ===  'poll') {
+    const args = message.content.slice(guildPrefix.length).split(' | ')
 
     if (args[4] > 1) {
         message.channel.send('`'+args[1] + ' (get to '+args[4]+' votes to win)`').then((question) => {
@@ -368,7 +370,7 @@ bot.on('message', message => {
         });
     } 
   }
-  if (message.content.startsWith(prefix+'avatar' || message.content.startsWith(prefix+'av'))) {
+  if (cmd ===  'avatar') {
     if (message.mentions.users.size) {
       let member=message.mentions.users.first()
     if(member){
@@ -389,12 +391,16 @@ bot.on('message', message => {
 
 // Writing text to files and returning text; pretty clean code if I do say so myself; you can also make files with this too
 bot.on('message', message => {
-  const args = message.content.trim().split(/ +/g);
-  const cmd = args[0].slice(prefix.length).toLowerCase();
+  if (!message.guild) return
+  let guildPrefix = prefix.getPrefix(message.guild.id)
+  if (!guildPrefix) guildPrefix = dfix
+  if (!message.content.startsWith(guildPrefix)) return
 
-  const args2 = message.content.trim().split(' | ');
+  const args = message.content.slice(guildPrefix.length).split(' ')
+  const cmd = args[0].toLowerCase()
+  const args2 = message.content.slice(guildPrefix.length).split(' | ')
 
-  if (cmd === 'write' || cmd === 'wr') {
+  if (cmd ===  'write' || cmd ===  'wr') {
     var err = 0;
     if (!args2[1]) {
       message.reply("`What file should I write? ._.`")
@@ -446,7 +452,7 @@ bot.on('message', message => {
       }
     }
   }
-  if (cmd === 'read' || cmd === 'rd') {
+  if (cmd ===  'read' || cmd ===  'rd') {
     var err = 0;
     if (args2[1]) {
       if (err === 0) {
@@ -464,7 +470,7 @@ bot.on('message', message => {
       console.log(sub+' failed to find an argument')
     }
   }
-  if (cmd === 'download' || cmd === 'get') {
+  if (cmd ===  'download' || cmd ===  'get') {
     if (cfg['addons']['get'] === 'true') {
       if (!args[1]) {
         message.reply('`Specify a URL next time ._.`')
@@ -516,7 +522,7 @@ bot.on('message', message => {
       message.reply('`The get addon is blocked.`')
     }
   }
-  if (cmd === 'del') {
+  if (cmd ===  'del') {
     var err = 0;
       if (!args[1]) {
         message.reply("`What is the file name? ._.`")
@@ -546,9 +552,16 @@ bot.on('message', message => {
   }
 });
 
+// Music commands!
 bot.on('message', message => {
-  const args = message.content.split(' ')
-  if (message.content.includes(prefix+'play')) {
+  if (!message.guild) return
+  let guildPrefix = prefix.getPrefix(message.guild.id)
+  if (!guildPrefix) guildPrefix = dfix
+  let args = message.content.slice(guildPrefix.length).split(' | ')
+  if (!message.content.startsWith(guildPrefix)) return
+  const cmd = args[0].toLowerCase()
+
+  if (cmd ===  'play') {
     if (cfg['addons']['music'] === 'true') {
         if (!args[1]) { 
             message.reply('`Please choose something to play ._.`')
@@ -566,7 +579,7 @@ bot.on('message', message => {
       console.log(sub+' found that the music addon is blocked.')
     }
   }
-  if (message.content.includes(prefix+'end')) {
+  if (cmd ===  'end') {
     if (cfg['addons']['music'] === 'true') {
       const id = message.guild.members.cache.get(bot.user.id)
       if (!message.member.voice.channel) {
@@ -587,7 +600,7 @@ bot.on('message', message => {
       console.log(sub+' found that the music addon is blocked.')
     }
   }
-  if (message.content.includes(prefix+'reset')) {
+  if (cmd ===  'reset') {
     if (cfg['addons']['music'] === 'true') {
       const id = message.guild.members.cache.get(bot.user.id)
       if (!message.member.voice.channel) {
@@ -608,27 +621,6 @@ bot.on('message', message => {
       console.log(sub+' found that the music addon is blocked.')
     }
   }
-  if (message.content.includes(prefix+'skip')) {
-    if (cfg['addons']['music'] === 'true') {
-      const id = message.guild.members.cache.get(bot.user.id)
-      if (!message.member.voice.channel) {
-          message.reply('`You are not in a voice channel ._.`')
-	  console.log(sub+' could not find the user in a VC')
-      } else {
-          if (id.voice.channel !== message.member.voice.channel) {
-              message.reply('`You are not in the same voice channel ._.`')
-              console.log(sub+' could not find the user in the same VC') 
-          } else {
-              tubebot.playSkip(message, args.join(' '))
-              message.channel.send('`✔ Skipped music successfully`')
-              console.log(sub+' skipped the currently playing music') 
-          }
-      }
-    } else {
-      message.reply('`The music addon is blocked`')
-      console.log(sub+' found that the music addon is blocked.')
-    }
-  }
 })
 
 tubebot.on("playSong", (message, queue, song) => {
@@ -638,9 +630,15 @@ tubebot.on("playSong", (message, queue, song) => {
 
 // Ban people who abuse the system (borrowed code from discordjs readme: https://bit.ly/3e0xbAT)
 bot.on('message', message => {
-  if (!message.guild) return;
+  if (!message.guild) return
+  let guildPrefix = prefix.getPrefix(message.guild.id)
+  if (!guildPrefix) guildPrefix = dfix
+  let args = message.content.slice(guildPrefix.length).split(' ')
+  if (!message.content.startsWith(guildPrefix)) return
+  const cmd = args[0].toLowerCase()
+
   if (message.member && message.member.hasPermission("ADMINISTRATOR")) {
-    if (message.content.startsWith(prefix+'ban')) {
+    if (cmd ===  'ban') {
       const user = message.mentions.users.first();
       if (user) {
         const member = message.guild.members.resolve(user);
@@ -670,7 +668,7 @@ bot.on('message', message => {
         console.log(sub+" error: User not mentioned");
       }
     }
-    if (message.content.startsWith(prefix+'unban')) {
+    if (cmd ===  'unban') {
       const args = message.content.trim().split(/ +/g)
       if (!args[1]) {
         message.reply("`You didn't mention the user to ban ._.`");
@@ -699,15 +697,16 @@ bot.on('message', message => {
 
 // Dependent functions from here
 bot.on('message', message => {
-	if (!message.content.startsWith(prefix)) return;
+	if (!message.content.startsWith(prefix.getPrefix(message.guild.id))) return;
+  if (!message.guild) return
+  let guildPrefix = prefix.getPrefix(message.guild.id)
+  if (!guildPrefix) guildPrefix = dfix
+  let args = message.content.slice(guildPrefix.length).split(' ')
+  let args2 = message.content.slice(guildPrefix.length).split(' | ')
+  if (!message.content.startsWith(guildPrefix)) return
+  const cmd = args[0].toLowerCase()
 	
-	const args = message.content.trim().split(/ +/g);
-	const cmd = args[0].slice(prefix.length).toLowerCase();
-
-  const args2 = message.content.trim().split(' | ');
-  const cmd2 = args2[0].slice(prefix.length).toLowerCase()
-	
-	if (cmd === 'search' || cmd === 'sr') {
+	if (cmd ===  'search' || cmd ===  'sr') {
     
 		var err = 0;
 		if (!args[1]) {
@@ -737,7 +736,7 @@ bot.on('message', message => {
 		} 
 	} 
   }
-  if (cmd === 'endecode' || cmd === 'edc') {
+  if (cmd ===  'endecode' || cmd ===  'edc') {
     var err = 0;
 		if (!args[1]) {
 			message.reply('`What is the thing you want to encode/decode? ._.`')
@@ -764,7 +763,7 @@ bot.on('message', message => {
 		}
 	}
 }
-if (cmd === 'weather' || cmd === 'w') {
+if (cmd ===  'weather' || cmd ===  'w') {
   var err = 0;
     if (!args[1]) {
       message.reply('`Where do you want to get the weather? ._.`')
@@ -786,7 +785,7 @@ if (cmd === 'weather' || cmd === 'w') {
       console.log(sub+' noticed that the weather addon was blocked')
     }
   }
-  if (cmd === 'gif') {
+  if (cmd ===  'gif') {
     var err = 0;
 		if (!args[1]) {
 			message.reply('`What is the GIF you want to find? ._.`')
@@ -822,7 +821,7 @@ if (cmd === 'weather' || cmd === 'w') {
 		}
 	}
 }
-if (cmd === 'scratch' || cmd === 'scr') {
+if (cmd ===  'scratch' || cmd ===  'scr') {
   var err = 0;
   if (!args[1]) {
     message.reply('`What is the account info you want? ._.`')
@@ -885,7 +884,7 @@ if (cmd === 'scratch' || cmd === 'scr') {
   }
 }
 }
-if (cmd === 'youtube' || cmd === 'yt') {
+if (cmd ===  'youtube' || cmd ===  'yt') {
   var err = 0;
   if (!args[1]) {
     message.reply('`What are the videos you want to find? ._.`')
@@ -944,7 +943,7 @@ if (cmd === 'youtube' || cmd === 'yt') {
   }
 }
 }
-if (cmd === 'shorten' || cmd === 'sh') {
+if (cmd ===  'shorten' || cmd ===  'sh') {
   var err = 0;
   if (!args[1]) {
     message.reply('`What is the URL to shorten? ._.`')
@@ -980,7 +979,7 @@ if (cmd === 'shorten' || cmd === 'sh') {
   }
 }
 }
-if (cmd === 'fortnite' || 'frte') {
+if (cmd ===  'fortnite' || 'frte') {
   if (args[0] === prefix+'fortnite' && !args[1] || args[0] === prefix+'frte' && !args[1]) {
       message.reply('`Please specify a correct query next time ._.`')
       console.log(sub+' did not find a proper query')
@@ -1014,79 +1013,7 @@ if (cmd === 'fortnite' || 'frte') {
       }
   }
 }
-if (cmd === 'topmeme' || 'memes') {
-  if (prefix+'topmeme'.indexOf(args[0]) || prefix+'memes'.indexOf(args[0])) {
-  const index = args[1]
-  if (cfg['addons']['memes'] === 'true') {
-    const py438y59 = spawn('py', ['./addons/memes/topmeme.py']);
-    py438y59.stdout.on('data', function (data) {
-      data = data.toString().split(',')
-
-      if (index === 1) {
-          const m1 = data[0] + '\n'
-          const m2 = data[1] + '\n'
-          const m3 = data[2] + '\n'
-          const m4 = data[3] + '\n'
-          const m5 = data[4] + '\n'
-          const m6 = data[5] + '\n'
-          const m7 = data[6] + '\n'
-          const m8 = data[7] + '\n'
-          const m9 = data[8] + '\n'
-          const m10 = data[9].replace('"', '').replace('"', '')
-
-          const embed = new Discord.MessageEmbed()
-          .setColor('#0099ff')
-          .setTitle('Top Imgflip Memes')
-          .setDescription('*Page 1*\n' + m1 + m2 + m3 + m4 + m5 + m6 + m7 + m8 + m9 + m10 + '\n*Use the given IDs to generate a meme!*')
-          message.channel.send(embed).then((embed) => {
-            console.log(sub+' sent page 1 of the top memes list')
-            embed.react('❌')
-      
-            embed.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '❌'),
-             { max: 1, time: 30000 }).then(collected => {
-                if (collected.first().emoji.name === '❌') {
-                  embed.delete()
-                }
-            })
-          })
-      }
-
-      if (index === 2) {
-          const m11 = data[10] + '\n'
-          const m12 = data[11] + '\n'
-          const m13 = data[12] + '\n'
-          const m14 = data[13] + '\n'
-          const m15 = data[14] + '\n'
-          const m16 = data[15] + '\n'
-          const m17 = data[16] + '\n'
-          const m18 = data[17] + '\n'
-          const m19 = data[18] + '\n'
-          const m20 = data[19].replace('\r\n', '')
-
-          const embed2 = new Discord.MessageEmbed()
-          .setColor('#0099ff')
-          .setTitle('Top Imgflip Memes')
-          .setDescription('*Page 2*\n' + m11 + m12 + m13 + m14 + m15 + m16 + m17 + m18 + m19 + m20 + '\n*Use the given IDs to generate a meme!*')
-          message.channel.send(embed).then((embed) => {
-            console.log(sub+' sent page 2 of the top memes list')
-            embed.react('❌')
-      
-            embed.awaitReactions((reaction, user) => user.id == message.author.id && (reaction.emoji.name == '❌'),
-             { max: 1, time: 30000 }).then(collected => {
-                if (collected.first().emoji.name === '❌') {
-                  embed.delete()
-                }
-            })
-          })
-      }
-    })
-  } else {
-    message.reply('`The memes addon is blocked.`')
-    console.log(sub+' noticed that the memes addon was blocked')
-  }
-}
-}
-if (cmd === 'mmake' || 'memegen') {
+if (cmd ===  'mmake' || cmd ===  'memegen') {
   if (message.content.includes(prefix+'mmake') || message.content.includes(prefix+'memegen')) {
   const id = args[1]
   const t = args[2]
@@ -1114,9 +1041,9 @@ if (cmd === 'mmake' || 'memegen') {
   }
 }
 }
-if (message.content.includes(prefix+'shop')) {
+if (cmd.includes('shop')) {
   if (cfg['addons']['economy'] === 'true') {
-    if (message.content.startsWith(prefix+'shop/add')) {
+    if (cmd ===  'shop/add') {
         if (!args2[1] || !args2[2]) {
           message.reply('`Please include an ingame name and/or your job ._.`')
           console.log(sub+' could not find queries to use')
@@ -1131,7 +1058,7 @@ if (message.content.includes(prefix+'shop')) {
         })
       }
     }
-    if (message.content.startsWith(prefix+'shop/remove')) {
+    if (cmd ===  'shop/remove') {
 
         const python3 = spawn('py', ['./addons/economy/remove.py', message.author.username+'#'+message.author.discriminator])
         python3.stdout.on('data', (data) => {
@@ -1139,8 +1066,8 @@ if (message.content.includes(prefix+'shop')) {
             console.log(sub+" removed '"+message.author.username+"' from the database")
         })
     }
-    if (message.content === prefix+'shop/money') {
-        if (talkedRecently.has(message.author.id) && message.content === prefix+'shop/money') {
+    if (cmd ===  'shop/money') {
+        if (talkedRecently.has(message.author.id) && cmd === 'shop/money') {
             message.channel.send("`Please wait 1 hour and 40 minutes before running this again!`");
             console.log(`${sub} told ${message.author.username} to wait 100 minutes before running the money command again.`)
         } else {
@@ -1154,7 +1081,7 @@ if (message.content.includes(prefix+'shop')) {
             })
         }
     }
-    if (message.content.startsWith(prefix+'shop/buy')) {
+    if (cmd ===  'shop/buy') {
         const item = args2[1]
         const python34 = spawn('py', ['./addons/economy/store.py', message.author.username+'#'+message.author.discriminator, item])
         python34.stdout.on('data', (data) => {
@@ -1162,7 +1089,7 @@ if (message.content.includes(prefix+'shop')) {
           console.log(sub+" sold the item '"+item+"'")
         })
     }
-    if (message.content.startsWith(prefix+'shop/info')) {
+    if (cmd ===  'shop/info') {
         const item = args2[1]
         const python34 = spawn('py', ['./addons/economy/find.py', item])
         python34.stdout.on('data', (data) => {
@@ -1175,7 +1102,7 @@ if (message.content.includes(prefix+'shop')) {
       console.log(sub+' noticed that the economy addon was blocked')
     }
   }
-  if (message.content.startsWith(prefix+'shield') || message.content.startsWith(prefix+'shld')) {
+  if (cmd ===  'shield' || cmd ===  'shld') {
     if (cfg['addons']['shield'] === 'true') { 
     if (!args[1] || !args[2] || !args[3]) {
         message.reply("`You forgot some arguments ._.`")
@@ -1200,7 +1127,7 @@ if (message.content.includes(prefix+'shop')) {
     console.log(sub+' noticed that the shield addon was blocked')
   }
 }
-  if (message.content.startsWith(prefix+'message') || message.content.startsWith(prefix+'msg')) {
+  if (cmd ===  'message' || cmd ===  'msg') {
     if (cfg['addons']['message'] === 'true') {
       if (!args[1] || !args[2]) {
         message.reply("`You forgot some arguments ._.`")
@@ -1225,7 +1152,7 @@ if (message.content.includes(prefix+'shop')) {
     }
   }
 
-if (message.content.startsWith(prefix+'rickroll') || message.content.startsWith(prefix+'rroll')) {
+if (cmd ===  'rickroll' || cmd ===  'rroll') {
   if (cfg['addons']['isrickroll'] === 'true') {
     message.delete()
     if (!args[1]) {
@@ -1250,7 +1177,7 @@ if (message.content.startsWith(prefix+'rickroll') || message.content.startsWith(
 }
 }
 
-if (message.content.startsWith(prefix+'garfield') || message.content.startsWith(prefix+'gf')) {
+if (cmd ===  'garfield' || cmd ===  'gf') {
   if (cfg['addons']['garfield'] === 'true') {
     message.channel.send('`⏳ Getting latest Garfield comic...`').then((sentmessage) => {
       const python4 = spawn('py', ['./addons/garfield/garfield.py'])
