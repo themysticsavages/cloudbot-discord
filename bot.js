@@ -154,7 +154,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Server prefix : `'+prefix.getPrefix(message.guild.id)+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`, `avatar`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `garfield`"+"\n🔧 Moderator commands > `ban`, `unban`, `prefix`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`, `reset`, `skip`"+"\n\n*Type "+prefix.getPrefix(message.guild.id)+"help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Server prefix : `'+prefix.getPrefix(message.guild.id)+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`, `avatar`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `garfield`"+"\n🔧 Moderator commands > `ban`, `unban`, `prefix`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`, `reset`, `pause`, `resume`"+"\n\n*Type "+prefix.getPrefix(message.guild.id)+"help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -590,9 +590,14 @@ bot.on('message', message => {
               message.reply('`You are not in the same voice channel ._.`')
               console.log(sub+' could not find the user in the same VC') 
           } else {
-              tubebot.stop(message)
-              message.channel.send('`✔ Ended successfully`')
-              console.log(sub+' ended the currently playing music') 
+              try {
+                tubebot.stop(message)
+                message.channel.send('`✔ Ended successfully`')
+                console.log(sub+' ended the currently playing music') 
+              } catch (err) {
+                message.channel.send('`There is no music playing ._.`')
+                console.log(sub+' did not find music playing') 
+              }
           }
       }
     } else {
@@ -605,20 +610,81 @@ bot.on('message', message => {
       const id = message.guild.members.cache.get(bot.user.id)
       if (!message.member.voice.channel) {
           message.reply('`You are not in a voice channel ._.`')
-	  console.log(sub+' could not find the user in a VC')
+	        console.log(sub+' could not find the user in a VC')
       } else {
           if (id.voice.channel !== message.member.voice.channel) {
               message.reply('`You are not in the same voice channel ._.`')
               console.log(sub+' could not find the user in the same VC') 
           } else {
+            try {
               tubebot.setRepeatMode(message, parseInt(args[0]))
               message.channel.send('`✔ Now looping the currently playing music`')
               console.log(sub+' looped the currently playing music') 
+            } catch (err) {
+              message.channel.send('`There is no music playing ._.`')
+              console.log(sub+' did not find music playing') 
+            }
           }
       }
     } else {
       message.reply('`The music addon is blocked`')
       console.log(sub+' found that the music addon is blocked.')
+    }
+  }
+  if (cmd === 'pause') {
+    if (cfg['addons']['music'] === 'true') {
+      const id = message.guild.members.cache.get(bot.user.id)
+      if (!message.member.voice.channel) {
+        message.reply('`You are not in a voice channel ._.`')
+        console.log(sub+' could not find the user in a VC')
+      } else {
+        if (id.voice.channel !== message.member.voice.channel) {
+          message.reply('`You are not in the same voice channel ._.`')
+          console.log(sub+' could not find the user in the same VC') 
+        } else {
+          if (tubebot.isPaused(message)) {
+            message.reply('`The current music is already paused`')
+            console.log(sub+' found that the current music is paused') 
+          } else {
+            try {  
+              tubebot.pause(message)
+              message.channel.send('`✔ Paused the currently playing music`')
+              console.log(sub+' paused the currently playing music') 
+            } catch (err) {
+              message.channel.send('`There is no music playing ._.`')
+              console.log(sub+' did not find music playing')    
+            }
+          }
+        }
+      }
+    }
+  }
+  if (cmd === 'resume') {
+    if (cfg['addons']['music'] === 'true') {
+      const id = message.guild.members.cache.get(bot.user.id)
+      if (!message.member.voice.channel) {
+        message.reply('`You are not in a voice channel ._.`')
+        console.log(sub+' could not find the user in a VC')
+      } else {
+        if (id.voice.channel !== message.member.voice.channel) {
+          message.reply('`You are not in the same voice channel ._.`')
+          console.log(sub+' could not find the user in the same VC') 
+        } else {
+          if (tubebot.isPlaying(message)) {
+            message.reply('`The current music is already playing`')
+            console.log(sub+' found that the current music is playing') 
+          } else {
+            try {  
+              tubebot.resume(message)
+              message.channel.send('`✔ Resumed the currently playing music`')
+              console.log(sub+' unpause the currently playing music') 
+            } catch (err) {
+              message.channel.send('`There is no music playing ._.`')
+              console.log(sub+' did not find music playing') 
+            }
+          }
+        }
+      }
     }
   }
 })
