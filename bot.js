@@ -676,6 +676,8 @@ bot.on('message', message => {
           } else {
             try {  
               tubebot.resume(message)
+              tubebot.pause(message)
+              tubebot.resume(message)
               message.channel.send('`✔ Resumed the currently playing music`')
               console.log(sub+' unpause the currently playing music') 
             } catch (err) {
