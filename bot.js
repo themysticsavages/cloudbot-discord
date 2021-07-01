@@ -154,7 +154,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Server prefix : `'+prefix.getPrefix(message.guild.id)+'`\n\n😐 General commands > `'+'help`, `hi`, `cclear`, `clear`, `ping`, `uptime`, `poll`, `avatar`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `garfield`"+"\n🔧 Moderator commands > `ban`, `unban`, `prefix`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`, `reset`, `pause`, `resume`"+"\n\n*Type "+prefix.getPrefix(message.guild.id)+"help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Server prefix : `'+prefix.getPrefix(message.guild.id)+'`\n\n😐 General commands > `'+'help`, `hi`, `ping`, `uptime`, `poll`, `avatar`, `info`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `garfield`"+"\n🔧 Moderator commands > `ban`, `unban`, `prefix`, `cclear`, `clear`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`, `reset`, `pause`, `resume`"+"\n\n*Type "+prefix.getPrefix(message.guild.id)+"help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -287,6 +287,10 @@ bot.on('message', message => {
     message.reply("`Get a user avatar\nusage: "+pre+"avatar <user mention>\nAliases: "+pre+"avatar, "+pre+"av`")
     console.log(sub+" helped '"+message.author.username+"' with the avatar command")
   }
+  if (cmd === 'help.info' || cmd === '?.i') {
+    message.reply("`Get info on the server and channels!\nusage: "+pre+"info, "+pre+"info #channel\nAliases: "+pre+"avatar, "+pre+"av`")
+    console.log(sub+" helped '"+message.author.username+"' with the info command")
+  }
 
   // Commands for fun
   if (message.content.startsWith(prefix.getPrefix(message.guild.id))) {
@@ -387,6 +391,42 @@ bot.on('message', message => {
         console.log(sub+" sent the avatar of '"+message.author.username+"'")
     }
   }
+  if (cmd === 'info' || cmd === 'i') {
+    message.content.slice(guildPrefix.length).split(' ')
+    if (!args[1]) {
+        const icon = message.guild.iconURL()
+        const embed = new Discord.MessageEmbed()
+            .setTitle(message.guild.name)
+            .addField('Owner', message.guild.owner, true)
+            .setDescription('📝 Text channels: `'+ message.guild.channels.cache.filter((c) => c.type === "text").size.toString()+'`'+'\n🎙 Voice channels: `'+ message.guild.channels.cache.filter((c) => c.type === "voice").size.toString()+'`\n👥 Member count: `'+message.guild.memberCount+'`')
+            .setThumbnail(icon)
+        message.channel.send(embed)
+    }
+    if (args[1]) {
+        if (args[1].includes('#')) {
+            try {
+                let channel = message.guild.channels.cache.get(args[1].replace('<', '').replace('>', '').replace('#', ''))
+                let msg = bot.channels.cache.get(args[1].replace('<', '').replace('>', '').replace('#', ''))
+                if (msg.topic === null) {
+                        const embed = new Discord.MessageEmbed()
+                        .setTitle(message.guild.name + '/' + channel['name'])
+                        .setDescription('(No topic)\n Slowmode: `'+channel['rateLimitPerUser']+'`\n NSFW: `'+channel['nsfw'].toString()+'`')
+                        message.channel.send(embed)
+                        console.log(sub+' gave info on '+message.guild.name+'/'+channel['name'])
+                } else {
+                    const embed = new Discord.MessageEmbed()
+                    .setTitle(message.guild.name + '/' + channel['name'])
+                    .setDescription(msg.topic+'\n Slowmode: `'+channel['rateLimitPerUser']+'`\n NSFW: `'+channel['nsfw'].toString()+'`')
+                    message.channel.send(embed)
+                    console.log(sub+' gave info on '+message.guild.name+'/'+channel['name'])
+                }
+            } catch (err) {
+                message.reply("`This channel is private or does not exist! ._.`")
+                console.log(sub+' found that the channel was private or non-existant')
+            }
+        }
+    }
+}
 });
 
 // Writing text to files and returning text; pretty clean code if I do say so myself; you can also make files with this too
