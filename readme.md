@@ -38,7 +38,7 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 
 ## Recently added features/hotfixes
 
-- __Skip and loop command for music!__
+- __Info command!__
 
 ## Features/hotfixes to be added
 
