@@ -157,7 +157,7 @@ bot.on('message', message => {
 	    .setColor('#0099ff')
 	    .setTitle('Commands')
       .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Server prefix : `'+prefix.getPrefix(message.guild.id)+'`\n\n😐 General commands > `'+'help`, `hi`, `ping`, `uptime`, `poll`, `avatar`, `info`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `garfield`"+"\n🔧 Moderator commands > `ban`, `unban`, `prefix`, `cclear`, `clear`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`, `reset`, `pause`, `resume`"+"\n\n*Type "+prefix.getPrefix(message.guild.id)+"help. [command] for a detailed use of a command*\n**You're welcome**")
+      .setDescription('Server prefix : `'+prefix.getPrefix(message.guild.id)+'`\n\n😐 General commands > `'+'help`, `hi`, `ping`, `uptime`, `poll`, `avatar`, `info`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `garfield`"+"\n🔧 Server commands > `ban`, `unban`, `prefix`, `cclear`, `clear`, `welcome`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`, `reset`, `pause`, `resume`"+"\n\n*Type "+prefix.getPrefix(message.guild.id)+"help. [command] for a detailed use of a command*\n**You're welcome**")
       .setTimestamp()
       .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
 
@@ -293,6 +293,10 @@ bot.on('message', message => {
   if (cmd === 'help.info' || cmd === '?.i') {
     message.reply("`Get info on the server and channels!\nusage: "+pre+"info, "+pre+"info #channel\nAliases: "+pre+"avatar, "+pre+"av`")
     console.log(sub+" helped '"+message.author.username+"' with the info command")
+  }
+  if (cmd === 'help.welcome' || cmd === '?.wl') {
+    message.reply("`Set a (uneditable) welcome message to greet users with!\nusage: "+pre+"welcome | #welcomes | Welcome to my server! Follow the rules.\nAliases: "+pre+"welcome, "+pre+"wl`")
+    console.log(sub+" helped '"+message.author.username+"' with the welcome command")
   }
 
   // Commands for fun
@@ -742,7 +746,7 @@ bot.on('message', (message) => {
   let args = message.content.slice(guildPrefix.length).split(' | ')
   const cmd = args[0].toLowerCase()
 
-  if (cmd === 'welcome') {
+  if (cmd === 'welcome' || cmd === 'wl') {
     if (!message.mentions.channels || !args[2]) {
       message.reply('`Include a channel to welcome users and a message!`')
       console.log(sub+' did not find a channel or message')
@@ -769,6 +773,7 @@ bot.on('guildMemberAdd', function(member) {
             .setAuthor(member.user.tag, member.user.displayAvatarURL())
             .setTimestamp()
           bot.channels.cache.get(row.welcomeid).send(embed)
+          console.log(sub+' welcomed '+member.user.tag+' to the server')
         }
       });
     });
