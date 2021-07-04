@@ -11,22 +11,23 @@
 
 const Discord = require('discord.js');
 const fs = require('fs');
-
 const cfg = require('./config.json');
 const { spawn } = require('child_process');
-
 const process = require('process');
 const DisTube = require('distube')
-
 const bot = new Discord.Client();
 const tubebot = new DisTube(bot, {searchSongs: false, emitNewSongOnly: true})
 
 const dfix = 'c.'; // You can edit the prefix
-const sub = 'CloudBot'; // You can change this to change what the bots logs in console
+const sub = 'CloudBot'; // You can change this to change what the bot logs in console
 
 const talkedRecently = new Set();
 const prefix = require('discord-prefix')
+const sqlite = require('sqlite3')
+let db = new sqlite.Database('./settings.db', sqlite.OPEN_READWRITE | sqlite.OPEN_CREATE)
 
+db.run(`CREATE TABLE IF NOT EXISTS data(serverid, welcomeid, welcomemsg)`)
+bot.setMaxListeners(99)
 console.clear()
 
 function getRandInt(max) {
@@ -59,6 +60,8 @@ bot.on('ready', () => {
       }
   });
 });
+
+
 
 // Little message recorder, console clearer, and channel wiper. Does other stuff too
 bot.on('message', async message => {
@@ -729,6 +732,46 @@ bot.on('message', message => {
       }
     }
   }
+})
+
+// Welcome stuff!
+bot.on('message', (message) => {
+  if (!message.guild) return
+  let guildPrefix = prefix.getPrefix(message.guild.id)
+  if (!guildPrefix) guildPrefix = dfix
+  let args = message.content.slice(guildPrefix.length).split(' | ')
+  const cmd = args[0].toLowerCase()
+
+  if (cmd === 'welcome') {
+    if (!message.mentions.channels || !args[2]) {
+      message.reply('`Include a channel to welcome users and a message!`')
+      console.log(sub+' did not find a channel or message')
+    } else {
+        const WELCOMEID = message.mentions.channels.first().toString().replace('<#', '').replace('>', '')
+        const WELCOMEMSG = message.content.split(' | ')[2]
+        db.run(`INSERT OR IGNORE INTO data(serverid, welcomeid, welcomemsg) VALUES("${message.guild.id}", "${WELCOMEID}", "${WELCOMEMSG}")`, function(err, row){
+          message.channel.send('`✔ Welcome message added successfully! Please note that the message cannot be edited.`')
+          console.log(sub+' created a new welcome message')
+        })
+    }
+  }
+})
+
+bot.on('guildMemberAdd', function(member) {
+  db.all('SELECT * FROM data', [], (err, rows) => {
+      if (err) {
+        throw err;
+      }
+      rows.forEach((row) => {
+        if (row.serverid === member.guild.id) {
+          const embed = new Discord.MessageEmbed()
+            .setTitle(row.welcomemsg)
+            .setAuthor(member.user.tag, member.user.displayAvatarURL())
+            .setTimestamp()
+          bot.channels.cache.get(row.welcomeid).send(embed)
+        }
+      });
+    });
 })
 
 tubebot.on("playSong", (message, queue, song) => {
