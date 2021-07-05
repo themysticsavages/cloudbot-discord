@@ -88,13 +88,17 @@ bot.on('message', async message => {
   }
   if (cmd ===  'clear' || cmd ===  'c') {
     if (message.member.hasPermission("ADMINISTRATOR")) {
-    const dmsg = 99 // You can change this but uh probably not
-
-    message.channel.bulkDelete(dmsg)
-    console.log("Deleted every message in '"+message.channel.name+"'")
+    if (!args[1]) {
+      message.channel.bulkDelete(2)
+      console.log(sub+" deleted 1 message in '"+message.channel.name+"'")
+    } else {
+        const dmsg = parseInt(args[1])+1
+        message.channel.bulkDelete(dmsg)
+        console.log(sub+" deleted "+dmsg+" messages in '"+message.channel.name+"'")
+    }
   } else {
-    message.reply('`You no have admin! The administrator role is required to clear channels.`');
-    console.log(sub+" error: Insufficient privileges to clear channels");
+    message.reply('`You no have admin! The administrator role is required to clear messages.`');
+    console.log(sub+" error: Insufficient privileges to clear messages");
   }
 }
   if (cmd ===  'ping') {
@@ -134,7 +138,7 @@ bot.on('message', async message => {
     }
 });
 
-// A couple of sentient replies for this nice bot
+// (insert prefix command here)
 bot.on('message', message => {
   if (!message.guild) return
   let guildPrefix = prefix.getPrefix(message.guild.id)
@@ -148,7 +152,6 @@ bot.on('message', message => {
     console.log(sub+" said hi to '"+message.author.username+"'");
   }
   if (cmd ===  'purpose') {
-    // This is one of the first functions for this Discord bot 😁
     message.reply('`I am basically a cloud server for Discord. I am pure Node.JS. Although I may not have that many functions, the cloud server functions make up for this!`');
     console.log(sub+" told '"+message.author.username+"' about why he exists");
   }
@@ -297,6 +300,10 @@ bot.on('message', message => {
   if (cmd === 'help.welcome' || cmd === '?.wl') {
     message.reply("`Set a (uneditable) welcome message to greet users with!\nusage: "+pre+"welcome | #welcomes | Welcome to my server! Follow the rules.\nAliases: "+pre+"welcome, "+pre+"wl`")
     console.log(sub+" helped '"+message.author.username+"' with the welcome command")
+  }
+  if (cmd === 'help.clear' || cmd === '?.c') {
+    message.reply("`Clear 1-100 messages\nusage: "+pre+"clear 20\nAliases: "+pre+"clear, "+pre+"c`")
+    console.log(sub+" helped '"+message.author.username+"' with the clear command")
   }
 
   // Commands for fun
@@ -738,12 +745,13 @@ bot.on('message', message => {
   }
 })
 
-// Welcome stuff!
+// Welcome stuff (and pinning messages)!
 bot.on('message', (message) => {
   if (!message.guild) return
   let guildPrefix = prefix.getPrefix(message.guild.id)
   if (!guildPrefix) guildPrefix = dfix
   let args = message.content.slice(guildPrefix.length).split(' | ')
+  let args2 = message.content.slice(guildPrefix.length).split(' ')
   const cmd = args[0].toLowerCase()
 
   if (cmd === 'welcome' || cmd === 'wl') {
@@ -751,14 +759,39 @@ bot.on('message', (message) => {
       message.reply('`Include a channel to welcome users and a message!`')
       console.log(sub+' did not find a channel or message')
     } else {
+      if (message.member.hasPermission('ADMINISTRATOR')) {
         const WELCOMEID = message.mentions.channels.first().toString().replace('<#', '').replace('>', '')
         const WELCOMEMSG = message.content.split(' | ')[2]
         db.run(`INSERT OR IGNORE INTO data(serverid, welcomeid, welcomemsg) VALUES("${message.guild.id}", "${WELCOMEID}", "${WELCOMEMSG}")`, function(err, row){
-          message.channel.send('`✔ Welcome message added successfully! Please note that the message cannot be edited.`')
+          message.channel.send('`✔ Welcome message added successfully! (If you want it removed, run '+guildPrefix+'diswlc)`')
           console.log(sub+' created a new welcome message')
         })
+      } else {
+        message.reply('`You no have admin! The administrator role is required to create a welcome message.`');
+        console.log(sub+" error: Insufficient privileges to create a welcome message");
+      }
     }
   }
+  if (cmd === 'diswlc') {
+    if (message.member.hasPermission('ADMINISTRATOR')) {
+      db.run(`DELETE FROM data WHERE serverid = "${message.guild.id}"`)
+      message.channel.send('`✔ Welcome message removed successfully! You can now configure a new one.`')
+      console.log(sub+' removed the current welcome message')
+    } else {
+      message.reply('`You no have admin! The administrator role is required to remove the welcome message.`');
+      console.log(sub+" error: Insufficient privileges to remove the welcome message");
+    }
+  }
+  if (cmd === 'pin') {
+      if (message.member.hasPermission('MANAGE_MESSAGES')) {
+        message.channel.messages.fetch({ limit: 2 }).then(messages => {
+          messages.last().pin()
+        })
+      } else {
+        message.reply('`You no have perms! The "Manage Messages" role is required to pin messages.`');
+        console.log(sub+" error: Insufficient privileges to pin messages");
+      }
+    }
 })
 
 bot.on('guildMemberAdd', function(member) {
