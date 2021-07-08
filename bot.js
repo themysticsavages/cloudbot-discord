@@ -155,18 +155,51 @@ bot.on('message', message => {
     message.reply('`I am basically a cloud server for Discord. I am pure Node.JS. Although I may not have that many functions, the cloud server functions make up for this!`');
     console.log(sub+" told '"+message.author.username+"' about why he exists");
   }
-  if (cmd ===  'help' || cmd ===  '?') {
-    const Embed = new Discord.MessageEmbed()
-	    .setColor('#0099ff')
-	    .setTitle('Commands')
-      .setAuthor(sub, 'https://raw.githubusercontent.com/themysticsavages/cloudbot-discord/main/avatar.png', 'https://github.com/themysticsavages/cloudbot-discord')
-      .setDescription('Server prefix : `'+prefix.getPrefix(message.guild.id)+'`\n\n😐 General commands > `'+'help`, `hi`, `ping`, `uptime`, `poll`, `avatar`, `info`'+'\n👌 Utilities > `search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `download`, `rickroll`'+'\n📁 File-server commands > `'+'write`, `read`, `del`, `ls`'+'\n❓ Just random > `'+"random`, `translate`, `fortnite`, `garfield`"+"\n🔧 Server commands > `ban`, `unban`, `prefix`, `cclear`, `clear`, `welcome`"+"\n"+"🤑 Economy commands > `shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`"+"\n🎵 Music commands > `play`, `end`, `reset`, `pause`, `resume`"+"\n\n*Type "+prefix.getPrefix(message.guild.id)+"help. [command] for a detailed use of a command*\n**You're welcome**")
-      .setTimestamp()
-      .setFooter('@themysticsavages', 'https://github.com/themysticsavages');
+if (cmd === 'help' || cmd === '?') {
+		let pages = ['😐 General commands', '👌 Utilities', '📁 File commands', '❓ Random', '🔧 Server commands', '🤑 Economy commands', '🎵 Music commands']
+		let cmds = ['`help`, `hi`, `ping`, `uptime`, `poll`, `pin`, `avatar`, `info`', '`search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `rickroll`', '`write`, `read`, `del`, `ls`, `download`', '`random`, `translate`, `fortnite`, `garfield`', '`ban`, `unban`, `prefix`, `cclear`, `clear`, `welcome`', '`shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`', '`play`, `end`, `reset`, `pause`, `resume`']
+		let page = 1
+		let cmd = 1
 
-    message.reply(Embed)
-    console.log(sub+" gave help to '"+message.author.username+"'");
-  }
+		const embed = new Discord.MessageEmbed()
+		.setTitle(pages[0])
+		.setFooter(`Page ${page} of ${pages.length}`)
+		.setDescription('Server prefix: `'+guildPrefix+'`\n'+cmds[cmd-1]+'\n[Invite me!](https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612) • [Github](https://github.com/themysticsavages/cloudbot-discord)')
+
+		message.channel.send({embed}).then(msg => {
+		  msg.react('⬅').then( r => {
+			msg.react('➡')
+
+		const backwardsFilter = (reaction, user) => reaction.emoji.name === '⬅' && user.id === message.author.id
+		const forwardsFilter = (reaction, user) => reaction.emoji.name === '➡' && user.id === message.author.id
+
+		const backwards = msg.createReactionCollector(backwardsFilter, {timer: 6000})
+		const forwards = msg.createReactionCollector(forwardsFilter, {timer: 6000})
+
+		backwards.on('collect', (r, u) => {
+			if (page === 1) return r.users.remove(r.users.cache.filter(u => u === message.author).first())
+			page--
+			cmd--
+			embed.setTitle(pages[page-1])
+			embed.setDescription('Server prefix: `d?`\n'+cmds[cmd-1]+'\n[Invite me!](https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612) • [Github](https://github.com/themysticsavages/cloudbot-discord)')
+			embed.setFooter(`Page ${page} of ${pages.length}`)
+			msg.edit(embed)
+			r.users.remove(r.users.cache.filter(u => u === message.author).first())
+		})
+
+		forwards.on('collect', (r, u) => {
+			if (page === pages.length) return r.users.remove(r.users.cache.filter(u => u === message.author).first())
+			page++
+			cmd++
+			embed.setTitle(pages[page-1])
+			embed.setDescription('Server prefix: `d?`\n'+cmds[cmd-1]+'\n[Invite me!](https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612) • [Github](https://github.com/themysticsavages/cloudbot-discord)')
+			embed.setFooter(`Page ${page} of ${pages.length}`)
+			msg.edit(embed)
+			r.users.remove(r.users.cache.filter(u => u === message.author).first())
+		})
+	  })
+	})
+	}
   if (cmd ===  'prefix') {
     if (message.member.hasPermission('ADMINISTRATOR')) {
       if (!args[1]) {
