@@ -807,9 +807,14 @@ bot.on('message', (message) => {
   }
   if (cmd === 'diswlc') {
     if (message.member.hasPermission('ADMINISTRATOR')) {
+      try {
       db.run(`DELETE FROM data WHERE serverid = "${message.guild.id}"`)
       message.channel.send('`✔ Welcome message removed successfully! You can now configure a new one.`')
-      console.log(sub+' removed the current welcome message')
+      console.log(sub+' removed the current welcome message')      
+      } catch (err) {
+	message.reply('`There is no welcome message set for this server! ._.`')
+	console.log(sub+' could not find a welcome message for this server')
+      }
     } else {
       message.reply('`You no have admin! The administrator role is required to remove the welcome message.`');
       console.log(sub+" error: Insufficient privileges to remove the welcome message");
@@ -914,6 +919,32 @@ bot.on('message', message => {
         })
       }
   }
+  	if (cmd === 'mute') {
+		const mutedRole = message.guild.roles.cache.find(
+		 (role) => role.name === 'Muted'
+		);
+		if (!mutedRole) {
+		 message.reply('`There is no muted role in this server! ._.`')
+		 console.log(sub+' could not find a muted role')
+		} else {
+			const args = message.content.split(' ')
+			const target = message.mentions.members.first();
+			if (!args[1] || !target) {
+				message.reply('`You need to specify a member and a number of days to mute the member! ._.`')
+				console.log(sub+' could not find required arguments')
+			} else {
+				const embed = new Discord.MessageEmbed()
+					.setTitle('✅ '+target.user.tag+' has been muted for '+args[1]+' days.')
+					.setTimestamp()
+				message.channel.send(embed)
+				console.log(sub+' muted '+target.user.tag)
+				target.roles.add(mutedRole);
+				setTimeout(() => {
+				  target.roles.remove(mutedRole);
+				}, parseInt(args[1])*24*3600))  
+			}
+		}
+	}
 } 
 });
 
