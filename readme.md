@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <b>CloudBot - a file server for Discord</b>
+  <b>CloudBot - a great bot for Discord</b>
 </h1>
 
 <p align="center">
@@ -22,7 +22,7 @@
 #
 # Information
 
-cloudbot-discord is a file server for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. __This bot is officially in a stable channel, so features won't be added for a while__. It supports file management, banning members, and many other pointless commands.
+cloudbot-discord is a multipurpose bot for Discord. It is best used in a __private Discord server__ since they are usually more responsible than public ones. But you can put it in a public server if you want. __This bot is officially in a stable channel, so features won't be added for a while__. It supports file management, banning members, and many other pointless commands.
 
 ## Self hosting
 
