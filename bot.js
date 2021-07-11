@@ -54,7 +54,7 @@ bot.on('ready', () => {
   bot.user.setPresence({
     status: 'online',
     activity: {
-        name: 'Minecraft 1.18 | '+dfix+'?',
+        name: 'git.io/Jchuw | '+dfix+'?',
         type: 'STREAMING',
         url: video
       }
@@ -69,11 +69,9 @@ bot.on('message', async message => {
   let guildPrefix = prefix.getPrefix(message.guild.id)
   if (!guildPrefix) guildPrefix = dfix
   let args = message.content.slice(guildPrefix.length).split(' ')
-  if (!message.content.startsWith(guildPrefix)) return
   const cmd = args[0].toLowerCase()
 
-  if (message.author.username.includes(sub)) { // If the message includes the substring 'CloudBot', it won't print any replies
-    
+  if (message.author.username.includes(sub) || !message.author.bot) { // If the message from a bot, it won't be logged
   } else {
     console.log(message.author.username+'#'+message.author.discriminator+' > '+message.content)
   }
@@ -136,6 +134,13 @@ bot.on('message', async message => {
         });
       });
     }
+  if (message.content === '<@!835841382882738216>') {
+    const embed = new Discord.MessageEmbed()
+      .setTitle('You called?')
+      .setDescription('My prefix in this server is `'+guildPrefix+'` and you can get my commands with `'+guildPrefix+'help`!')
+    message.channel.send(embed)
+    console.log(sub+" gave '"+message.author.username+"' the prefix")
+  }
 });
 
 // (insert prefix command here)
@@ -397,9 +402,9 @@ if (cmd === 'help' || cmd === '?') {
             .name;
     
             if (emoji === emoji1) {
-                question.edit(args[1] + ' (option 1 won)');
+                question.edit('`'+args[1] + ' (option 1 won)`');
             } else if (emoji === emoji2) {
-                question.edit(args[1] + ' (option 2 won)');
+                question.edit('`'+args[1] + ' (option 2 won)`');
             } else {
                 question.edit(`The winning emoji was not a contestant...`);   
             }
@@ -407,7 +412,7 @@ if (cmd === 'help' || cmd === '?') {
         });
     }
     if (args[4] == 1) {
-        message.channel.send(args[1] + ' (get to '+args[4]+' vote to win)').then((question) => {
+        message.channel.send('`'+args[1] + ' (get to '+args[4]+' vote to win)`').then((question) => {
         
         const emoji1 = args[2]
         const emoji2 = args[3]
@@ -428,9 +433,9 @@ if (cmd === 'help' || cmd === '?') {
             let emoji = userReaction._emoji.name;
     
             if (emoji === emoji1) {
-                question.edit(args[1] + ' (option 1 won)');
+                question.edit('`'+args[1] + ' (option 1 won)`');
             } else if (emoji === emoji2) {
-                question.edit(args[1] + ' (option 2 won)');
+                question.edit('`'+args[1] + ' (option 2 won)`');
             } else {
                 question.edit('`The winning emoji was not a contestant...`');   
             }
