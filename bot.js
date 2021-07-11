@@ -26,7 +26,7 @@ const prefix = require('discord-prefix')
 const sqlite = require('sqlite3')
 let db = new sqlite.Database('./settings.db', sqlite.OPEN_READWRITE | sqlite.OPEN_CREATE)
 
-db.run(`CREATE TABLE IF NOT EXISTS data(serverid, welcomeid, welcomemsg)`)
+db.run(`CREATE TABLE IF NOT EXISTS data(serverid, welcomeid, welco memsg)`)
 bot.setMaxListeners(99)
 console.clear()
 
@@ -495,6 +495,52 @@ if (cmd === 'help' || cmd === '?') {
             }
         }
     }
+}
+if (cmd === 'rps') {
+	const items = ['r', 'p', 's']
+	var item = items[Math.floor(Math.random()*items.length)];
+	if (args[1] === 'rock' || args[1] === 'r') {
+		if (item === 'r') {
+			message.channel.send("`🥌 I choose rock! It's a tie I guess... 😕`")
+			console.log(sub+' got a tie with rock option')
+		}
+		if (item === 'p') {
+			message.channel.send("`📃 I choose paper! And I win!`")
+			console.log(sub+' won with paper option')
+		}
+		if (item === 's') {
+			message.channel.send("`✂ I choose scissors! You win :)`")
+			console.log(sub+' lost with sci option')
+		}
+	}
+	if (args[1] === 'paper' || args[1] === 'p') {
+		if (item === 'r') {
+			message.channel.send("`🥌 I choose rock! You win :)`")
+			console.log(sub+' lost with rock option')
+		}
+		if (item === 'p') {
+			message.channel.send("`📃 I choose paper! It's a tie I guess... 😕`")
+			console.log(sub+' got a tie with paper option')
+		}
+		if (item === 's') {
+			message.channel.send("`✂ I choose scissors! And I win!`")
+			console.log(sub+' won with sci option')
+		}
+	}
+	if (args[1] === 'scissors' || args[1] === 's') {
+		if (item === 'r') {
+			message.channel.send("`🥌 I choose rock! And I win!`")
+			console.log(sub+' got a tie with rock option')
+		}
+		if (item === 'p') {
+			message.channel.send("`📃 I choose paper! You win :)`")
+			console.log(sub+' lost with paper option')
+		}
+		if (item === 's') {
+			message.channel.send("`✂ I choose scissors! It's a tie I guess... 😕`")
+			console.log(sub+' got a tie with sci option')
+		}
+	}
 }
 });
 
