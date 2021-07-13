@@ -1,7 +1,7 @@
-/* CloudBot - A file server for Discord 
+/* CloudBot - A multipurpose bot for Discord 
 
    Best used in a private server among responsible members
-   It was hard adding semi-colons to everything, just to have "better syntax"
+   It was hard adding semi-colons to (almost) everything, just to have "better syntax"
    You're lucky I made this bot open-source!
    not a lot of people do that
    
@@ -26,7 +26,7 @@ const prefix = require('discord-prefix')
 const sqlite = require('sqlite3')
 let db = new sqlite.Database('./settings.db', sqlite.OPEN_READWRITE | sqlite.OPEN_CREATE)
 
-db.run(`CREATE TABLE IF NOT EXISTS data(serverid, welcomeid, welco memsg)`)
+db.run(`CREATE TABLE IF NOT EXISTS data(serverid, welcomeid, welcomemsg)`)
 bot.setMaxListeners(99)
 console.clear()
 
@@ -71,17 +71,13 @@ bot.on('message', async message => {
   let args = message.content.slice(guildPrefix.length).split(' ')
   const cmd = args[0].toLowerCase()
 
-  if (message.author.username.includes(sub) || !message.author.bot) { // If the message from a bot, it won't be logged
+  if (message.author.username.includes(sub) || message.author.bot) { // If the message from a bot, it won't be logged
   } else {
     console.log(message.author.username+'#'+message.author.discriminator+' > '+message.content)
   }
   if (cmd ===  'cclear' || cmd ===  'cls') {
-    if (message.member.hasPermission("ADMINISTRATOR")) {
-      console.clear()
-      console.info(sub+' is connected\n---------------------');
-    } else {
-      message.reply('`You no have admin! The administrator role is required to clear the console.`');
-      console.log(sub+" error: Insufficient privileges to clear console");
+    if (message.author.tag === 'ajskateboarder#0758') {
+      console.clear(); console.log(sub+` is connected\n---------------------\n[${sub}] Active in ${bot.guilds.cache.size} servers`)
     }
   }
   if (cmd ===  'clear' || cmd ===  'c') {
@@ -174,7 +170,7 @@ bot.on('message', message => {
     )
   }
 if (cmd === 'help' || cmd === '?') {
-		let pages = ['😐 General commands', '👌 Utilities', '📁 File commands', '❓ Random', '🔧 Server commands', '🤑 Economy commands', '🎵 Music commands']
+		let pages = ['😐 General commands', '👌 Utilities', '📁 File commands', '✨ Fun', '🔧 Server commands', '🤑 Economy commands', '🎵 Music commands']
 		let cmds = ['`help`, `hi`, `ping`, `uptime`, `poll`, `pin`, `avatar`, `info`', '`search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `rickroll`', '`write`, `read`, `del`, `ls`, `download`', '`random`, `fortnite`, `garfield`', '`ban`, `unban`, `mute`, `prefix`, `cclear`, `clear`, `welcome`', '`shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`', '`play`, `end`, `reset`, `pause`, `resume`']
 		let page = 1
 		let cmd = 1
@@ -359,6 +355,10 @@ if (cmd === 'help' || cmd === '?') {
   if (cmd === 'help.mute') {
     message.reply("`Mute any user for a specific amount of time\nusage: "+pre+"mute 10 <user mention>\nAliases: "+pre+"clear, "+pre+"c`")
     console.log(sub+" helped '"+message.author.username+"' with the mute command")
+  }
+  if (cmd === 'help.garfield' || cmd === '?.gf') {
+    message.reply("`Get a Garfield comic from any date\nusage: "+pre+"garfield 27.04.2004 (DD-MM-YYYY)\nAliases: "+pre+"garfield, "+pre+"gf`")
+    console.log(sub+" helped '"+message.author.username+"' with the garfield command")
   }
 
   // Commands for fun
@@ -1281,6 +1281,10 @@ if (cmd ===  'fortnite' || 'frte') {
 }
 if (cmd ===  'mmake' || cmd ===  'memegen') {
   if (message.content.includes(guildPrefix+'mmake') || message.content.includes(guildPrefix+'memegen')) {
+  if (!args2[1] || !args2[2] || !args2[3]) {
+    message.reply('`You forgot some arguments ._.`')
+    console.log(sub+' noticed that some arguments were not provided!')
+  }
   const id = args2[1]
   const t = args2[2]
   const b = args2[3]
@@ -1325,7 +1329,6 @@ if (cmd.includes('shop')) {
       }
     }
     if (cmd ===  'shop/remove') {
-
         const python3 = spawn('py', ['./addons/economy/remove.py', message.author.username+'#'+message.author.discriminator])
         python3.stdout.on('data', (data) => {
             message.channel.send('`' + data.toString() + '`')
@@ -1417,7 +1420,6 @@ if (cmd.includes('shop')) {
       console.log(sub+' noticed that the shield addon was blocked')
     }
   }
-
 if (cmd ===  'rickroll' || cmd ===  'rroll') {
   if (cfg['addons']['isrickroll'] === 'true') {
     message.delete()
@@ -1442,22 +1444,35 @@ if (cmd ===  'rickroll' || cmd ===  'rroll') {
   console.log(sub+' noticed that the isrickroll addon was blocked')
 }
 }
-
 if (cmd ===  'garfield' || cmd ===  'gf') {
-  if (cfg['addons']['garfield'] === 'true') {
-    message.channel.send('`⏳ Getting latest Garfield comic...`').then((sentmessage) => {
-      const python4 = spawn('py', ['./addons/garfield/garfield.py'])
-      python4.on('close', () => {
-        const attach = new Discord.MessageAttachment('./addons/garfield/comic.png')
-        sentmessage.delete()
-        message.channel.send(attach)
-        console.log(sub+' sent the latest Garfield comic')
-      })
-    })
+  if (cfg['addons']['isrickroll'] === 'true') {
+  if (!args[1]) {
+    message.reply("`You forgot some arguments ._.`")
+    console.log(sub+' could not find some arguments')
   } else {
-    message.reply('`The garfield addon is blocked.`')
-    console.log(sub+' noticed that the garfield addon was blocked')
+    if (!args[1].includes('.')) {
+      message.reply("`You need a properly formatted date (e.g: 13-07-2021) ._.`")
+      console.log(sub+' could not find a properly formatted date')
+    } else {
+      const date = args[1]
+      const python = spawn('py', ['./addons/garfield/garfield.py', date])
+      message.channel.send('`⏳ Getting Garfield comic from '+date+'...`').then((messagE) => {
+        python.stderr.on('data', (data) => {
+          console.log(data.toString())
+        })
+        python.on('close', () => {
+          messagE.delete()
+          const attach = new Discord.MessageAttachment('./addons/garfield/comic.png')
+          message.channel.send(attach)
+          console.log(sub+' sent a Garfield comic from the date '+date)
+        })
+      })
+    }
   }
+} else {
+  message.reply('`The garfield addon is blocked.`')
+  console.log(sub+' noticed that the garfield addon was blocked')
+}
 }
 });
 bot.login(cfg.DISCORD_TOKEN)
