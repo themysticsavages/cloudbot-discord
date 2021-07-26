@@ -26,7 +26,7 @@ cloudbot-discord is a multipurpose bot for Discord. It is best used in a __priva
 
 ## Self hosting
 
-*[Read setup.md](https://github.com/themysticsavages/cloudbot-discord/blob/main/setup_windows.md) for complete information on self-hosting (on Windows).*
+*[Read setup.md](https://github.com/themysticsavages/cloudbot-discord/blob/main/setup.md) for complete information on self-hosting (on Windows).*
 
 ## Commands
 
