@@ -95,7 +95,7 @@ bot.on('message', async message => {
     console.log(sub+" error: Insufficient privileges to clear messages");
   }
 }
-  if (cmd ===  'ping') {
+  if (message.content === `${guildPrefix.toLowerCase()}ping`) {
     var number = getRandInt(13);
     
     // More randomization! 🎲
@@ -170,8 +170,8 @@ bot.on('message', message => {
     )
   }
 if (cmd === 'help' || cmd === '?') {
-		let pages = ['😐 General commands', '👌 Utilities', '📁 File commands', '✨ Fun', '🔧 Server commands', '🤑 Economy commands', '🎵 Music commands']
-		let cmds = ['`help`, `hi`, `ping`, `uptime`, `poll`, `pin`, `avatar`, `info`', '`search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `rickroll`', '`write`, `read`, `del`, `ls`, `download`', '`random`, `fortnite`, `garfield`', '`ban`, `unban`, `mute`, `prefix`, `cclear`, `clear`, `welcome`', '`shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`', '`play`, `end`, `reset`, `pause`, `resume`']
+		let pages = ['😐 General commands', '👌 Utilities', '📁 File commands', '✨ Fun', '🔧 Server commands', '🎵 Music commands']
+		let cmds = ['`help`, `hi`, `ping`, `uptime`, `poll`, `pin`, `avatar`, `info`', '`search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `rickroll`', '`write`, `read`, `del`, `ls`, `download`', '`random`, `fortnite`, `garfield`, `shield`, `message`', '`ban`, `unban`, `mute`, `prefix`, `cclear`, `clear`, `welcome`', '`play`, `end`, `reset`, `pause`, `resume`']
 		let page = 1
 		let cmd = 1
 
@@ -1311,66 +1311,6 @@ if (cmd ===  'mmake' || cmd ===  'memegen') {
   }
 }
 }
-if (cmd.includes('shop')) {
-  if (cfg['addons']['economy'] === 'true') {
-    if (cmd ===  'shop/add') {
-        if (!args2[1] || !args2[2]) {
-          message.reply('`Please include an ingame name and/or your job ._.`')
-          console.log(sub+' could not find queries to use')
-        } else {
-        const func1 = args2[1]
-        const func2 = args2[2]
-
-        const python2 = spawn('py', ['./addons/economy/new.py', message.author.username+'#'+message.author.discriminator, func1, func2])
-        python2.stdout.on('data', (data) => {
-            message.channel.send('`' + data.toString() + '`')
-            console.log(sub+' made a new account')
-        })
-      }
-    }
-    if (cmd ===  'shop/remove') {
-        const python3 = spawn('py', ['./addons/economy/remove.py', message.author.username+'#'+message.author.discriminator])
-        python3.stdout.on('data', (data) => {
-            message.channel.send('`' + data.toString() + '`')
-            console.log(sub+" removed '"+message.author.username+"' from the database")
-        })
-    }
-    if (cmd ===  'shop/money') {
-        if (talkedRecently.has(message.author.id) && cmd === 'shop/money') {
-            message.channel.send("`Please wait 1 hour and 40 minutes before running this again!`");
-            console.log(`${sub} told ${message.author.username} to wait 100 minutes before running the money command again.`)
-        } else {
-            const python4 = spawn('py', ['./addons/economy/money.py', message.author.username+'#'+message.author.discriminator])
-            python4.stdout.on('data', (data) => {
-                message.channel.send('`' + data.toString() + '`')
-                console.log(`${sub} gave ${message.author.username} ${data.toString().split(' ')[3]} bucks!`)
-
-                talkedRecently.add(message.author.id);
-                setTimeout(() => { talkedRecently.delete(message.author.id); }, 6000000);
-            })
-        }
-    }
-    if (cmd ===  'shop/buy') {
-        const item = args2[1]
-        const python34 = spawn('py', ['./addons/economy/store.py', message.author.username+'#'+message.author.discriminator, item])
-        python34.stdout.on('data', (data) => {
-          message.channel.send('`' + data.toString() + '`')
-          console.log(sub+" sold the item '"+item+"'")
-        })
-    }
-    if (cmd ===  'shop/info') {
-        const item = args2[1]
-        const python34 = spawn('py', ['./addons/economy/find.py', item])
-        python34.stdout.on('data', (data) => {
-          message.channel.send('`' + data.toString().replace(/"/gi, '') + '`')
-          console.log(sub+" did/did not give info on '"+item+"'")
-        })
-      }
-    } else {
-      message.reply('`The economy addon is blocked.`')
-      console.log(sub+' noticed that the economy addon was blocked')
-    }
-  }
   if (cmd ===  'shield' || cmd ===  'shld') {
     if (cfg['addons']['shield'] === 'true') { 
     if (!args[1] || !args[2] || !args[3]) {
