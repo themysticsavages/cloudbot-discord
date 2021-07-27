@@ -14,10 +14,9 @@ const fs = require('fs');
 const cfg = require('./config.json');
 const { spawn } = require('child_process');
 const process = require('process');
-const DisTube = require('distube')
+const DisTube = require('distube');
 const bot = new Discord.Client();
-const tubebot = new DisTube(bot, {searchSongs: false, emitNewSongOnly: true})
-
+const tubebot = new DisTube(bot, {searchSongs: false, emitNewSongOnly: true});
 const dfix = 'c.'; // You can edit the prefix
 const sub = 'CloudBot'; // You can change this to change what the bot logs in console
 
@@ -26,6 +25,7 @@ const prefix = require('discord-prefix')
 const sqlite = require('sqlite3')
 let db = new sqlite.Database('./settings.db', sqlite.OPEN_READWRITE | sqlite.OPEN_CREATE)
 
+var datetime = new Date();
 db.run(`CREATE TABLE IF NOT EXISTS data(serverid, welcomeid, welcomemsg)`)
 bot.setMaxListeners(99)
 console.clear()
@@ -39,16 +39,16 @@ bot.on('ready', () => {
   var video = getRandInt(10)
   
   // They are just songs
-  if (video !== 1) { var video = 'https://www.youtube.com/watch?v=_5w8SJ3yVsc' }
-  if (video !== 2) { var video = 'https://www.youtube.com/watch?v=lrpS69H1RRU' }
-  if (video !== 3) { var video = 'https://www.youtube.com/watch?v=yanwIwtlzEI' }
-  if (video !== 4) { var video = 'https://www.youtube.com/watch?v=Cf5KOTB7Ew8' }
-  if (video !== 5) { var video = 'https://www.youtube.com/watch?v=5WXyCJ1w3Ks' }
-  if (video !== 6) { var video = 'https://www.youtube.com/watch?v=UHGvNoRPCQA' }
-  if (video !== 7) { var video = 'https://www.youtube.com/watch?v=LfgzPpmjM0M' }
-  if (video !== 8) { var video = 'https://www.youtube.com/watch?v=GcopfMYIApQ' }
-  if (video !== 9) { var video = 'https://www.youtube.com/watch?v=4BD2Bxv2_qI' }
-  if (video !== 10) { var video = 'https://www.youtube.com/watch?v=uxo-NasJslw'}
+  if (video === 1) { var video = 'https://www.youtube.com/watch?v=_5w8SJ3yVsc' }
+  if (video === 2) { var video = 'https://www.youtube.com/watch?v=lrpS69H1RRU' }
+  if (video === 3) { var video = 'https://www.youtube.com/watch?v=yanwIwtlzEI' }
+  if (video === 4) { var video = 'https://www.youtube.com/watch?v=Cf5KOTB7Ew8' }
+  if (video === 5) { var video = 'https://www.youtube.com/watch?v=5WXyCJ1w3Ks' }
+  if (video === 6) { var video = 'https://www.youtube.com/watch?v=UHGvNoRPCQA' }
+  if (video === 7) { var video = 'https://www.youtube.com/watch?v=LfgzPpmjM0M' }
+  if (video === 8) { var video = 'https://www.youtube.com/watch?v=GcopfMYIApQ' }
+  if (video === 9) { var video = 'https://www.youtube.com/watch?v=4BD2Bxv2_qI' }
+  if (video === 10) { var video = 'https://www.youtube.com/watch?v=uxo-NasJslw'}
 
   console.info(sub+` is connected\n---------------------\n[${sub}] Active in ${bot.guilds.cache.size} servers`);
   bot.user.setPresence({
@@ -95,7 +95,7 @@ bot.on('message', async message => {
     console.log(sub+" error: Insufficient privileges to clear messages");
   }
 }
-  if (message.content === `${guildPrefix.toLowerCase()}ping`) {
+  if (cmd ===  'ping') {
     var number = getRandInt(13);
     
     // More randomization! 🎲
@@ -118,8 +118,9 @@ bot.on('message', async message => {
     console.log("'"+message.author.username+"' pinged "+sub)
   }
   if (cmd === 'uptime' || cmd === 'up') {
-    message.channel.send('`'+sub+' uptime: '+Math.round(process.uptime())+' seconds`')
-    console.log(sub+' gave the bot uptime')
+    const embed = new Discord.MessageEmbed()
+    .setDescription(`Up since **${datetime.toISOString().slice(0,10)}**`)
+    message.channel.send(embed)
   }
   // Lists the content of a directory (small, but important)
   if (cmd ===  'ls') {
@@ -170,8 +171,8 @@ bot.on('message', message => {
     )
   }
 if (cmd === 'help' || cmd === '?') {
-		let pages = ['😐 General commands', '👌 Utilities', '📁 File commands', '✨ Fun', '🔧 Server commands', '🎵 Music commands']
-		let cmds = ['`help`, `hi`, `ping`, `uptime`, `poll`, `pin`, `avatar`, `info`', '`search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `rickroll`', '`write`, `read`, `del`, `ls`, `download`', '`random`, `fortnite`, `garfield`, `shield`, `message`', '`ban`, `unban`, `mute`, `prefix`, `cclear`, `clear`, `welcome`', '`play`, `end`, `reset`, `pause`, `resume`']
+		let pages = ['😐 General commands', '👌 Utilities', '📁 File commands', '✨ Fun', '🔧 Server commands', '🤑 Economy commands', '🎵 Music commands']
+		let cmds = ['`help`, `hi`, `ping`, `uptime`, `poll`, `pin`, `avatar`, `info`', '`search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `rickroll`', '`write`, `read`, `del`, `ls`, `download`', '`random`, `fortnite`, `garfield`', '`ban`, `unban`, `mute`, `prefix`, `cclear`, `clear`, `welcome`', '`shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`', '`play`, `end`, `reset`, `pause`, `resume`']
 		let page = 1
 		let cmd = 1
 
@@ -357,6 +358,10 @@ if (cmd === 'help' || cmd === '?') {
     console.log(sub+" helped '"+message.author.username+"' with the mute command")
   }
   if (cmd === 'help.garfield' || cmd === '?.gf') {
+    message.reply("`Get a Garfield comic from any date\nusage: "+pre+"garfield 27.04.2004 (DD-MM-YYYY)\nAliases: "+pre+"garfield, "+pre+"gf`")
+    console.log(sub+" helped '"+message.author.username+"' with the garfield command")
+  }
+  if (cmd === 'help.scrabble' || cmd === '?.scb') {
     message.reply("`Get a Garfield comic from any date\nusage: "+pre+"garfield 27.04.2004 (DD-MM-YYYY)\nAliases: "+pre+"garfield, "+pre+"gf`")
     console.log(sub+" helped '"+message.author.username+"' with the garfield command")
   }
@@ -1311,6 +1316,66 @@ if (cmd ===  'mmake' || cmd ===  'memegen') {
   }
 }
 }
+if (cmd.includes('shop')) {
+  if (cfg['addons']['economy'] === 'true') {
+    if (cmd ===  'shop/add') {
+        if (!args2[1] || !args2[2]) {
+          message.reply('`Please include an ingame name and/or your job ._.`')
+          console.log(sub+' could not find queries to use')
+        } else {
+        const func1 = args2[1]
+        const func2 = args2[2]
+
+        const python2 = spawn('py', ['./addons/economy/new.py', message.author.username+'#'+message.author.discriminator, func1, func2])
+        python2.stdout.on('data', (data) => {
+            message.channel.send('`' + data.toString() + '`')
+            console.log(sub+' made a new account')
+        })
+      }
+    }
+    if (cmd ===  'shop/remove') {
+        const python3 = spawn('py', ['./addons/economy/remove.py', message.author.username+'#'+message.author.discriminator])
+        python3.stdout.on('data', (data) => {
+            message.channel.send('`' + data.toString() + '`')
+            console.log(sub+" removed '"+message.author.username+"' from the database")
+        })
+    }
+    if (cmd ===  'shop/money') {
+        if (talkedRecently.has(message.author.id) && cmd === 'shop/money') {
+            message.channel.send("`Please wait 1 hour and 40 minutes before running this again!`");
+            console.log(`${sub} told ${message.author.username} to wait 100 minutes before running the money command again.`)
+        } else {
+            const python4 = spawn('py', ['./addons/economy/money.py', message.author.username+'#'+message.author.discriminator])
+            python4.stdout.on('data', (data) => {
+                message.channel.send('`' + data.toString() + '`')
+                console.log(`${sub} gave ${message.author.username} ${data.toString().split(' ')[3]} bucks!`)
+
+                talkedRecently.add(message.author.id);
+                setTimeout(() => { talkedRecently.delete(message.author.id); }, 6000000);
+            })
+        }
+    }
+    if (cmd ===  'shop/buy') {
+        const item = args2[1]
+        const python34 = spawn('py', ['./addons/economy/store.py', message.author.username+'#'+message.author.discriminator, item])
+        python34.stdout.on('data', (data) => {
+          message.channel.send('`' + data.toString() + '`')
+          console.log(sub+" sold the item '"+item+"'")
+        })
+    }
+    if (cmd ===  'shop/info') {
+        const item = args2[1]
+        const python34 = spawn('py', ['./addons/economy/find.py', item])
+        python34.stdout.on('data', (data) => {
+          message.channel.send('`' + data.toString().replace(/"/gi, '') + '`')
+          console.log(sub+" did/did not give info on '"+item+"'")
+        })
+      }
+    } else {
+      message.reply('`The economy addon is blocked.`')
+      console.log(sub+' noticed that the economy addon was blocked')
+    }
+  }
   if (cmd ===  'shield' || cmd ===  'shld') {
     if (cfg['addons']['shield'] === 'true') { 
     if (!args[1] || !args[2] || !args[3]) {
