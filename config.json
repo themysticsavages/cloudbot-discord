@@ -9,10 +9,6 @@
             "USERNAME" : "username",
             "PASSWORD" : "password"
         },
-        "godaddy" : {
-            "KEY" : "api_key",
-            "SECRET" : "secret"
-        }
     },
     "addons" : {
         "webscraper" : "true",
