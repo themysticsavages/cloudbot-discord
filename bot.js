@@ -32,9 +32,7 @@ db.run(`CREATE TABLE IF NOT EXISTS data(serverid, welcomeid, welcomemsg)`)
 bot.setMaxListeners(99)
 console.clear()
 
-function getRandInt(max) {
-  return Math.floor(Math.random() * max);
-}
+function getRandInt(max) { return Math.floor(Math.random() * max); }
 
 // Creates space for logging events; oh yeah, it also 'streams', so I made it so that the 'Watch' button plays a random video from the 10.
 bot.on('ready', () => {
@@ -182,6 +180,7 @@ if (cmd === 'help' || cmd === '?') {
       .setStyle('blurple')
       .setLabel('Previous Page')
       .setID('btn1')
+      .setDisabled()
     let btn2 = new btn.MessageButton()
       .setStyle('blurple')
       .setLabel('Next Page')
@@ -541,63 +540,123 @@ bot.on('clickButton', (button) => {
   if (button.id === 'btn1') {
     page--
     if (page < 1) page++
-
-    const embed = new Discord.MessageEmbed()
-    .setTitle(pages[page-1])
-    .setDescription(cmds[page-1])
-    .setFooter(`Page ${page} of ${pages.length}`)
-
-    let btn1 = new btn.MessageButton()
-    .setStyle('blurple')
-    .setLabel('Previous Page')
-    .setID('btn1')
-    let btn2 = new btn.MessageButton()
+    
+    if (page === 1) {
+      const embed = new Discord.MessageEmbed()
+      .setTitle(pages[page-1])
+      .setDescription(cmds[page-1])
+      .setFooter(`Page ${page} of ${pages.length}`)
+  
+      let btn1 = new btn.MessageButton()
       .setStyle('blurple')
-      .setLabel('Next Page')
-      .setID('btn2')
-    let btn3 = new btn.MessageButton()
-      .setStyle('url')
-      .setURL('https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612')
-      .setLabel('Invite me!')
-    let btn4 = new btn.MessageButton()
-      .setStyle('url')
-      .setURL('https://github.com/themysticsavages/cloudbot-discord')
-      .setLabel('Github')
-    let buttons = new btn.MessageActionRow()
-      .addComponents(btn1, btn2, btn3, btn4);
-
-    button.message.delete()
-    button.message.reply(embed, buttons)
+      .setLabel('Previous Page')
+      .setID('btn1')
+      .setDisabled()
+      let btn2 = new btn.MessageButton()
+        .setStyle('blurple')
+        .setLabel('Next Page')
+        .setID('btn2')
+      let btn3 = new btn.MessageButton()
+        .setStyle('url')
+        .setURL('https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612')
+        .setLabel('Invite me!')
+      let btn4 = new btn.MessageButton()
+        .setStyle('url')
+        .setURL('https://github.com/themysticsavages/cloudbot-discord')
+        .setLabel('Github')
+      let buttons = new btn.MessageActionRow()
+        .addComponents(btn1, btn2, btn3, btn4);
+  
+      button.message.delete()
+      button.message.reply(embed, buttons)
+    } else {
+      const embed = new Discord.MessageEmbed()
+        .setTitle(pages[page-1])
+        .setDescription(cmds[page-1])
+        .setFooter(`Page ${page} of ${pages.length}`)
+  
+      let btn1 = new btn.MessageButton()
+        .setStyle('blurple')
+        .setLabel('Previous Page')
+        .setID('btn1')
+      let btn2 = new btn.MessageButton()
+        .setStyle('blurple')
+        .setLabel('Next Page')
+        .setID('btn2')
+      let btn3 = new btn.MessageButton()
+        .setStyle('url')
+        .setURL('https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612')
+        .setLabel('Invite me!')
+      let btn4 = new btn.MessageButton()
+        .setStyle('url')
+        .setURL('https://github.com/themysticsavages/cloudbot-discord')
+        .setLabel('Github')
+      let buttons = new btn.MessageActionRow()
+        .addComponents(btn1, btn2, btn3, btn4);
+  
+      button.message.delete()
+      button.message.reply(embed, buttons)
+    }
   } else if (button.id === 'btn2') {
     page++
     if (page > pages.length) page--
 
-    const embed = new Discord.MessageEmbed()
-    .setTitle(pages[page-1])
-    .setDescription(cmds[page-1])
-    .setFooter(`Page ${page} of ${pages.length}`)
-
-    let btn1 = new btn.MessageButton()
-    .setStyle('blurple')
-    .setLabel('Previous Page')
-    .setID('btn1')
-    let btn2 = new btn.MessageButton()
+    if (page === pages.length) {
+      const embed = new Discord.MessageEmbed()
+        .setTitle(pages[page-1])
+        .setDescription(cmds[page-1])
+        .setFooter(`Page ${page} of ${pages.length}`)
+  
+      let btn1 = new btn.MessageButton()
+        .setStyle('blurple')
+        .setLabel('Previous Page')
+        .setID('btn1')
+      let btn2 = new btn.MessageButton()
+        .setStyle('blurple')
+        .setLabel('Next Page')
+        .setID('btn2')
+        .setDisabled()
+      let btn3 = new btn.MessageButton()
+        .setStyle('url')
+        .setURL('https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612')
+        .setLabel('Invite me!')
+      let btn4 = new btn.MessageButton()
+        .setStyle('url')
+        .setURL('https://github.com/themysticsavages/cloudbot-discord')
+        .setLabel('Github')
+      let buttons = new btn.MessageActionRow()
+        .addComponents(btn1, btn2, btn3, btn4);
+  
+      button.message.delete()
+      button.message.reply(embed, buttons)
+    } else {
+      const embed = new Discord.MessageEmbed()
+      .setTitle(pages[page-1])
+      .setDescription(cmds[page-1])
+      .setFooter(`Page ${page} of ${pages.length}`)
+  
+      let btn1 = new btn.MessageButton()
       .setStyle('blurple')
-      .setLabel('Next Page')
-      .setID('btn2')
-    let btn3 = new btn.MessageButton()
-      .setStyle('url')
-      .setURL('https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612')
-      .setLabel('Invite me!')
-    let btn4 = new btn.MessageButton()
-      .setStyle('url')
-      .setURL('https://github.com/themysticsavages/cloudbot-discord')
-      .setLabel('Github')
-    let buttons = new btn.MessageActionRow()
-      .addComponents(btn1, btn2, btn3, btn4);
-
-    button.message.delete()
-    button.message.reply(embed, buttons)
+      .setLabel('Previous Page')
+      .setID('btn1')
+      let btn2 = new btn.MessageButton()
+        .setStyle('blurple')
+        .setLabel('Next Page')
+        .setID('btn2')
+      let btn3 = new btn.MessageButton()
+        .setStyle('url')
+        .setURL('https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612')
+        .setLabel('Invite me!')
+      let btn4 = new btn.MessageButton()
+        .setStyle('url')
+        .setURL('https://github.com/themysticsavages/cloudbot-discord')
+        .setLabel('Github')
+      let buttons = new btn.MessageActionRow()
+        .addComponents(btn1, btn2, btn3, btn4);
+  
+      button.message.delete()
+      button.message.reply(embed, buttons)
+    }
   }
   button.reply.defer()
 })
