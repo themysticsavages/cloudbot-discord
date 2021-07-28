@@ -1,5 +1,5 @@
 # [<img src="https://github.com/themysticsavages/cloudbot-discord/blob/main/avatar.png" width="35"/>](image.png) Setup 
-*If you feel like there is not a command I am including or if I am having server issues, or something, this is how to self-host CloudBot (in Windows).*
+*If you feel like there is a command I'm not including or if I am having server issues, or something, this is how to self-host CloudBot (in Windows).*
   
 ## Requisites
   - __Node.js (LTS preferred)__
@@ -10,6 +10,8 @@ Obviously, you need a bot to use, so follow this [guide](https://discordjs.guide
 
 ## API
   Done with that? Follow this guide to set up addons. 
+  
+  **Disclaimer: These addons are totally optional. If you don't want these, disable them in `config.json`!**
   
   ### OpenWeatherMap
   OpenWeatherMap is a weather API to fetch the current weather at a place. To set this API up, go to https://openweathermap.org, create an account, and use 
@@ -23,9 +25,6 @@ Obviously, you need a bot to use, so follow this [guide](https://discordjs.guide
   
   ### Imgflip
   Luckily for you, this process is very simple. Go to https://api.imgflip.com and create an account (Don't use Google auth). Use your username and password.
-  
-  ### GoDaddy
-  Go to https://developer.godaddy.com/, create an __OTE__ application, and copy the key and secret.
   
 ## Packages
   To install all the packages needed, run `initialize.cmd` and choose the second option. Simple.
