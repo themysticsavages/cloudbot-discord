@@ -2,7 +2,7 @@
   "name": "cloudbot",
   "version": "1.0.0",
   "main": "bot.js",
-  "license": "MIT",
+  "license": "BSD3",
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
     "discord.js": "^12.5.3",
