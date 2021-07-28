@@ -13,10 +13,11 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const cfg = require('./config.json');
 const { spawn } = require('child_process');
-const process = require('process');
+const btn = require('discord-buttons')
 const DisTube = require('distube');
 const bot = new Discord.Client();
 const tubebot = new DisTube(bot, {searchSongs: false, emitNewSongOnly: true});
+
 const dfix = 'c.'; // You can edit the prefix
 const sub = 'CloudBot'; // You can change this to change what the bot logs in console
 
@@ -26,6 +27,7 @@ const sqlite = require('sqlite3')
 let db = new sqlite.Database('./settings.db', sqlite.OPEN_READWRITE | sqlite.OPEN_CREATE)
 
 var datetime = new Date();
+btn(bot)
 db.run(`CREATE TABLE IF NOT EXISTS data(serverid, welcomeid, welcomemsg)`)
 bot.setMaxListeners(99)
 console.clear()
@@ -60,8 +62,6 @@ bot.on('ready', () => {
       }
   });
 });
-
-
 
 // Little message recorder, console clearer, and channel wiper. Does other stuff too
 bot.on('message', async message => {
@@ -171,49 +171,33 @@ bot.on('message', message => {
     )
   }
 if (cmd === 'help' || cmd === '?') {
-		let pages = ['😐 General commands', '👌 Utilities', '📁 File commands', '✨ Fun', '🔧 Server commands', '🤑 Economy commands', '🎵 Music commands']
-		let cmds = ['`help`, `hi`, `ping`, `uptime`, `poll`, `pin`, `avatar`, `info`', '`search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `rickroll`', '`write`, `read`, `del`, `ls`, `download`', '`random`, `fortnite`, `garfield`', '`ban`, `unban`, `mute`, `prefix`, `cclear`, `clear`, `welcome`', '`shop/add`, `shop/remove`, `shop/info`, `shop/money`, `shop/buy`', '`play`, `end`, `reset`, `pause`, `resume`']
-		let page = 1
-		let cmd = 1
+    page = 1
 
 		const embed = new Discord.MessageEmbed()
 		.setTitle(pages[0])
 		.setFooter(`Page ${page} of ${pages.length}`)
-		.setDescription('Server prefix: `'+guildPrefix+'`\n'+cmds[cmd-1]+'\n[Invite me!](https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612) • [Github](https://github.com/themysticsavages/cloudbot-discord)')
+		.setDescription('Server prefix: `'+guildPrefix+'`\n'+cmds[page-1]+'\n[Invite me!](https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612) • [Github](https://github.com/themysticsavages/cloudbot-discord)')
 
-		message.channel.send({embed}).then(msg => {
-		  msg.react('⬅').then( r => {
-			msg.react('➡')
+    let btn1 = new btn.MessageButton()
+      .setStyle('blurple')
+      .setLabel('Previous Page')
+      .setID('btn1')
+    let btn2 = new btn.MessageButton()
+      .setStyle('blurple')
+      .setLabel('Next Page')
+      .setID('btn2')
+    let btn3 = new btn.MessageButton()
+      .setStyle('url')
+      .setURL('https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612')
+      .setLabel('Invite me!')
+    let btn4 = new btn.MessageButton()
+      .setStyle('url')
+      .setURL('https://github.com/themysticsavages/cloudbot-discord')
+      .setLabel('Github')
+    let buttons = new btn.MessageActionRow()
+      .addComponents(btn1, btn2, btn3, btn4);
 
-		const backwardsFilter = (reaction, user) => reaction.emoji.name === '⬅' && user.id === message.author.id
-		const forwardsFilter = (reaction, user) => reaction.emoji.name === '➡' && user.id === message.author.id
-
-		const backwards = msg.createReactionCollector(backwardsFilter, {timer: 6000})
-		const forwards = msg.createReactionCollector(forwardsFilter, {timer: 6000})
-
-		backwards.on('collect', (r, u) => {
-			if (page === 1) return r.users.remove(r.users.cache.filter(u => u === message.author).first())
-			page--
-			cmd--
-			embed.setTitle(pages[page-1])
-			embed.setDescription('Server prefix: `'+guildPrefix+'`\n'+cmds[cmd-1]+'\n[Invite me!](https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612) • [Github](https://github.com/themysticsavages/cloudbot-discord)')
-			embed.setFooter(`Page ${page} of ${pages.length}`)
-			msg.edit(embed)
-			r.users.remove(r.users.cache.filter(u => u === message.author).first())
-		})
-
-		forwards.on('collect', (r, u) => {
-			if (page === pages.length) return r.users.remove(r.users.cache.filter(u => u === message.author).first())
-			page++
-			cmd++
-			embed.setTitle(pages[page-1])
-			embed.setDescription('Server prefix: `'+guildPrefix+'`\n'+cmds[cmd-1]+'\n[Invite me!](https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612) • [Github](https://github.com/themysticsavages/cloudbot-discord)')
-			embed.setFooter(`Page ${page} of ${pages.length}`)
-			msg.edit(embed)
-			r.users.remove(r.users.cache.filter(u => u === message.author).first())
-		})
-	  })
-	})
+    message.channel.send(embed, buttons)
 	}
   if (cmd ===  'prefix') {
     if (message.member.hasPermission('ADMINISTRATOR')) {
@@ -354,16 +338,16 @@ if (cmd === 'help' || cmd === '?') {
     console.log(sub+" helped '"+message.author.username+"' with the clear command")
   }
   if (cmd === 'help.mute') {
-    message.reply("`Mute any user for a specific amount of time\nusage: "+pre+"mute 10 <user mention>\nAliases: "+pre+"clear, "+pre+"c`")
+    message.reply("`Mute any user for a specific amount of days\nusage: "+pre+"mute 10 <user mention>\nAliases: "+pre+"clear, "+pre+"c`")
     console.log(sub+" helped '"+message.author.username+"' with the mute command")
   }
   if (cmd === 'help.garfield' || cmd === '?.gf') {
     message.reply("`Get a Garfield comic from any date\nusage: "+pre+"garfield 27.04.2004 (DD-MM-YYYY)\nAliases: "+pre+"garfield, "+pre+"gf`")
     console.log(sub+" helped '"+message.author.username+"' with the garfield command")
   }
-  if (cmd === 'help.scrabble' || cmd === '?.scb') {
-    message.reply("`Get a Garfield comic from any date\nusage: "+pre+"garfield 27.04.2004 (DD-MM-YYYY)\nAliases: "+pre+"garfield, "+pre+"gf`")
-    console.log(sub+" helped '"+message.author.username+"' with the garfield command")
+  if (cmd === 'help.rps') {
+    message.reply("`Play rock paper scissors!\nusage: "+pre+"rps (r, p, s)`")
+    console.log(sub+" helped '"+message.author.username+"' with the rps command")
   }
 
   // Commands for fun
@@ -548,6 +532,75 @@ if (cmd === 'rps') {
 	}
 }
 });
+
+let pages = ['😐 General commands', '👌 Utilities', '📁 File commands', '✨ Fun', '🔧 Server commands', '🎵 Music commands']
+let cmds = ['`help`, `hi`, `ping`, `uptime`, `poll`, `pin`, `avatar`, `info`', '`search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `rickroll`', '`write`, `read`, `del`, `ls`, `download`', '`random`, `fortnite`, `garfield`, `rps`', '`ban`, `unban`, `mute`, `prefix`, `cclear`, `clear`, `welcome`', '`play`, `end`, `reset`, `pause`, `resume`']
+let page = 1
+
+bot.on('clickButton', (button) => {
+  if (button.id === 'btn1') {
+    page--
+    if (page < 1) page++
+
+    const embed = new Discord.MessageEmbed()
+    .setTitle(pages[page-1])
+    .setDescription(cmds[page-1])
+    .setFooter(`Page ${page} of ${pages.length}`)
+
+    let btn1 = new btn.MessageButton()
+    .setStyle('blurple')
+    .setLabel('Previous Page')
+    .setID('btn1')
+    let btn2 = new btn.MessageButton()
+      .setStyle('blurple')
+      .setLabel('Next Page')
+      .setID('btn2')
+    let btn3 = new btn.MessageButton()
+      .setStyle('url')
+      .setURL('https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612')
+      .setLabel('Invite me!')
+    let btn4 = new btn.MessageButton()
+      .setStyle('url')
+      .setURL('https://github.com/themysticsavages/cloudbot-discord')
+      .setLabel('Github')
+    let buttons = new btn.MessageActionRow()
+      .addComponents(btn1, btn2, btn3, btn4);
+
+    button.message.delete()
+    button.message.reply(embed, buttons)
+  } else if (button.id === 'btn2') {
+    page++
+    if (page > pages.length) page--
+
+    const embed = new Discord.MessageEmbed()
+    .setTitle(pages[page-1])
+    .setDescription(cmds[page-1])
+    .setFooter(`Page ${page} of ${pages.length}`)
+
+    let btn1 = new btn.MessageButton()
+    .setStyle('blurple')
+    .setLabel('Previous Page')
+    .setID('btn1')
+    let btn2 = new btn.MessageButton()
+      .setStyle('blurple')
+      .setLabel('Next Page')
+      .setID('btn2')
+    let btn3 = new btn.MessageButton()
+      .setStyle('url')
+      .setURL('https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612')
+      .setLabel('Invite me!')
+    let btn4 = new btn.MessageButton()
+      .setStyle('url')
+      .setURL('https://github.com/themysticsavages/cloudbot-discord')
+      .setLabel('Github')
+    let buttons = new btn.MessageActionRow()
+      .addComponents(btn1, btn2, btn3, btn4);
+
+    button.message.delete()
+    button.message.reply(embed, buttons)
+  }
+  button.reply.defer()
+})
 
 // Writing text to files and returning text; pretty clean code if I do say so myself; you can also make files with this too
 bot.on('message', message => {
