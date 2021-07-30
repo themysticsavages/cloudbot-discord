@@ -170,17 +170,17 @@ bot.on('message', message => {
   }
 if (cmd === 'help' || cmd === '?') {
     page = 1
-
-		const embed = new Discord.MessageEmbed()
-		.setTitle(pages[0])
-		.setFooter(`Page ${page} of ${pages.length}`)
-		.setDescription('Server prefix: `'+guildPrefix+'`\n'+cmds[page-1]+'\n[Invite me!](https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612) • [Github](https://github.com/themysticsavages/cloudbot-discord)')
+    const embed = new Discord.MessageEmbed().setTitle(pages[page-1]).setFooter(`Page ${page} of ${pages.length}`)
+    page1c.forEach((command, index) => {
+      const description = page1d[index]
+      embed.addField(command, description, true)
+    })
 
     let btn1 = new btn.MessageButton()
-      .setStyle('blurple')
-      .setLabel('Previous Page')
-      .setID('btn1')
-      .setDisabled()
+    .setStyle('blurple')
+    .setLabel('Previous Page')
+    .setID('btn1')
+    .setDisabled()
     let btn2 = new btn.MessageButton()
       .setStyle('blurple')
       .setLabel('Next Page')
@@ -279,26 +279,6 @@ if (cmd === 'help' || cmd === '?') {
   if (cmd === 'help.download' || cmd === '?.get') {
     message.reply("`Download a file from the Internet to the bot server!\nusage: "+pre+"download http(s)://example.com/file.png picture.png\nAliases: "+pre+"download, "+pre+"get`")
     console.log(sub+" helped '"+message.author.username+"' with downloading files")
-  }
-  if (cmd === 'help.shop/add') {
-    message.reply("`Register yourself as a user to earn bucks!\nusage: "+pre+"shop/add | [name] | [job]`")
-    console.log(sub+" helped '"+message.author.username+"' with the shop/add command")
-  }
-  if (cmd === 'help.shop/remove') {
-    message.reply("`Unregister yourself from the store database\nusage: "+pre+"shop/remove`")
-    console.log(sub+" helped '"+message.author.username+"' with the shop/add command")
-  }
-  if (cmd === 'help.shop/money') {
-    message.reply("`Receive 8-12 bucks every 100 minutes\nusage: "+pre+"shop/money`")
-    console.log(sub+" helped '"+message.author.username+"' with earning bucks")
-  }
-  if (cmd === 'help.shop/money') {
-    message.reply("`Receive 8-12 bucks every 100 minutes\nusage: "+pre+"shop/money`")
-    console.log(sub+" helped '"+message.author.username+"' with earning bucks")
-  }
-  if (cmd === 'help.shop/info') {
-    message.reply("`Get information on any user in the store!\nusage: "+pre+"shop/info | user#0000`")
-    console.log(sub+" helped '"+message.author.username+"' with the shop/info command")
   }
   if (cmd === 'help.shield' || cmd === '?.shld') {
     message.reply("`Generate a button with Shields.IO!\nusage: "+pre+"shield | a button | period | blue\nAliases: "+pre+"shield, "+pre+"shld`")
@@ -533,130 +513,152 @@ if (cmd === 'rps') {
 });
 
 let pages = ['😐 General commands', '👌 Utilities', '📁 File commands', '✨ Fun', '🔧 Server commands', '🎵 Music commands']
-let cmds = ['`help`, `hi`, `ping`, `uptime`, `poll`, `pin`, `avatar`, `info`', '`search`, `weather`, `gif`, `scratch`, `youtube`, `shorten`, `rickroll`', '`write`, `read`, `del`, `ls`, `download`', '`random`, `fortnite`, `garfield`, `rps`', '`ban`, `unban`, `mute`, `prefix`, `cclear`, `clear`, `welcome`', '`play`, `end`, `reset`, `pause`, `resume`']
 let page = 1
+
+let page1c = ['help', 'hi', 'ping', 'uptime', 'poll', 'pin', 'avatar', 'info']; let page1d = ['Get help and commands', 'Get a hello', 'Ping the bot', 'Get the bot uptime', 'Create a simple poll with an end count!', 'Pin the previous message', 'Get a user avatar', 'Get server and channel info']
+let page2c = ['search', 'weather', 'gif', 'scratch', 'youtube', 'shorten', 'rickroll', 'memegen']; let page2d = ['Search online', 'Get the weather', 'Return a gif', 'Search on [Scratch](https://scratch.mit.edu)', 'Get 5 videos from a search', 'Shorten a URL', 'Check if a link is a rickroll', 'Generate an Imgflip meme!']
+let page3c = ['write', 'read', 'del', 'ls', 'download']; let page3d = ['Create a file for storage', 'Read off a file', 'Delete a file', 'List current files', 'Download a file to the bot servers']
+let page4c = ['random', 'fortnite', 'garfield', 'rps']; let page4d = ['Return a random number from a range', 'gEt FoRtNiTe InFo', 'Get a Garfield comic from a certain date', 'Play :rock::newspaper::scissors: with the bot']
+let page5c = ['ban', 'unban', 'mute', 'prefix', 'cclear', 'clear', 'welcome']; let page5d = ['Ban a user', 'Unban a user', 'Mute a user for a specific # of days', 'Change the prefix', 'Clear the console (developer only)', 'Clear a specific number of messages (≤100)', 'Configure a welcome message']
+let page6c = ['play', 'end', 'reset', 'pause', 'resume']; let page6d = ['Play some music', 'Stop playing music completely', 'Reset music to 00:00', 'Pause music', 'Resume paused music']
 
 bot.on('clickButton', (button) => {
   if (button.id === 'btn1') {
     page--
     if (page < 1) page++
-    
-    if (page === 1) {
-      const embed = new Discord.MessageEmbed()
-      .setTitle(pages[page-1])
-      .setDescription(cmds[page-1])
-      .setFooter(`Page ${page} of ${pages.length}`)
-  
-      let btn1 = new btn.MessageButton()
+    const embed = new Discord.MessageEmbed().setTitle(pages[page-1]).setFooter(`Page ${page} of ${pages.length}`)
+
+    let btn1 = new btn.MessageButton()
+    .setStyle('blurple')
+    .setLabel('Previous Page')
+    .setID('btn1')
+
+    let btn2 = new btn.MessageButton()
       .setStyle('blurple')
-      .setLabel('Previous Page')
-      .setID('btn1')
-      .setDisabled()
-      let btn2 = new btn.MessageButton()
-        .setStyle('blurple')
-        .setLabel('Next Page')
-        .setID('btn2')
-      let btn3 = new btn.MessageButton()
-        .setStyle('url')
-        .setURL('https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612')
-        .setLabel('Invite me!')
-      let btn4 = new btn.MessageButton()
-        .setStyle('url')
-        .setURL('https://github.com/themysticsavages/cloudbot-discord')
-        .setLabel('Github')
-      let buttons = new btn.MessageActionRow()
-        .addComponents(btn1, btn2, btn3, btn4);
-  
-      button.message.delete()
-      button.message.reply(embed, buttons)
-    } else {
-      const embed = new Discord.MessageEmbed()
-        .setTitle(pages[page-1])
-        .setDescription(cmds[page-1])
-        .setFooter(`Page ${page} of ${pages.length}`)
-  
-      let btn1 = new btn.MessageButton()
-        .setStyle('blurple')
-        .setLabel('Previous Page')
-        .setID('btn1')
-      let btn2 = new btn.MessageButton()
-        .setStyle('blurple')
-        .setLabel('Next Page')
-        .setID('btn2')
-      let btn3 = new btn.MessageButton()
-        .setStyle('url')
-        .setURL('https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612')
-        .setLabel('Invite me!')
-      let btn4 = new btn.MessageButton()
-        .setStyle('url')
-        .setURL('https://github.com/themysticsavages/cloudbot-discord')
-        .setLabel('Github')
-      let buttons = new btn.MessageActionRow()
-        .addComponents(btn1, btn2, btn3, btn4);
-  
-      button.message.delete()
-      button.message.reply(embed, buttons)
+      .setLabel('Next Page')
+      .setID('btn2')
+
+    let btn3 = new btn.MessageButton()
+      .setStyle('url')
+      .setURL('https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612')
+      .setLabel('Invite me!')
+
+    let btn4 = new btn.MessageButton()
+      .setStyle('url')
+      .setURL('https://github.com/themysticsavages/cloudbot-discord')
+      .setLabel('Github')
+
+    let buttons = new btn.MessageActionRow()
+      .addComponents(btn1, btn2, btn3, btn4);
+
+    if (page === 1) {
+      btn1.setDisabled()
+      page1c.forEach((cmd, index) => {
+        const description = page1d[index]
+        embed.addField(cmd, description, true)
+      })
     }
-  } else if (button.id === 'btn2') {
+    if (page === 2) {
+      page2c.forEach((cmd, index) => {
+        const description = page2d[index]
+        embed.addField(cmd, description, true)
+      })
+    }
+    if (page === 3) {
+      page3c.forEach((cmd, index) => {
+        const description = page3d[index]
+        embed.addField(cmd, description, true)
+      })
+    }
+    if (page === 4) {
+      page4c.forEach((cmd, index) => {
+        const description = page4d[index]
+        embed.addField(cmd, description, true)
+      })
+    }
+    if (page === 5) {
+      page5c.forEach((cmd, index) => {
+        const description = page5d[index]
+        embed.addField(cmd, description, true)
+      })
+    }
+    if (page === 6) {
+      page6c.forEach((cmd, index) => {
+        const description = page6d[index]
+        embed.addField(cmd, description, true)
+      })
+    }
+
+    button.message.delete()
+    button.message.reply(embed, buttons)
+    } else if (button.id === 'btn2') {
     page++
     if (page > pages.length) page--
+    const embed = new Discord.MessageEmbed().setTitle(pages[page-1]).setFooter(`Page ${page} of ${pages.length}`)
 
-    if (page === pages.length) {
-      const embed = new Discord.MessageEmbed()
-        .setTitle(pages[page-1])
-        .setDescription(cmds[page-1])
-        .setFooter(`Page ${page} of ${pages.length}`)
-  
-      let btn1 = new btn.MessageButton()
-        .setStyle('blurple')
-        .setLabel('Previous Page')
-        .setID('btn1')
-      let btn2 = new btn.MessageButton()
-        .setStyle('blurple')
-        .setLabel('Next Page')
-        .setID('btn2')
-        .setDisabled()
-      let btn3 = new btn.MessageButton()
-        .setStyle('url')
-        .setURL('https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612')
-        .setLabel('Invite me!')
-      let btn4 = new btn.MessageButton()
-        .setStyle('url')
-        .setURL('https://github.com/themysticsavages/cloudbot-discord')
-        .setLabel('Github')
-      let buttons = new btn.MessageActionRow()
-        .addComponents(btn1, btn2, btn3, btn4);
-  
-      button.message.delete()
-      button.message.reply(embed, buttons)
-    } else {
-      const embed = new Discord.MessageEmbed()
-      .setTitle(pages[page-1])
-      .setDescription(cmds[page-1])
-      .setFooter(`Page ${page} of ${pages.length}`)
-  
-      let btn1 = new btn.MessageButton()
+    let btn1 = new btn.MessageButton()
+    .setStyle('blurple')
+    .setLabel('Previous Page')
+    .setID('btn1')
+
+    let btn2 = new btn.MessageButton()
       .setStyle('blurple')
-      .setLabel('Previous Page')
-      .setID('btn1')
-      let btn2 = new btn.MessageButton()
-        .setStyle('blurple')
-        .setLabel('Next Page')
-        .setID('btn2')
-      let btn3 = new btn.MessageButton()
-        .setStyle('url')
-        .setURL('https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612')
-        .setLabel('Invite me!')
-      let btn4 = new btn.MessageButton()
-        .setStyle('url')
-        .setURL('https://github.com/themysticsavages/cloudbot-discord')
-        .setLabel('Github')
-      let buttons = new btn.MessageActionRow()
-        .addComponents(btn1, btn2, btn3, btn4);
-  
-      button.message.delete()
-      button.message.reply(embed, buttons)
+      .setLabel('Next Page')
+      .setID('btn2')
+
+    let btn3 = new btn.MessageButton()
+      .setStyle('url')
+      .setURL('https://discord.com/oauth2/authorize?client_id=835841382882738216&scope=bot&permissions=68612')
+      .setLabel('Invite me!')
+
+    let btn4 = new btn.MessageButton()
+      .setStyle('url')
+      .setURL('https://github.com/themysticsavages/cloudbot-discord')
+      .setLabel('Github')
+
+    let buttons = new btn.MessageActionRow()
+      .addComponents(btn1, btn2, btn3, btn4);
+
+    if (page === 1) {
+      page1c.forEach((cmd, index) => {
+        const description = page1d[index]
+        embed.addField(cmd, description, true)
+      })
+      btn1.setDisabled()
     }
+    if (page === 2) {
+      page2c.forEach((cmd, index) => {
+        const description = page2d[index]
+        embed.addField(cmd, description, true)
+      })
+    }
+    if (page === 3) {
+      page3c.forEach((cmd, index) => {
+        const description = page3d[index]
+        embed.addField(cmd, description, true)
+      })
+    }
+    if (page === 4) {
+      page4c.forEach((cmd, index) => {
+        const description = page4d[index]
+        embed.addField(cmd, description, true)
+      })
+    }
+    if (page === 5) {
+      page5c.forEach((cmd, index) => {
+        const description = page5d[index]
+        embed.addField(cmd, description, true)
+      })
+    }
+    if (page === 6) {
+      page6c.forEach((cmd, index) => {
+        const description = page6d[index]
+        embed.addField(cmd, description, true)
+      })
+    }
+
+    button.message.delete()
+    button.message.reply(embed, buttons)
   }
   button.reply.defer()
 })
