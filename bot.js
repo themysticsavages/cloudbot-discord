@@ -6,6 +6,7 @@
    not a lot of people do that
    
    Read the included MIT license; for it will help you with bot usage
+   Really sorry if the code looks unorganized lmao   
 
 (c) 2021 themysticsavages */
 
@@ -13,7 +14,8 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const cfg = require('./config.json');
 const { spawn } = require('child_process');
-const btn = require('discord-buttons')
+const btn = require('discord-buttons');
+const fetch = require('node-fetch');
 const DisTube = require('distube');
 const bot = new Discord.Client();
 const tubebot = new DisTube(bot, {searchSongs: false, emitNewSongOnly: true});
@@ -27,10 +29,10 @@ const sqlite = require('sqlite3')
 let db = new sqlite.Database('./settings.db', sqlite.OPEN_READWRITE | sqlite.OPEN_CREATE)
 
 var datetime = new Date();
-btn(bot)
 db.run(`CREATE TABLE IF NOT EXISTS data(serverid, welcomeid, welcomemsg)`)
 bot.setMaxListeners(99)
 console.clear()
+btn(bot)
 
 function getRandInt(max) { return Math.floor(Math.random() * max); }
 
@@ -170,7 +172,7 @@ bot.on('message', message => {
   }
 if (cmd === 'help' || cmd === '?') {
     page = 1
-    const embed = new Discord.MessageEmbed().setTitle(pages[page-1]).setFooter(`Page ${page} of ${pages.length}`)
+    const embed = new Discord.MessageEmbed().setTitle(pages[page-1]).setFooter(`${page1c.length} commands • Page ${page}/${pages.length}`)
     page1c.forEach((command, index) => {
       const description = page1d[index]
       embed.addField(command, description, true)
@@ -510,17 +512,39 @@ if (cmd === 'rps') {
 		}
 	}
 }
+if (cmd === 'answer' || cmd === 'ans') {
+  if (cfg['addons']['answer'] === 'true') {
+    if (!args[1]) {
+        message.reply('`Please give a question to answer! ._.`')
+        console.log(sub+' did not find a question')
+    } else {
+        message.channel.startTyping()
+        args.shift()
+
+        fetch(`http://api.brainshop.ai/get?bid=${cfg['api']['brainshop']['BRAINID']}&key=${cfg['api']['brainshop']['APIKEY']}&uid=1&msg=${encodeURIComponent(args.join(' '))}`)
+        .then((res) => res.json())
+        .then((data) => message.channel.send(`\`${data.cnt}\``))
+
+        message.channel.stopTyping()
+        console.log(sub+" gave an answer for '"+args.join(' ')+"'")
+        }
+      
+  } else {
+    message.reply('`The answer addon is blocked.`')
+    console.log(sub+' noticed that the answer addon was blocked')
+  }
+}
 });
 
 let pages = ['😐 General commands', '👌 Utilities', '📁 File commands', '✨ Fun', '🔧 Server commands', '🎵 Music commands']
 let page = 1
 
-let page1c = ['help', 'hi', 'ping', 'uptime', 'poll', 'pin', 'avatar', 'info']; let page1d = ['Get help and commands', 'Get a hello', 'Ping the bot', 'Get the bot uptime', 'Create a simple poll with an end count!', 'Pin the previous message', 'Get a user avatar', 'Get server and channel info']
-let page2c = ['search', 'weather', 'gif', 'scratch', 'youtube', 'shorten', 'rickroll', 'memegen']; let page2d = ['Search online', 'Get the weather', 'Return a gif', 'Search on [Scratch](https://scratch.mit.edu)', 'Get 5 videos from a search', 'Shorten a URL', 'Check if a link is a rickroll', 'Generate an Imgflip meme!']
-let page3c = ['write', 'read', 'del', 'ls', 'download']; let page3d = ['Create a file for storage', 'Read off a file', 'Delete a file', 'List current files', 'Download a file to the bot servers']
-let page4c = ['random', 'fortnite', 'garfield', 'rps']; let page4d = ['Return a random number from a range', 'gEt FoRtNiTe InFo', 'Get a Garfield comic from a certain date', 'Play :rock::newspaper::scissors: with the bot']
-let page5c = ['ban', 'unban', 'mute', 'prefix', 'cclear', 'clear', 'welcome']; let page5d = ['Ban a user', 'Unban a user', 'Mute a user for a specific # of days', 'Change the prefix', 'Clear the console (developer only)', 'Clear a specific number of messages (≤100)', 'Configure a welcome message']
-let page6c = ['play', 'end', 'reset', 'pause', 'resume']; let page6d = ['Play some music', 'Stop playing music completely', 'Reset music to 00:00', 'Pause music', 'Resume paused music']
+let page1c = ['`help/?`', '`hi`', '`ping`', '`uptime/up`', '`poll`', '`pin`', '`avatar`', '`info/i`']; let page1d = ['Get help and commands ❓', 'Get a hello 🤟', 'Ping the bot 🤖', 'Get the bot uptime 📈', 'Create a simple poll with an end count! 📝', 'Pin the previous message 📌', 'Get a user avatar 🖼', 'Get server and channel info 💻']
+let page2c = ['`search/sr`', '`weather/w`', '`gif`', '`scratch/scr`', '`youtube/yt`', '`shorten/sh`', '`rickroll/rroll`', '`memegen/mmake`']; let page2d = ['Search online 🔎', 'Get the weather 🌥', 'Return a GIF 🖼', 'Search on [Scratch](https://scratch.mit.edu) <:scratch:870627066549256203>', 'Get 5 videos from a YouTube search <:youtube:870628673055784990>', 'Shorten a URL ✂', 'Check if a link is a Rickroll <:rickroll:870629023540199455>', 'Generate an Imgflip meme! 😂']
+let page3c = ['`write/wr`', '`read/rd`', '`del`', '`ls`', '`download/get`']; let page3d = ['Create a file for storage 📩', 'Read off a file 📰', 'Delete a file ❌', 'List current files 📝', 'Download a file to the bot servers <:download:870629642950811648>']
+let page4c = ['`random/r`', '`fortnite/frte`', '`garfield/gf`', '`rps`', '`answer/ans`']; let page4d = ['Return a random number from a range 🔢', 'gEt FoRtNiTe InFo 🙄', 'Get a Garfield comic from a certain date <:agnrygarfield:870630754365870140>', 'Play :rock::newspaper::scissors: with the bot', 'Get a somewhat humane answer with [brainshop.ai](https://brainshop.ai)! 🧠']
+let page5c = ['`ban`', '`unban`', '`mute`', '`prefix`', '`cclear`', '`clear/c`', '`welcome`']; let page5d = ['Ban a user 🔨', 'Unban a user 👋', 'Mute a user for a specific # of days 🚪', 'Change the prefix 🔑', 'Clear the console (developer only) 🐱‍💻', 'Clear a specific number of messages (≤100) 🧹', 'Configure a welcome message 👋']
+let page6c = ['`play`', '`end`', '`reset`', '`pause`', '`resume`']; let page6d = ['Play some music ▶', 'Stop playing music completely ⏹', 'Reset music to 00:00 🔁', 'Pause music ⏸', 'Resume paused music ⏯']
 
 bot.on('clickButton', (button) => {
   if (button.id === 'btn1') {
@@ -552,41 +576,46 @@ bot.on('clickButton', (button) => {
       .addComponents(btn1, btn2, btn3, btn4);
 
     if (page === 1) {
-      btn1.setDisabled()
       page1c.forEach((cmd, index) => {
         const description = page1d[index]
         embed.addField(cmd, description, true)
       })
+      embed.setFooter(`${page1c.length} commands • Page ${page}/${pages.length}`)
     }
     if (page === 2) {
       page2c.forEach((cmd, index) => {
         const description = page2d[index]
         embed.addField(cmd, description, true)
       })
+      embed.setFooter(`${page2c.length} commands • Page ${page}/${pages.length}`)
     }
     if (page === 3) {
       page3c.forEach((cmd, index) => {
         const description = page3d[index]
         embed.addField(cmd, description, true)
       })
+      embed.setFooter(`${page3c.length} commands • Page ${page}/${pages.length}`)
     }
     if (page === 4) {
       page4c.forEach((cmd, index) => {
         const description = page4d[index]
         embed.addField(cmd, description, true)
       })
+      embed.setFooter(`${page4c.length} commands • Page ${page}/${pages.length}`)
     }
     if (page === 5) {
       page5c.forEach((cmd, index) => {
         const description = page5d[index]
         embed.addField(cmd, description, true)
       })
+      embed.setFooter(`${page5c.length} commands • Page ${page}/${pages.length}`)
     }
     if (page === 6) {
       page6c.forEach((cmd, index) => {
         const description = page6d[index]
         embed.addField(cmd, description, true)
       })
+      embed.setFooter(`${page6c.length} commands • Page ${page}/${pages.length}`)
     }
 
     button.message.delete()
@@ -624,37 +653,42 @@ bot.on('clickButton', (button) => {
         const description = page1d[index]
         embed.addField(cmd, description, true)
       })
-      btn1.setDisabled()
+      embed.setFooter(`${page1c.length} commands • Page ${page}/${pages.length}`)
     }
     if (page === 2) {
       page2c.forEach((cmd, index) => {
         const description = page2d[index]
         embed.addField(cmd, description, true)
       })
+      embed.setFooter(`${page2c.length} commands • Page ${page}/${pages.length}`)
     }
     if (page === 3) {
       page3c.forEach((cmd, index) => {
         const description = page3d[index]
         embed.addField(cmd, description, true)
       })
+      embed.setFooter(`${page3c.length} commands • Page ${page}/${pages.length}`)
     }
     if (page === 4) {
       page4c.forEach((cmd, index) => {
         const description = page4d[index]
         embed.addField(cmd, description, true)
       })
+      embed.setFooter(`${page4c.length} commands • Page ${page}/${pages.length}`)
     }
     if (page === 5) {
       page5c.forEach((cmd, index) => {
         const description = page5d[index]
         embed.addField(cmd, description, true)
       })
+      embed.setFooter(`${page5c.length} commands • Page ${page}/${pages.length}`)
     }
     if (page === 6) {
       page6c.forEach((cmd, index) => {
         const description = page6d[index]
         embed.addField(cmd, description, true)
       })
+      embed.setFooter(`${page6c.length} commands • Page ${page}/${pages.length}`)
     }
 
     button.message.delete()
@@ -1016,7 +1050,7 @@ bot.on('message', (message) => {
         message.reply('`You no have perms! The "Manage Messages" role is required to pin messages.`');
         console.log(sub+" error: Insufficient privileges to pin messages");
       }
-    }
+  }
 })
 
 bot.on('guildMemberAdd', function(member) {
