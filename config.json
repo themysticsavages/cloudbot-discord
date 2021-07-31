@@ -9,6 +9,10 @@
             "USERNAME" : "username",
             "PASSWORD" : "password"
         },
+        "brainshop" : {
+            "BRAINID" : "brainid",
+            "APIKEY" : "apikey" 
+        }
     },
     "addons" : {
         "webscraper" : "true",
