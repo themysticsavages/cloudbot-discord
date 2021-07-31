@@ -2,18 +2,20 @@
   "name": "cloudbot",
   "version": "1.0.0",
   "main": "bot.js",
-  "license": "BSD3",
+  "license": "MIT",
+  "scripts": {
+    "start": "node bot"
+  },
   "dependencies": {
     "@discordjs/opus": "^0.5.3",
+    "better-sqlite3": "^7.4.1",
+    "discord-buttons": "^4.0.0",
+    "discord-prefix": "^2.0.0",
     "discord.js": "^12.5.3",
     "distube": "^2.8.15",
-    "discord-buttons": "^4.0.0",
     "ffmpeg-static": "^4.3.0",
+    "node-fetch": "^2.6.1",
     "request": "^2.88.2",
-    "request-promise": "^4.2.6",
-    "ytdl-core": "^4.8.2",
-    "discord-prefix": "^2.0.0",
-    "better-sqlite3": "^7.4.1",
     "sqlite3": "^5.0.2"
   }
 }
