@@ -26,6 +26,9 @@ Obviously, you need a bot to use, so follow this [guide](https://discordjs.guide
   ### Imgflip
   Luckily for you, this process is very simple. Go to https://api.imgflip.com and create an account (Don't use Google auth). Use your username and password.
   
+  ### Brainshop
+  Pretty easy to do. Go to https://brainshop.ai, set up an account, and create a bot with a semantic engine. Use it's ID and API key.
+  
 ## Packages
   To install all the packages needed, run `initialize.cmd` and choose the second option. Simple.
 
