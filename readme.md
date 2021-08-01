@@ -39,7 +39,7 @@ Addons, like webscraper, are tiny Python or Node.JS scripts which are added on t
 
 ## Recently added features/hotfixes
 
-- __Welcome message!__
+- __AI Chat!__
 
 ## Features/hotfixes to be added
 
