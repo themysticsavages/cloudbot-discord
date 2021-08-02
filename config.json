@@ -28,6 +28,7 @@
         "shield" : "true",
         "message" : "true",
         "isrickroll" : "true",
-        "music" : "true"
+        "music" : "true",
+        "answer": "true"
     }
 }
