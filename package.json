@@ -7,7 +7,7 @@
     "start": "node bot"
   },
   "dependencies": {
-    "@discordjs/opus": "^0.5.3",
+    "@discordjs/opus": "^0.6.0",
     "better-sqlite3": "^7.4.1",
     "discord-buttons": "^4.0.0",
     "discord-prefix": "^3.0.0",
