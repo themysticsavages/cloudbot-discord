@@ -1,1 +1,0 @@
-This is an environment which will contain all the files any user creates. This prevents overflow of the bot core files, and further prevents users from making files in directories that you don't want them in!
